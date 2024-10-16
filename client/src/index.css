@@ -1,5 +1,7 @@
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  max-width: 1200px;
+  margin: 10px 50px;
 }
 
 body {
