@@ -19,6 +19,8 @@ const Home = () => {
       <Link to='/faqs'>FAQs</Link>
       <br />
       <Link to='/first-session'>First Session</Link>
+      <br />
+      <Link to='/login'>Admin Access</Link>
 
       {/* FOOTER COMP */}
     </div>
