@@ -13,6 +13,11 @@ import ContactHome from './components/ContactHome.jsx'
 import RatesInsurance from './components/RatesInsurance.jsx'
 import Faq from './components/Faqs.jsx'
 import FirstSession from './components/FirstSession.jsx'
+import ContactQuestion from './components/ContactQuestion.jsx'
+import ClientForm from './components/ClientForm.jsx'
+import ProfessionalForm from './components/ProfessionalForm.jsx'
+import AdminLogin from './components/AdminLogin.jsx'
+import AdminListEntries from './components/AdminListEntries.jsx'
 
 const router = createBrowserRouter([{
   path: '/',
@@ -27,6 +32,16 @@ const router = createBrowserRouter([{
 }, {
   path: '/contact',
   element: <ContactHome />,
+  children: [{
+    path: '/contact/question',
+    element: <ContactQuestion />,
+  }, {
+    path: '/contact/client',
+    element: <ClientForm />,
+  }, {
+    path: '/contact/professional',
+    element: <ProfessionalForm />,
+  }],
 }, {
   path: '/rates-and-insurance',
   element: <RatesInsurance />,
@@ -36,6 +51,12 @@ const router = createBrowserRouter([{
 }, {
   path: '/first-session',
   element: <FirstSession />
+}, {
+  path: '/login',
+  element: <AdminLogin />
+}, {
+  path: '/list',
+  element: <AdminListEntries />
 }
 ]);
 

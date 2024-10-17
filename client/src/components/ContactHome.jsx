@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 
 const ContactHome = () => {
   return (
@@ -8,6 +8,11 @@ const ContactHome = () => {
       <h1>Contact Home</h1>
 
       {/* SWITCH BETWEEN QUESTION, CLIENT FORM, & PROFESSIONAL FORM */}
+      <Link to='/contact/question'>Question</Link>
+      <Link to='/contact/client'>Client</Link>
+      <Link to='/contact/professional'>Professional</Link>
+
+      <Outlet />
 
       <div>
         <section>
