@@ -41,8 +41,6 @@ const ClientForm = () => {
 
   const postClientEntry =  async (newClientEntry) => {
     // doesn't currently fetch anything since there's no POST request in the server yet, that's why there a fetch error in the console
-    console.log("New Client Entry: ", newClientEntry);
-    console.log("Stringify: ", JSON.stringify(newClientEntry))
     return fetch('http://localhost:4545/contact/client/add', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
