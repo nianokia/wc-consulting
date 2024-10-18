@@ -80,6 +80,21 @@ app.get("/", (req, res) => {
     console.log("Welcome to Wright Choice Consulting.");
 });
 
+app.post("/contact/client/add", async (req, res) => {
+    const { first_name, last_name, email, type, issue, age, race, gender, comment } = req.body;
+
+    try {
+        const newClient_Entry = await Client_Entry.create({
+            first_name, last_name, email, type, issue, age, race, gender, comment
+        });
+        console.log(newClient_Entry);
+        res.json(newClient_Entry);
+    } catch (err) {
+        console.log("Error adding client_entry: ", err);
+        return res.status(400).json({ e });
+    }
+});
+
 app.listen(3000, () => {
     console.log("WCC running on http://localhost:3000/");
 });
