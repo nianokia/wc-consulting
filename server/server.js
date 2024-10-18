@@ -81,6 +81,15 @@ app.get("/", (req, res) => {
     console.log("Welcome to Wright Choice Consulting.");
 });
 
+app.get("/list", async (req, res) => {
+    try {
+        const client_entries = await Client_Entry.findAll();
+        res.json(client_entries);
+    } catch (err) {
+        console.error("Error: ", err);
+    }
+});
+
 app.post("/contact/client/add", async (req, res) => {
     // console.log(req.body);
     const { first_name, last_name, email, type, issue, age, race, gender, comment } = req.body;
