@@ -81,6 +81,7 @@ app.get("/", (req, res) => {
     console.log("Welcome to Wright Choice Consulting.");
 });
 
+// retrieve all data from client_entries table
 app.get("/list", async (req, res) => {
     try {
         const client_entries = await Client_Entry.findAll();
@@ -90,28 +91,16 @@ app.get("/list", async (req, res) => {
     }
 });
 
+//add client form data to the database on submission
 app.post("/contact/client/add", async (req, res) => {
-    // console.log(req.body);
+    // destructure req.body to retrieve the following properties
     const { first_name, last_name, email, type, issue, age, race, gender, comment } = req.body;
-
-    // const newClient_Entry = {
-    //     first_name: req.body.first_name,
-    //     last_name: req.body.last_name,
-    //     email: req.body.email,
-    //     type: req.body.type,
-    //     issue: req.body.issue,
-    //     age: req.body.age,
-    //     race: req.body.race,
-    //     gender: req.body.gender,
-    //     comment: req.body.comment
-    // }
 
     try {
         const newClient_Entry = await Client_Entry.create({
+            // add the properties from req.body into client_entries table through the create Client_Entry model
             first_name, last_name, email, type, issue, age, race, gender, comment
         });
-        console.log("Succesfully created entry!");
-        console.log(newClient_Entry);
         res.json(newClient_Entry);
     } catch (err) {
         console.log("Error adding client_entry: ", err);
