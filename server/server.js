@@ -80,7 +80,7 @@ app.get("/", (req, res) => {
     console.log("Welcome to Wright Choice Consulting.");
 });
 
-app.post("/contact/client", async (req, res) => {
+app.post("/contact/client/add", async (req, res) => {
     const { first_name, last_name, email, type, issue, age, race, gender, comment } = req.body;
 
     try {
@@ -96,5 +96,5 @@ app.post("/contact/client", async (req, res) => {
 });
 
 app.listen(PORT, () => {
-    console.log(`WCC running on http://localhost:${PORT}/`);
+    console.log(`WCC server running on http://localhost:${PORT}/`);
 });
