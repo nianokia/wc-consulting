@@ -40,8 +40,7 @@ const ClientForm = () => {
   }
 
   const postClientEntry =  async (newClientEntry) => {
-    // doesn't currently fetch anything since there's no POST request in the server yet, that's why there a fetch error in the console
-    return fetch('http://localhost:3388/contact/client/add', {
+    return fetch('http://localhost:4545/contact/client/add', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(newClientEntry),
@@ -119,7 +118,7 @@ const ClientForm = () => {
             <option value="asian">Asian</option>
             <option value="black">Black or African-American</option>
             <option value="pacific">Native Hawaiian or Other Pacific Islander</option>
-            <option value="mnamedle_eastern">Mnamedle Eastern or North African</option>
+            <option value="middle_eastern">Middle Eastern or North African</option>
             <option value="hispanic">Hispanic/ Latino</option>
             <option value="white">White</option>
             <option value="other">Other</option>
