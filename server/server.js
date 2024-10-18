@@ -2,6 +2,75 @@ import express from 'express';
 import cors from 'cors';
 import 'dotenv/config';
 
+import { DataTypes, Sequelize } from 'sequelize';
+
+// connect sequelize to the database
+const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USERNAME, process.env.DB_PASSWORD, {
+    dialect: 'postgres',
+    define: {
+        // this ensures that sequelize doesn't modify the table names specified
+        freezeTableName: true
+    }
+});
+
+// verify that sequelize connected to the database
+async function authenticateDBConnection() {
+    try {
+        await sequelize.authenticate()
+        console.log("Connection successful");
+    } catch (err) {
+        console.log("Error connecting to database.");
+    }
+}
+authenticateDBConnection();
+
+// create a model that contains the same rows and columns as the client_entries table
+const Client_Entry = sequelize.define('client_entry', {
+    client_entry_id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+    }, first_name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    }, last_name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    }, email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    }, type: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    }, issue: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    }, age: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+    }, race: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    }, gender: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    }, comment: {
+        type: DataTypes.STRING,
+    }, created_at: {
+        type: DataTypes.DATE,
+    }
+}, {
+    tableName: 'client_entries',
+});
+
+// sync the model and table together so they are gathering the same information with the same constraints and data types
+Client_Entry.sync().then((data) => {
+    console.log("Model and table synced succesfully!");
+}).catch((err) => {
+    console.log("Error syncing the table and model:", err);
+});
+
+
 const app = express();
 const PORT = process.env.PORT || 3388;
 
