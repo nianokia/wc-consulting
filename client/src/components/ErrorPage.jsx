@@ -1,6 +1,8 @@
 import React from "react"
 import { Link } from "react-router-dom"
 
+// PURPOSE - A component that users are directed to when the page they're trying to reach doesn't exist
+
 const NoPage = () => {
   return (
     <>

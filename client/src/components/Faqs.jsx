@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+// PURPOSE - Displays list of FAQs with a table of contents that jumps to that specific question on the page
+
 const Faqs = () => {
   return (
     <>

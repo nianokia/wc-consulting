@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+// PURPOSE - Provides background information about the owner 
+
 const About = () => {
   return (
     <>

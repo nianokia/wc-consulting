@@ -1,5 +1,8 @@
 import React, { useReducer } from "react";
 
+// PURPOSE - A form for prospective clients to fill out if they're interested in services 
+// sends POST request with inputted form data to the server's database
+
 const ClientForm = () => {
   // define empty client_entry record
   const initialState = {
@@ -27,18 +30,23 @@ const ClientForm = () => {
     }
   }
 
+  // declare the reducer and useReducer similar to how you declare a state and useState
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const handleChange = (event) => {
     // deconstruct event.target to retrieve the name and value
     const { name, value } = event.target;
+
+    // execute the editField case with the identified field, name, and value
     dispatch({ type: 'editField', field: name, value });
   }
 
   const clearForm = () => {
+    // execute the reset case
     dispatch({ type: 'reset' });
   }
 
+  // send POST to corresponding POST path in the server to accurately send form data to database
   const postClientEntry =  async (newClientEntry) => {
     return fetch('http://localhost:4545/contact/client/add', {
       method: 'POST',
@@ -49,6 +57,7 @@ const ClientForm = () => {
       return response.json();
     })
     .then(() => {
+      // clear the form once you send the form data to the database
       clearForm();
     })
     .catch((err) => {
@@ -56,6 +65,7 @@ const ClientForm = () => {
     });
   }
 
+  // seperate event handler to account for preventing the event listener and to call postClientEntry with the state data
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(state);

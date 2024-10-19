@@ -19,6 +19,8 @@ import ProfessionalForm from './components/ProfessionalForm.jsx'
 import AdminLogin from './components/AdminLogin.jsx'
 import AdminListEntries from './components/AdminListEntries.jsx'
 
+
+// specifies routes and what they will each display
 const router = createBrowserRouter([{
   path: '/',
   element: <Home/>,

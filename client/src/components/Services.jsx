@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+// PURPOSE - Communciates the available services to the visitor, such as family, individual, and couples therapy
+
 const Services = () => {
   return (
     <>

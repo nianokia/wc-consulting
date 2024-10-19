@@ -1,6 +1,8 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
+// PURPOSE - Introduces visitor to the business and invites the user to explore more
+
 const Home = () => {
   return (
     <div>
@@ -8,6 +10,7 @@ const Home = () => {
       <h1>HOMEPAGE</h1>
       
       <hr />
+      {/* Links serve as a route to each component */}
       <Link to='/contact'>Contact</Link>
       <br />
       <Link to='/services'>Services</Link>

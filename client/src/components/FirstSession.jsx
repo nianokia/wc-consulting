@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+// PURPOSE - Details what a client can expect at their first session.
+
 const FirstSession = () => {
   return (
     <>

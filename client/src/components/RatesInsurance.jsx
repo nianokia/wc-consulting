@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+// PURPOSE - Communicates details regarding rates, insurance, payment methods, and the cancellation policy
+
 const RatesInsurance = () => {
   return (
     <>

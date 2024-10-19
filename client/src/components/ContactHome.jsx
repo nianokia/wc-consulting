@@ -1,6 +1,9 @@
 import React from "react";
 import { Link, Outlet } from "react-router-dom";
 
+// PURPOSE - Displays details regarding hours, location, contact methods, and a question 
+// directing users to a client or professional form to fill out to express interest in services
+
 const ContactHome = () => {
   return (
     <>
@@ -12,6 +15,7 @@ const ContactHome = () => {
       <Link to='/contact/client'>Client</Link>
       <Link to='/contact/professional'>Professional</Link>
 
+      {/* This Outlet is where the child routes above will be rendered on the parent component (Contact Home) */}
       <Outlet />
 
       <div>
