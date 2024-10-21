@@ -20,8 +20,8 @@ async function authenticateDBConnection() {
     try {
         await sequelize.authenticate()
         console.log("Connection successful");
-    } catch (err) {
-        console.log("Error connecting to database.");
+    } catch (err) { 
+        console.error("Detailed connection error:", { message: err.message, code: err.parent?.code, detail: err.parent?.detail }); throw err; 
     }
 }
 authenticateDBConnection();
