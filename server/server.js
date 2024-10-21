@@ -7,6 +7,7 @@ import { DataTypes, Sequelize } from 'sequelize';
 // connect sequelize to the database
 const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USERNAME, process.env.DB_PASSWORD, {
     dialect: 'postgres',
+    host: process.env.DB_HOST, // 127.0.0.1
     define: {
         // this ensures that sequelize doesn't modify the table names specified
         freezeTableName: true,
