@@ -1,7 +1,8 @@
 import express from 'express';
 import cors from 'cors';
 import 'dotenv/config';
-
+import path, { dirname } from 'path';
+import { fileURLToPath } from 'url';
 import { DataTypes, Sequelize } from 'sequelize';
 
 // connect sequelize to the database
@@ -69,10 +70,19 @@ Client_Entry.sync().then((data) => {
 const app = express();
 const PORT = process.env.PORT || 3388;
 
+// define the path to the build folder
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 app.use(cors());
 app.use(express.json());
 
-app.get("/", (req, res) => {
+// have server use the static build files from React
+app.use(express.static(path.join(__dirname, '../client/dist')));
+
+app.get("*", (req, res) => {
+    // verify that all routes are given index.html to allow React to manage routing
+    res.sendFile(path.join(__dirname, '../client/dist', 'index.html'));
     console.log("Welcome to Wright Choice Consulting.");
 });
 
