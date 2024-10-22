@@ -1,4 +1,5 @@
 import React, { useReducer } from "react";
+import 'dotenv/config';
 
 // PURPOSE - A form for prospective clients to fill out if they're interested in services 
 // sends POST request with inputted form data to the server's database
@@ -19,9 +20,9 @@ const ClientForm = () => {
 
   function reducer(state, action) {
     switch (action.type) {
-      // have one case that works for each input field to reduce length and redundancy
+      // editField works for each input field
       case 'editField':
-        // have other data in state persist while only updating the specified field/ column with the updated input value
+        // keep current state data while updating specified field with input value
         return { ...state, [action.field]: action.value };
       case 'reset':
         return { ...initialState };
@@ -30,25 +31,25 @@ const ClientForm = () => {
     }
   }
 
-  // declare the reducer and useReducer similar to how you declare a state and useState
+  // declare reducer & useReducer similar to declaring a state & useState
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const handleChange = (event) => {
-    // deconstruct event.target to retrieve the name and value
+    // deconstruct event.target to retrieve name & value
     const { name, value } = event.target;
 
-    // execute the editField case with the identified field, name, and value
+    // execute editField case with identified field, name, & value
     dispatch({ type: 'editField', field: name, value });
   }
 
   const clearForm = () => {
-    // execute the reset case
+    // execute reset case
     dispatch({ type: 'reset' });
   }
 
   // send POST to corresponding POST path in the server to accurately send form data to database
   const postClientEntry =  async (newClientEntry) => {
-    return fetch('http://localhost:4545/contact/client/add', {
+    return fetch(`http://localhost:${process.env.PORT}/contact/client/add`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(newClientEntry),
@@ -57,7 +58,7 @@ const ClientForm = () => {
       return response.json();
     })
     .then(() => {
-      // clear the form once you send the form data to the database
+      // clear form once data is sent to the database
       clearForm();
     })
     .catch((err) => {
@@ -66,9 +67,9 @@ const ClientForm = () => {
   }
 
   // seperate event handler to account for preventing the event listener and to call postClientEntry with the state data
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(state);
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log("Client Entry: ", state);
     postClientEntry(state);
   }
 
@@ -79,8 +80,7 @@ const ClientForm = () => {
 
         {/* each input will have the same onChange that sets the field value of the table */}
         
-        {/* each value is set to its respective updated state value OR an empty string "" so that the
-        console doesn't receive an error that the app is trying to control an uncontrolled input. */}
+        {/* each value is set to its respective updated state value OR an empty string "" so that the console doesn't receive an error that the app is trying to control an uncontrolled input. */}
 
         <label>First Name
           <input type="text" name="first_name" value={state.first_name || ""} onChange={handleChange} required/>
