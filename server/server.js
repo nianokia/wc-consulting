@@ -53,18 +53,52 @@ const Client_Entry = sequelize.define('client_entry', {
         type: DataTypes.STRING,
     },
 }, {
-    // this ensures that sequelize doesn't modify the table names specified
+    // this ensures that sequelize doesn't modify the table name specified
     tableName: 'client_entries',
     createdAt: false,
     updatedAt: false,
 });
 
-// sync the model and table together so they are gathering the same information with the same constraints and data types
+const Professional_Entry = sequelize.define('professional_entry', {
+    professional_entry_id: {
+        type: DataTypes.INTEGER,
+        autoIncrement: true,
+        primaryKey: true,
+    }, first_name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    }, last_name: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    }, phone: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    }, email: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    }, comment: {
+        type: DataTypes.STRING,
+        allowNull: false,
+    },
+}, {
+    // ensures that sequelize tablename specified or add a createdAt & updatedAt
+    tableName: 'professional_entries',
+    createdAt: false,
+    updatedAt: false,
+})
+
+// sync client & professional model & table together so they're gathering the same information with the same constraints and data types
 Client_Entry.sync().then((data) => {
-    console.log("Model and table synced succesfully!");
+    console.log("Client model & table synced succesfully!");
 }).catch((err) => {
-    console.log("Error syncing the table and model:", err);
+    console.log("Error syncing client table & model: ", err);
 });
+
+Professional_Entry.sync().then((data) => {
+    console.log("Professional model & table synced successfully!");
+}).catch((err) => {
+    console.error("Error syncing professional table & model :", err);
+})
 
 
 const app = express();
@@ -112,6 +146,23 @@ app.post("/contact/client/add", async (req, res) => {
         return res.status(400).json({ err });
     }
 });
+
+// add professional form data to the database on submission
+app.post("/contact/professional/add", async (req, res) => {
+    // destructure req.body to retrieve the properties below
+    const { first_name, last_name, phone, email, comment } = req.body;
+
+    try {
+        // add properties into professional_entries table with Sequelize create method
+        const newProfessional_Entry = await Professional_Entry.create({
+            first_name, last_name, phone, email, comment
+        });
+        res.json(newProfessional_Entry);
+    } catch (err) {
+        console.error("Error adding professional entry: ", err);
+        return res.status(400).json({ err });
+    }
+})
 
 app.listen(PORT, () => {
     console.log(`WCC server running on http://localhost:${PORT}/`);
