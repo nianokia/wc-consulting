@@ -5,16 +5,7 @@ import 'dotenv/config';
 import { DataTypes, Sequelize } from 'sequelize';
 
 // connect sequelize to the database
-const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USERNAME, process.env.DB_PASSWORD, {
-    dialect: 'postgres',
-    host: process.env.DB_HOST, // 127.0.0.1
-    define: {
-        // this ensures that sequelize doesn't modify the table names specified
-        freezeTableName: true,
-        createdAt: false,
-        updatedAt: false,
-    }
-});
+const sequelize = new Sequelize(process.env.DATABASE_URL);
 
 // verify that sequelize connected to the database
 async function authenticateDBConnection() {
@@ -61,7 +52,10 @@ const Client_Entry = sequelize.define('client_entry', {
         type: DataTypes.STRING,
     },
 }, {
+    // this ensures that sequelize doesn't modify the table names specified
     tableName: 'client_entries',
+    createdAt: false,
+    updatedAt: false,
 });
 
 // sync the model and table together so they are gathering the same information with the same constraints and data types
