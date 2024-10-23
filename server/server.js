@@ -110,9 +110,9 @@ const config = {
     authRequired: false,
     auth0Logout: true,
     secret: process.env.SECRET,
-    baseURL: `http://localhost:${PORT}`,
-    clientID: process.env.AUTH0_CLIENT_ID,
-    issuerBaseURL: `https://${process.env.AUTH0_DOMAIN}`
+    baseURL: process.env.DOMAIN,
+    clientID: process.env.VITE_AUTH0_CLIENT_ID,
+    issuerBaseURL: `https://${process.env.VITE_AUTH0_DOMAIN}`
 };
 
 // define the path to the index.html file in the build folder
@@ -183,5 +183,5 @@ app.post("/contact/professional/add", async (req, res) => {
 })
 
 app.listen(PORT, () => {
-    console.log(`WCC server running on http://localhost:${PORT}/`);
+    console.log(`WCC server running on ${process.env.DOMAIN}`);
 });
