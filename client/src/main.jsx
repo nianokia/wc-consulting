@@ -66,8 +66,8 @@ const router = createBrowserRouter([{
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Auth0Provider
-      domain={process.env.AUTH0_DOMAIN}
-      clientId={process.env.AUTH0_CLIENT_ID}
+      domain={process.env.VITE_AUTH0_DOMAIN}
+      clientId={process.env.VITE_AUTH0_CLIENT_ID}
       authorizationParams={{
         redirect_uri: window.location.origin
       }}
