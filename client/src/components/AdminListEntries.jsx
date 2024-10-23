@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useAuth0 } from "@auth0/auth0-react";
 import { Link } from "react-router-dom";
 
 // PURPOSE - Displays list of all entries and allows admin to filter results and delete entries 
@@ -7,6 +8,8 @@ import { Link } from "react-router-dom";
 const AdminListEntries = () => {
   const [client_entries, setClient_Entries] = useState([]);
 
+  const { logout } = useAuth0();
+  
   // fetch all the client entries and update its corresponding state
   const loadClientEntries = () => {
     fetch('http://localhost:4545/list')
@@ -36,7 +39,9 @@ const AdminListEntries = () => {
       <hr />
       <Link to='/'>Home</Link>
       <br />
-      <Link to='/login'>Log Out</Link>
+      <button onClick={() => logout({ logoutParams: { returnTo: window.location.origin  } })}>
+        Log Out
+      </button>
     </>
   )
 }
