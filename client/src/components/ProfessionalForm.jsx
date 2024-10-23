@@ -1,7 +1,5 @@
 import React, { useReducer } from "react";
 
-const PORT = process.env.VITE_PORT || 3388;
-
 // PURPOSE - A form for professionals to fill out if they're interested in requesting services 
 // will send POST request with inputted form data to the server's database
 
@@ -46,7 +44,7 @@ const ProfessionalForm = () => {
 
   // send POST to its respective POST path in server to accurately send form data to database
   const postProfessionalEntry = async (newProfessionalEntry) => {
-    return fetch(`http://localhost:${PORT}/contact/professional/add`, {
+    return fetch(`${process.env.DOMAIN}/contact/professional/add`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(newProfessionalEntry),

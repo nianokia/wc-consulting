@@ -12,7 +12,7 @@ const AdminListEntries = () => {
   
   // fetch all the client entries and update its corresponding state
   const loadClientEntries = () => {
-    fetch('http://localhost:4545/list')
+    fetch(`${process.env.DOMAIN}/list`)
       .then((response) => response.json())
       .then((client_entries) => {
         setClient_Entries(client_entries);
