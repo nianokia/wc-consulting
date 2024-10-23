@@ -1,0 +1,15 @@
+AUTH0_DOMAIN="{yourDomain}"
+AUTH0_CLIENT_ID="{yourClientId}"
+
+# If you have a postgres db with a user and password - 
+# Replace everything between the <> with your variables and remove the <>
+DATABASE_URL="postgresql://<user>:<password>@localhost/<database>"
+
+# If you don't have postgres db with a user and password - 
+# Replace everything between the <> with your variables and remove the <>
+DATABASE_URL="postgresql://localhost/<database>"
+
+PORT={yourPortNumber}
+SECRET="{yourAuth0ClientSecret}"
+TWI_ACCOUNT_SID="{yourTwilioAccountSID}"
+TWI_AUTH_TOKEN="{yourTwilioAuthToken}"
