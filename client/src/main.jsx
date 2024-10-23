@@ -1,6 +1,7 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { Auth0Provider } from '@auth0/auth0-react';
 
 import './index.css'
 
@@ -64,6 +65,14 @@ const router = createBrowserRouter([{
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <Auth0Provider
+      domain={process.env.AUTH0_DOMAIN}
+      clientId={process.env.AUTH0_CLIENT_ID}
+      authorizationParams={{
+        redirect_uri: window.location.origin
+      }}
+    >
+      <RouterProvider router={router} />
+    </Auth0Provider>
   </StrictMode>,
 )
