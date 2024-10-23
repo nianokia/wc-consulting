@@ -4,6 +4,7 @@ import 'dotenv/config';
 import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { DataTypes, Sequelize } from 'sequelize';
+import { auth } from 'express-openid-connect';
 
 // connect sequelize to the database
 const sequelize = new Sequelize(process.env.DATABASE_URL);
@@ -104,20 +105,37 @@ Professional_Entry.sync().then((data) => {
 const app = express();
 const PORT = process.env.PORT || 3388;
 
-// define the path to the build folder
+// configure Auth0 router
+const config = {
+    authRequired: false,
+    auth0Logout: true,
+    secret: process.env.SECRET,
+    baseURL: `http://localhost:${PORT}`,
+    clientID: process.env.AUTH0_CLIENT_ID,
+    issuerBaseURL: `https://${process.env.AUTH0_DOMAIN}`
+};
+
+// define the path to the index.html file in the build folder
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 app.use(cors());
 app.use(express.json());
 
-// have server use the static build files from React
+// auth router attaches /login, /logout, and /callback routes to the baseURL
+app.use(auth(config));
+
+// have server use the compiled build files from React
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
 app.get("*", (req, res) => {
     // verify that all routes are given index.html to allow React to manage routing
     res.sendFile(path.join(__dirname, '../client/dist', 'index.html'));
-    console.log("Welcome to Wright Choice Consulting.");
+
+    // req.isAuthenticated is provided from the auth router
+    res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
+
+    console.log('Welcome to Wright Choice Consulting.');
 });
 
 // retrieve all data from client_entries table
