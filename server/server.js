@@ -128,21 +128,12 @@ app.use(auth(config));
 // have server use the compiled build files from React
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
-app.get("*", (req, res) => {
-    // verify that all routes are given index.html to allow React to manage routing
-    res.sendFile(path.join(__dirname, '../client/dist', 'index.html'));
-
-    // req.isAuthenticated is provided from the auth router
-    res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
-
-    console.log('Welcome to Wright Choice Consulting.');
-});
-
 // retrieve all data from client_entries table
 app.get("/list", async (req, res) => {
     try {
         const client_entries = await Client_Entry.findAll();
         res.json(client_entries);
+        console.log("Gathering Client Entries: ", client_entries);
     } catch (err) {
         console.error("Error: ", err);
     }
@@ -181,6 +172,16 @@ app.post("/contact/professional/add", async (req, res) => {
         return res.status(400).json({ err });
     }
 })
+
+app.get("*", (req, res) => {
+    // verify that all routes are given index.html to allow React to manage routing
+    res.sendFile(path.join(__dirname, '../client/dist', 'index.html'));
+
+    // req.isAuthenticated is provided from the auth router
+    // res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
+
+    console.log('Welcome to Wright Choice Consulting.');
+});
 
 app.listen(PORT, () => {
     console.log(`WCC server running on ${process.env.DOMAIN}`);

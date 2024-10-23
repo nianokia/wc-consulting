@@ -15,7 +15,10 @@ const AdminListEntries = () => {
     fetch(`${process.env.DOMAIN}/list`)
       .then((response) => response.json())
       .then((client_entries) => {
+        console.log({client_entries});
         setClient_Entries(client_entries);
+      }).catch((err) => {
+        console.error("Load Client Entry Error: ", err);
       })
   }
 
@@ -28,9 +31,10 @@ const AdminListEntries = () => {
     <>
       <h1>Admin List Entries</h1>
       <ul>
-        {client_entries.map((client_entry) => {
+        {/* parameter i = unique index */}
+        {client_entries.map((client_entry, i) => {
           return (
-            <li key={client_entry.client_entries_id}>
+            <li key={i}>
               {client_entry.first_name} {client_entry.last_name}
             </li>
           )
