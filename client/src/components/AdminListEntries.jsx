@@ -11,8 +11,8 @@ const AdminListEntries = () => {
   const { logout } = useAuth0();
   
   // fetch all the client entries and update its corresponding state
-  const loadClientEntries = () => {
-    fetch(`${process.env.DOMAIN}/list`)
+  const loadClientEntries = async () => {
+    await fetch(`${process.env.DOMAIN}/list`)
       .then((response) => response.json())
       .then((client_entries) => {
         console.log({client_entries});
