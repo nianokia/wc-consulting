@@ -47,6 +47,11 @@ const AdminListEntries = () => {
     loadClientEntries();
   }, []);
 
+  // --- specify returnTo URL to origin (Home.jsx) ---
+  const handleLogout = () => {
+    logout({ logoutParams: { returnTo: window.location.origin  } });
+  };
+
   return (
     <>
       <h1>Admin List Entries</h1>
@@ -61,11 +66,11 @@ const AdminListEntries = () => {
         })}
       </ul>
       <hr />
-      <Link to='/'>Home</Link>
-      <br />
-      <button onClick={() => logout({ logoutParams: { returnTo: window.location.origin  } })}>
-        Log Out
-      </button>
+      <div className="logoutButton" style={{display: "flex", justifyContent: "flex-end"}}>
+        <button onClick={handleLogout}>
+          Log Out
+        </button>
+      </div>
     </>
   )
 }
