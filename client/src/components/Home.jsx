@@ -27,12 +27,15 @@ const Home = () => {
       <Link to='/faqs'>FAQs</Link>
       <br />
       <Link to='/first-session'>First Session</Link>
-      <br />
-      <Link to='/login'>Admin Access</Link>
       <br /><br />
+      
+      <hr />
 
       {/* --- add Login Button with Auth0 --- */}
-      <button onClick={() => loginWithRedirect()}>Log in</button>
+      <div style={{display: 'flex', justifyContent: 'space-around', gap: '20px'}}>
+        <button onClick={() => loginWithRedirect()}>Admin Login</button>
+        <Link to='/list'>Admin List</Link>
+      </div>
       
       {/* FOOTER COMP */}
     </div>
