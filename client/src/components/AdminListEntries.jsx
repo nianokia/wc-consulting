@@ -22,7 +22,6 @@ const AdminListEntries = () => {
         return response.json();
       })
       .then((client_entries) => {
-        console.log({client_entries});
         setClient_Entries(client_entries);
       }, (rejectionReason) => {
         // log the error received and the response.json

@@ -133,7 +133,7 @@ app.get("/list", async (req, res) => {
     try {
         const client_entries = await Client_Entry.findAll();
         res.json(client_entries);
-        console.log("Gathering Client Entries: ", client_entries);
+        // console.log("Gathering Client Entries: ", client_entries);
     } catch (err) {
         console.error("Error: ", err);
     }
