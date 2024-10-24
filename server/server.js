@@ -6,10 +6,21 @@ import { fileURLToPath } from 'url';
 import { DataTypes, Sequelize } from 'sequelize';
 import { auth } from 'express-openid-connect';
 
-// connect sequelize to the database
+// -------- DEFINE VARIABLES --------
+const app = express();
+const PORT = process.env.PORT || 3388;
+
+// --- define the path to the index.html file in the build folder ---
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+
+// -------- SEQUELIZE FUNCTIONS & CONFIGURATIONS --------
+
+// --- connect sequelize to the database ---
 const sequelize = new Sequelize(process.env.DATABASE_URL);
 
-// verify that sequelize connected to the database
+// --- verify that sequelize connected to the database ---
 async function authenticateDBConnection() {
     try {
         await sequelize.authenticate()
@@ -20,7 +31,7 @@ async function authenticateDBConnection() {
 }
 authenticateDBConnection();
 
-// create a model that contains the same rows and columns as the client_entries table
+// --- create a model that contains the same columns & constraints as the client_entries table ---
 const Client_Entry = sequelize.define('client_entry', {
     client_entry_id: {
         type: DataTypes.INTEGER,
@@ -54,12 +65,13 @@ const Client_Entry = sequelize.define('client_entry', {
         type: DataTypes.STRING,
     },
 }, {
-    // this ensures that sequelize doesn't modify the table name specified
+    // --- this ensures that sequelize doesn't modify the table name specified or create a createdAt or updatedAt ---
     tableName: 'client_entries',
     createdAt: false,
     updatedAt: false,
 });
 
+// --- create a model that contains the same columns & constraints as the professional_entries table ---
 const Professional_Entry = sequelize.define('professional_entry', {
     professional_entry_id: {
         type: DataTypes.INTEGER,
@@ -82,13 +94,13 @@ const Professional_Entry = sequelize.define('professional_entry', {
         allowNull: false,
     },
 }, {
-    // ensures that sequelize tablename specified or add a createdAt & updatedAt
+    // --- ensures that sequelize uses the tablename specified & doesn't add a createdAt or updatedAt ---
     tableName: 'professional_entries',
     createdAt: false,
     updatedAt: false,
 })
 
-// sync client & professional model & table together so they're gathering the same information with the same constraints and data types
+// --- sync client & professional model & table together so they're gathering the same information with the same constraints and data types ---
 Client_Entry.sync().then((data) => {
     console.log("Client model & table synced succesfully!");
 }).catch((err) => {
@@ -102,10 +114,9 @@ Professional_Entry.sync().then((data) => {
 })
 
 
-const app = express();
-const PORT = process.env.PORT || 3388;
+// -------- AUTH0 CONFIGURATION --------
 
-// configure Auth0 router
+// --- configure Auth0 router ---
 const config = {
     authRequired: false,
     auth0Logout: true,
@@ -115,54 +126,54 @@ const config = {
     issuerBaseURL: `https://${process.env.VITE_AUTH0_DOMAIN}`
 };
 
-// define the path to the index.html file in the build folder
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
-
+// -------- DEFINE APP USES --------
 app.use(cors());
 app.use(express.json());
 
-// auth router attaches /login, /logout, and /callback routes to the baseURL
+// --- use auth router to attach /login, /logout, and /callback routes to the baseURL ---
 app.use(auth(config));
 
-// have server use the compiled build files from React
+// --- direct server to use the compiled build files from React ---
 app.use(express.static(path.join(__dirname, '../client/dist')));
 
-// retrieve all data from client_entries table
+
+// -------- CRUD OPERATIONS --------
+
+// --- retrieve all data from client_entries table ---
 app.get("/list", async (req, res) => {
     try {
         const client_entries = await Client_Entry.findAll();
         res.json(client_entries);
-        // console.log("Gathering Client Entries: ", client_entries);
     } catch (err) {
         console.error("Error: ", err);
-    }
-});
-
-//add client form data to the database on submission
-app.post("/contact/client/add", async (req, res) => {
-    // destructure req.body to retrieve the following properties
-    const { first_name, last_name, email, type, issue, age, race, gender, comment } = req.body;
-
-    try {
-        const newClient_Entry = await Client_Entry.create({
-            // add the properties from req.body into client_entries table through the create Client_Entry model
-            first_name, last_name, email, type, issue, age, race, gender, comment
-        });
-        res.json(newClient_Entry);
-    } catch (err) {
-        console.log("Error adding client_entry: ", err);
         return res.status(400).json({ err });
     }
 });
 
-// add professional form data to the database on submission
+// --- add client form data to the database on submission ---
+app.post("/contact/client/add", async (req, res) => {
+    // --- destructure req.body to retrieve the following properties ---
+    const { first_name, last_name, email, type, issue, age, race, gender, comment } = req.body;
+
+    try {
+        const newClient_Entry = await Client_Entry.create({
+            // --- add properties from req.body into client_entries table through the create Client_Entry model ---
+            first_name, last_name, email, type, issue, age, race, gender, comment
+        });
+        res.json(newClient_Entry);
+    } catch (err) {
+        console.error("Error adding client_entry: ", err);
+        return res.status(400).json({ err });
+    }
+});
+
+// --- add professional form data to the database on submission ---
 app.post("/contact/professional/add", async (req, res) => {
-    // destructure req.body to retrieve the properties below
+    // --- destructure req.body to retrieve the properties below ---
     const { first_name, last_name, phone, email, comment } = req.body;
 
     try {
-        // add properties into professional_entries table with Sequelize create method
+        // --- add properties into professional_entries table with Sequelize create method ---
         const newProfessional_Entry = await Professional_Entry.create({
             first_name, last_name, phone, email, comment
         });
@@ -174,10 +185,10 @@ app.post("/contact/professional/add", async (req, res) => {
 })
 
 app.get("*", (req, res) => {
-    // verify that all routes are given index.html to allow React to manage routing
+    // --- verify that all routes are given index.html to allow React to manage routing ---
     res.sendFile(path.join(__dirname, '../client/dist', 'index.html'));
 
-    // req.isAuthenticated is provided from the auth router
+    // --- req.isAuthenticated is provided from the auth router ---
     // res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
 
     console.log('Welcome to Wright Choice Consulting.');
