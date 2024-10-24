@@ -11,6 +11,7 @@ const Home = () => {
 
   // --- specify redirect URL to '/list' (AdminListEntries.jsx) & appState to current page (Home.jsx) ---
   const handleLogin = () => {
+    console.log("Window Location Origin/list: ", `${window.location.origin}/list`);
     loginWithRedirect({
       authorizationParams: { redirect_uri: `${window.location.origin}/list` }, 
       appState: { returnTo: window.location.href } 
