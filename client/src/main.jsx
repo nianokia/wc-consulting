@@ -21,7 +21,7 @@ import AdminLogin from './components/AdminLogin.jsx'
 import AdminListEntries from './components/AdminListEntries.jsx'
 
 
-// specifies routes and what they will each display
+// --- specifies routes & what they will each display ---
 const router = createBrowserRouter([{
   path: '/',
   element: <Home/>,
@@ -63,6 +63,7 @@ const router = createBrowserRouter([{
 }
 ]);
 
+// --- wrap auth0 container around react router ---
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Auth0Provider

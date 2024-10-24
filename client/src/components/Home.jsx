@@ -2,10 +2,11 @@ import React from 'react'
 import { useAuth0 } from "@auth0/auth0-react";
 import { Link } from 'react-router-dom'
 
-// PURPOSE - Introduces visitor to the business and invites the user to explore more
+// ------ PURPOSE ------
+// Introduces visitor to the business and invites the user to explore more
 
 const Home = () => {
-
+  // --- state method that app intends to use from useAuth0 hook ---
   const { loginWithRedirect } = useAuth0();
 
   return (
@@ -30,7 +31,9 @@ const Home = () => {
       <Link to='/login'>Admin Access</Link>
       <br /><br />
 
+      {/* --- add Login Button with Auth0 --- */}
       <button onClick={() => loginWithRedirect()}>Log in</button>
+      
       {/* FOOTER COMP */}
     </div>
   );

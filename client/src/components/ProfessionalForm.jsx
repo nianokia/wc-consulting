@@ -1,10 +1,12 @@
 import React, { useReducer } from "react";
 
-// PURPOSE - A form for professionals to fill out if they're interested in requesting services 
-// will send POST request with inputted form data to the server's database
+/* ------ PURPOSE ------
+  An interest form for professionals to fill out if they want to request services.
+  Sends POST request with inputted form data to the server's database
+*/
 
 const ProfessionalForm = () => {
-  // define empty professtional_entry record
+  // --- define empty professtional_entry record ---
   const initialState = {
     first_name: '',
     last_name: '',
@@ -15,9 +17,9 @@ const ProfessionalForm = () => {
 
   function reducer(state, action) {
     switch (action.type) {
-      // editField works for each input field
+      // --- editField works for each input field ---
       case 'editField':
-        // keep current state data while updating specified field with input value
+        // --- retain existing state data while updating specified field with input value ---
         return { ...state, [action.field]: action.value };
       case 'reset':
         return { ...initialState };
@@ -26,23 +28,23 @@ const ProfessionalForm = () => {
     }
   }
 
-  // declare reducer & useReducer similar to declaring a state & useState
+  // --- declare reducer & useReducer similar to declaring a state & useState ---
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const handleChange = (event) => {
-    // deconstruct event.target to retrieve name & value
+    // --- deconstruct event.target to retrieve name & value ---
     const { name, value } = event.target;
 
-    // execute editField case with identified field, name, & value
+    // --- execute editField case with identified field, name, & value ---
     dispatch({ type: 'editField', field: name, value });
   }
 
   const clearForm = () => {
-    // execute reset case
+    // --- execute reset case ---
     dispatch({ type: 'reset' });
   }
 
-  // send POST to its respective POST path in server to accurately send form data to database
+  // --- send POST to its respective POST path in server to accurately send form data to database ---
   const postProfessionalEntry = async (newProfessionalEntry) => {
     return fetch(`${process.env.DOMAIN}/contact/professional/add`, {
       method: 'POST',
@@ -53,7 +55,7 @@ const ProfessionalForm = () => {
       return response.json();
     })
     .then(() => {
-      // clear form once data is sent to the database
+      // --- clear form once data is sent to the database ---
       clearForm();
     })
     .catch((err) => {
@@ -61,7 +63,7 @@ const ProfessionalForm = () => {
     })
   }
 
-  // 
+  // --- separate event handler to account for preventing the event listener & to call postProfessionalEntry with the state data ---
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log("Professional Entry: ", state);
@@ -73,9 +75,9 @@ const ProfessionalForm = () => {
       <h1>Professional Form</h1>
       <form onSubmit={handleSubmit}>
 
-        {/* Each input's onChange is handleChange because it works for each input */}
+        {/* --- each input's onChange is handleChange because it works for each input --- */}
 
-        {/* Set each input's value to the state value or "" so that the app is not trying to control an uncontrolled input */}
+        {/* --- set each input's value to the state value or "" so that the app is not trying to control an uncontrolled input --- */}
 
         <label>First Name
           <input type="text" name="first_name" required value={state.first_name || ""} onChange={handleChange} />
