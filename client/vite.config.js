@@ -15,7 +15,7 @@ export default defineConfig(({ mode }) => {
     server: {
       proxy: {
         '/api': {
-          target: `http://localhost:${process.env.VITE_PORT}`,
+          target: process.env.DOMAIN,
           changeOrigin: true,
           secure: false,
         }
