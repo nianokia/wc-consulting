@@ -9,6 +9,14 @@ const Home = () => {
   // --- state method that app intends to use from useAuth0 hook ---
   const { loginWithRedirect } = useAuth0();
 
+  // --- specify redirect URL to '/list' (AdminListEntries.jsx) & appState to current page (Home.jsx) ---
+  const handleLogin = () => {
+    loginWithRedirect({
+      authorizationParams: { redirect_uri: `${window.location.origin}/list` }, 
+      appState: { returnTo: window.location.href } 
+    });
+  };
+
   return (
     <div>
       {/* HERO COMP */}
@@ -32,9 +40,10 @@ const Home = () => {
       <hr />
 
       {/* --- add Login Button with Auth0 --- */}
-      <div style={{display: 'flex', justifyContent: 'space-around', gap: '20px'}}>
-        <button onClick={() => loginWithRedirect()}>Admin Login</button>
-        <Link to='/list'>Admin List</Link>
+      <div className='loginButton' style={{display: 'flex', justifyContent: 'flex-end'}}>
+        <button onClick={handleLogin}>
+          Admin Login
+        </button>
       </div>
       
       {/* FOOTER COMP */}
