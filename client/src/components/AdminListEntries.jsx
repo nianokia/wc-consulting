@@ -10,15 +10,29 @@ const AdminListEntries = () => {
 
   const { logout } = useAuth0();
   
+  // create variable to debug fetch request
+  var responseClone;
+
   // fetch all the client entries and update its corresponding state
-  const loadClientEntries = async () => {
-    await fetch(`${process.env.DOMAIN}/list`)
-      .then((response) => response.json())
+  const loadClientEntries = () => {
+    fetch(`${process.env.DOMAIN}/list`)
+      .then((response) => {
+        // clone response so that we can reuse gathered data
+        responseClone = response.clone();
+        return response.json();
+      })
       .then((client_entries) => {
         console.log({client_entries});
         setClient_Entries(client_entries);
-      }).catch((err) => {
-        console.error("Load Client Entry Error: ", err);
+      }, (rejectionReason) => {
+        // log the error received and the response.json
+        console.log('Error parsing JSON from response: ', rejectionReason, responseClone);
+        // gather raw text from response
+        responseClone.text()
+        .then((bodyText) => {
+          // log the raw text response
+          console.log('Received the following instead of valid JSON:', bodyText);
+        });
       })
   }
 
