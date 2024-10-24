@@ -63,6 +63,19 @@ const router = createBrowserRouter([{
 }
 ]);
 
+// --- appState contains info about app's state before login attempt ---
+const onRedirectCallback = (appState) => {
+// --- replace current history entry with a new one ---
+// --- browser history will have no record of the in-between authentication step ---
+ history.replace(
+  // --- conditionally route to returnTo URL if appState exists & has a returnTo prop ---
+  // --- if not, route to current URL ---
+   appState && appState.returnTo
+     ? appState.returnTo
+     : window.location.href
+ );
+};
+
 // --- wrap auth0 container around react router ---
 createRoot(document.getElementById('root')).render(
   <StrictMode>
@@ -72,6 +85,7 @@ createRoot(document.getElementById('root')).render(
       authorizationParams={{
         redirect_uri: window.location.origin
       }}
+      onRedirectCallback={onRedirectCallback}
     >
       <RouterProvider router={router} />
     </Auth0Provider>
