@@ -18,7 +18,7 @@ const AdminListEntries = () => {
 
   // --- fetch all the client entries and update its corresponding state ---
   const loadClientEntries = () => {
-    fetch(`${process.env.DOMAIN}/list`)
+    fetch(`${process.env.DOMAIN}/api/list`)
       .then((response) => {
         // --- clone response so that we can reuse gathered data ---
         responseClone = response.clone();

@@ -140,7 +140,7 @@ app.use(express.static(path.join(__dirname, '../client/dist')));
 // -------- CRUD OPERATIONS --------
 
 // --- retrieve all data from client_entries table ---
-app.get("/list", async (req, res) => {
+app.get("/api/list", async (req, res) => {
     try {
         const client_entries = await Client_Entry.findAll();
         res.json(client_entries);
