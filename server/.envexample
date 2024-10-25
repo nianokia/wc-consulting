@@ -1,15 +1,19 @@
-AUTH0_DOMAIN="{yourDomain}"
-AUTH0_CLIENT_ID="{yourClientId}"
+ <!-- Replace everything between the {} with your variables and remove the {} -->
 
-# If you have a postgres db with a user and password - 
-# Replace everything between the <> with your variables and remove the <>
-DATABASE_URL="postgresql://<user>:<password>@localhost/<database>"
+ <!-- If you have a postgres db with a user and password -  -->
+DATABASE_URL="postgresql://{user}:{password}@localhost/{database}"
+ <!-- If you don't have postgres db with a user and password -  -->
+DATABASE_URL="postgresql://localhost/{database}"
 
-# If you don't have postgres db with a user and password - 
-# Replace everything between the <> with your variables and remove the <>
-DATABASE_URL="postgresql://localhost/<database>"
-
+ <!-- DOMAIN variable is different depending on the environment (local vs production) -->
+DOMAIN='http://localhost:{yourPortNumber}'
 PORT={yourPortNumber}
-SECRET="{yourAuth0ClientSecret}"
+
+ <!-- TWILIO VARIABLES -->
 TWI_ACCOUNT_SID="{yourTwilioAccountSID}"
 TWI_AUTH_TOKEN="{yourTwilioAuthToken}"
+
+ <!-- AUTH0 VARIABLES -->
+VITE_AUTH0_DOMAIN="{yourDomain}"
+VITE_AUTH0_CLIENT_ID="{yourClientId}"
+SECRET="{yourAuth0ClientSecret}"

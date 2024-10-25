@@ -1,3 +1,8 @@
+<!-- Replace everything between the {} with your variables and remove the {} -->
+
 VITE_PORT={yourPortNumber}
 VITE_AUTH0_DOMAIN="{yourAuth0Domain}"
 VITE_AUTH0_CLIENT_ID="{yourAuth0ClientId}"
+
+ <!-- DOMAIN variable is different depending on the environment (local vs production) -->
+DOMAIN='http://localhost:{yourPortNumber}'
