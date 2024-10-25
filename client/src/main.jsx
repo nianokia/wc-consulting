@@ -6,19 +6,19 @@ import { Auth0Provider } from '@auth0/auth0-react';
 import './index.css'
 
 // ------ IMPORT ALL COMPONENTS TO ROUTE ------
-import Home from './components/Home.jsx'
-import Services from './components/Services.jsx'
-import About from './components/About.jsx'
-import ErrorPage from './components/ErrorPage.jsx'
-import ContactHome from './components/ContactHome.jsx'
-import RatesInsurance from './components/RatesInsurance.jsx'
-import Faq from './components/Faqs.jsx'
-import FirstSession from './components/FirstSession.jsx'
-import ContactQuestion from './components/ContactQuestion.jsx'
-import ClientForm from './components/ClientForm.jsx'
-import ProfessionalForm from './components/ProfessionalForm.jsx'
-import AdminLogin from './components/AdminLogin.jsx'
-import AdminListEntries from './components/AdminListEntries.jsx'
+import Home from './pages/Home.jsx'
+import Services from './pages/Services.jsx'
+import About from './pages/About.jsx'
+import ErrorPage from './pages/ErrorPage.jsx'
+import ContactHome from './pages/ContactHome.jsx'
+import RatesInsurance from './pages/RatesInsurance.jsx'
+import Faq from './pages/Faqs.jsx'
+import FirstSession from './pages/FirstSession.jsx'
+import ContactQuestion from './pages/ContactQuestion.jsx'
+import ClientForm from './pages/ClientForm.jsx'
+import ProfessionalForm from './pages/ProfessionalForm.jsx'
+import AdminLogin from './pages/AdminLogin.jsx'
+import AdminListEntries from './pages/AdminListEntries.jsx'
 
 
 // --- specifies routes & what they will each display ---
