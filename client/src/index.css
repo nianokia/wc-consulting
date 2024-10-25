@@ -1,5 +1,18 @@
 :root {
+  /* ------ CSS VARIABLES ------ */
+
+  /* --- COLOR PALETTE - #031D44 #04395E #70A288 #DAB785 #D5896F --- */
+  /* --- Warm Whites - #F8F8F0 X#F5F5DC . Cool Whites - #FAFAFA #F0F0F0 --- */
+  --background-color: #FAFAFA;
+  --primary-color: #70A288;
+  --secondary-color: #04395E;
+  --terciary-color: #D5896F;
+  --accent-color: #DAB785;
+  --text-color: #031D44;
+  
+  /* ------ OVERALL APP STYLING ------ */
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  background-color: var(--background-color);
   max-width: 1200px;
   margin: 10px 50px;
 }
