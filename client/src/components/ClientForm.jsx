@@ -1,12 +1,12 @@
 import React, { useReducer } from "react";
 
-const PORT = process.env.VITE_PORT || 3388;
-
-// PURPOSE - A form for prospective clients to fill out if they're interested in services 
-// sends POST request with inputted form data to the server's database
+/* ------ PURPOSE ------
+  An interest form for prospective clients to fill out.
+  Sends POST request with inputted form data to the server's database
+*/ 
 
 const ClientForm = () => {
-  // define empty client_entry record
+  // --- define empty client_entry record ---
   const initialState = {
     first_name: '',
     last_name: '',
@@ -21,9 +21,9 @@ const ClientForm = () => {
 
   function reducer(state, action) {
     switch (action.type) {
-      // editField works for each input field
+      // --- editField works for each input field ---
       case 'editField':
-        // keep current state data while updating specified field with input value
+        // --- retain existing state data while updating specified field with input value ---
         return { ...state, [action.field]: action.value };
       case 'reset':
         return { ...initialState };
@@ -32,25 +32,25 @@ const ClientForm = () => {
     }
   }
 
-  // declare reducer & useReducer similar to declaring a state & useState
+  // --- declare reducer & useReducer similar to declaring a state & useState ---
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const handleChange = (event) => {
-    // deconstruct event.target to retrieve name & value
+    // --- deconstruct event.target to retrieve name & value ---
     const { name, value } = event.target;
 
-    // execute editField case with identified field, name, & value
+    // --- execute editField case with identified field, name, & value ---
     dispatch({ type: 'editField', field: name, value });
   }
 
   const clearForm = () => {
-    // execute reset case
+    // --- execute reset case ---
     dispatch({ type: 'reset' });
   }
 
-  // send POST to corresponding POST path in the server to accurately send form data to database
+  // --- send POST to corresponding POST path in the server to accurately send form data to database ---
   const postClientEntry =  async (newClientEntry) => {
-    return fetch(`http://localhost:${PORT}/contact/client/add`, {
+    return fetch(`${process.env.DOMAIN}/contact/client/add`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(newClientEntry),
@@ -59,15 +59,15 @@ const ClientForm = () => {
       return response.json();
     })
     .then(() => {
-      // clear form once data is sent to the database
+      // --- clear form once data is sent to the database ---
       clearForm();
     })
     .catch((err) => {
-      console.log("Error: ", err);
+      console.error("Error adding client entry: ", err);
     });
   }
 
-  // seperate event handler to account for preventing the event listener and to call postClientEntry with the state data
+  // --- seperate event handler to account for preventing the event listener and to call postClientEntry with the state data ---
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log("Client Entry: ", state);
@@ -79,9 +79,10 @@ const ClientForm = () => {
       <h1>Client Form</h1>
       <form onSubmit={handleSubmit}>
 
-        {/* each input will have the same onChange that sets the field value of the table */}
+        {/* --- each input will have the same onChange that sets the field value of the table --- */}
         
-        {/* each value is set to its respective updated state value OR an empty string "" so that the console doesn't receive an error that the app is trying to control an uncontrolled input. */}
+        {/* --- each value is set to its respective updated state value OR an empty string "" ---
+        --- this prevents console from receiving an error that the app is trying to control an uncontrolled input. --- */}
 
         <label>First Name
           <input type="text" name="first_name" value={state.first_name || ""} onChange={handleChange} required/>
