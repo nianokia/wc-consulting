@@ -1,4 +1,5 @@
 import React from "react";
+import Header from "../components/Header";
 import { Link } from "react-router-dom";
 
 // PURPOSE - Communciates the available services to the visitor, such as family, individual, and couples therapy
@@ -6,7 +7,7 @@ import { Link } from "react-router-dom";
 const Services = () => {
   return (
     <>
-      {/* HEADER COMP */}
+      <Header />
       <h1>Services Page</h1>
 
       <div className="serviceType">

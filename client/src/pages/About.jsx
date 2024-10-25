@@ -1,4 +1,5 @@
 import React from "react";
+import Header from "../components/Header";
 import { Link } from "react-router-dom";
 
 // PURPOSE - Provides background information about the owner 
@@ -6,7 +7,7 @@ import { Link } from "react-router-dom";
 const About = () => {
   return (
     <>
-      {/* HEADER COMP */}
+      <Header />
       <h1>About</h1>
 
       <div className="name-and-headshot">

@@ -1,4 +1,5 @@
 import React from "react";
+import Header from "../components/Header";
 import { Link } from "react-router-dom";
 
 // PURPOSE - Communicates details regarding rates, insurance, payment methods, and the cancellation policy
@@ -6,6 +7,7 @@ import { Link } from "react-router-dom";
 const RatesInsurance = () => {
   return (
     <>
+      <Header />
       {/* HERO comp */}
       <h1>Rates & Insurance</h1>
 

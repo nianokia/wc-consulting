@@ -1,4 +1,5 @@
 import React from "react";
+import Header from "../components/Header";
 import { Link } from "react-router-dom";
 
 // PURPOSE - Details what a client can expect at their first session.
@@ -6,6 +7,7 @@ import { Link } from "react-router-dom";
 const FirstSession = () => {
   return (
     <>
+      <Header />
       {/* HERO COMP */}
       <h1>First Session</h1>
 

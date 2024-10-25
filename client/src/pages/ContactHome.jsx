@@ -1,4 +1,5 @@
 import React from "react";
+import Header from "../components/Header";
 import { Link, Outlet } from "react-router-dom";
 
 // PURPOSE - Displays details regarding hours, location, contact methods, and a question 
@@ -7,7 +8,7 @@ import { Link, Outlet } from "react-router-dom";
 const ContactHome = () => {
   return (
     <>
-      {/* HEADER COMP */}
+      <Header />
       <h1>Contact Home</h1>
 
       {/* SWITCH BETWEEN QUESTION, CLIENT FORM, & PROFESSIONAL FORM */}
