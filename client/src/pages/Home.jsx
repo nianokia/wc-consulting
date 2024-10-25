@@ -1,6 +1,7 @@
 import React from 'react'
 import Header from "../components/Header";
 import Footer from '../components/Footer';
+import Hero from '../components/Hero'
 import { Link } from 'react-router-dom'
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -23,7 +24,7 @@ const Home = () => {
   return (
     <div>
       <Header />
-      {/* HERO COMP */}
+      <Hero title="Wright Choice Consulting" tagline="Family Therapy/ Parent Coaching" image="/src/images/walkbridge.png" textalign='center' button="Contact" />
       <h1>HOMEPAGE</h1>
       
       <hr />

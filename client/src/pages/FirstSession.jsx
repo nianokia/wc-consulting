@@ -1,5 +1,6 @@
 import React from "react";
 import Header from "../components/Header";
+import Hero from "../components/Hero";
 import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
 
@@ -9,7 +10,7 @@ const FirstSession = () => {
   return (
     <>
       <Header />
-      {/* HERO COMP */}
+      <Hero title="First Session" image='/src/images/walkbridge.png' />
       <h1>First Session</h1>
 
       <div className="first-session-details">

@@ -1,5 +1,6 @@
 import React from "react";
 import Header from "../components/Header";
+import Hero from "../components/Hero";
 import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
 
@@ -10,6 +11,7 @@ const RatesInsurance = () => {
     <>
       <Header />
       {/* HERO comp */}
+      <Hero title="Rates & Insurance" image="/src/images/walkbridge.png" />
       <h1>Rates & Insurance</h1>
 
       <div>
