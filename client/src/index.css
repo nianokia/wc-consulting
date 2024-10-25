@@ -13,7 +13,7 @@
   /* ------ OVERALL APP STYLING ------ */
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   background-color: var(--background-color);
-  max-width: 1200px;
+  max-width: 760px;
   margin: 10px 50px;
 }
 
@@ -22,4 +22,59 @@ body {
   display: flex;
   place-items: center;
   min-width: 320px;
+}
+
+footer {
+  width: 100%;
+  text-align: end;
+  margin-top: 25px;
+  padding: 5px 10px;
+  background-color: #bbc7ce;
+}
+
+.backgroundBlock {
+  width: 75%;
+  display: block;
+  margin: 10px auto;
+  text-align: center;
+  padding: 50px 70px;
+  border-radius: 10px;
+  background-color: var(--primary-color);
+}
+
+.videoBlock {
+  display: block;
+  margin: 10px auto;
+  text-align: center;
+  padding: 20px 5px;
+  background-color: var(--secondary-color);
+  color: var(--background-color);
+}
+
+.video {
+  padding: 80px 150px;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+.Home section button {
+  display: block;
+  margin: 10px auto;
+}
+
+.link-style {
+  color: var(--text-color);
+}
+
+.link-style:visited {
+  color: black;
+}
+
+.Hero {
+  width: 100%;
+  margin: 30px 0px;
+  padding: 100px 0;
+  background-size: cover;
+  background-position: center;
+  color: var(--background-color);
 }
