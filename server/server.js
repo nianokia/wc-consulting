@@ -5,6 +5,7 @@ import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import { DataTypes, Sequelize } from 'sequelize';
 import { auth } from 'express-openid-connect';
+import sgMail from '@sendgrid/mail';
 
 // -------- DEFINE VARIABLES --------
 const app = express();
@@ -126,6 +127,10 @@ const config = {
     issuerBaseURL: `https://${process.env.VITE_AUTH0_DOMAIN}`
 };
 
+// -------- TWILIO --------
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
+
 // -------- DEFINE APP USES --------
 app.use(cors());
 app.use(express.json());
@@ -155,14 +160,54 @@ app.post("/contact/client/add", async (req, res) => {
     // --- destructure req.body to retrieve the following properties ---
     const { first_name, last_name, email, type, issue, age, race, gender, comment } = req.body;
 
+    // --- define email message configurations ---
+    const msg = {
+        to: 'nw.niawright@gmail.com',
+        from: 'nw.niawright@gmail.com', // Use the email or domain you verified above
+        subject: 'WCC - A Prospective Client Expressed Interest in Services',
+        text: `
+            ${first_name} ${last_name} expressed interest in services!
+            Details:
+            Email: ${email}
+            Type: ${type}
+            Issue: ${issue}
+            Age: ${age}
+            Race: ${race}
+            Gender: ${gender}
+            Comment: ${comment}
+            You can reach out to ${first_name} ${last_name} at ${email}.
+        `,
+        html: `
+            <h1>${first_name} ${last_name} expressed interest in services!</h1>
+            <br />
+            <h3>Details:</h3>
+            <ul>
+                <li>Email: ${email}</li>
+                <li>Type: ${type}</li>
+                <li>Issue: ${issue}</li>
+                <li>Age: ${age}</li>
+                <li>Race: ${race}</li>
+                <li>Gender: ${gender}</li>
+                <li>Comment: ${comment}</li>
+            </ul>
+            <br />
+            You can reach out to ${first_name} ${last_name} at ${email}.
+        `,
+    }
+    
     try {
         const newClient_Entry = await Client_Entry.create({
             // --- add properties from req.body into client_entries table through the create Client_Entry model ---
             first_name, last_name, email, type, issue, age, race, gender, comment
         });
+
+        // --- sendEmail ---
+        await sgMail.send(msg);
+        console.log("Email sent!");
+
         res.json(newClient_Entry);
     } catch (err) {
-        console.error("Error adding client_entry: ", err);
+        console.error("Error: ", err.response.body);
         return res.status(400).json({ err });
     }
 });
@@ -172,11 +217,42 @@ app.post("/contact/professional/add", async (req, res) => {
     // --- destructure req.body to retrieve the properties below ---
     const { first_name, last_name, phone, email, comment } = req.body;
 
+    // --- define email message configurations ---
+    const msg = {
+        to: 'nw.niawright@gmail.com',
+        from: 'nw.niawright@gmail.com', // Use the email address or domain you verified above
+        subject: 'WCC - A Professional Expressed Interest in Services',
+        text:  `
+            ${first_name} ${last_name} expressed interest in services!
+            Details:
+            Phone: ${phone}
+            Email: ${email}
+            Comment: ${comment}
+            You can reach out to ${first_name} ${last_name} at ${email}.
+        `,
+        html:  `
+            <h1>${first_name} ${last_name} expressed interest in services!</h1>
+            <br />
+            <h3>Details:</h3>
+            <ul>
+                <li>Phone: ${phone}</li>
+                <li>Email: ${email}</li>
+                <li>Comment: ${comment}</li>
+            </ul>
+            <br />
+            You can reach out to ${first_name} ${last_name} at ${email}.
+        `,
+    }
+    
     try {
         // --- add properties into professional_entries table with Sequelize create method ---
         const newProfessional_Entry = await Professional_Entry.create({
             first_name, last_name, phone, email, comment
         });
+
+        // --- sendEmail ---
+        await sgMail.send(msg);
+        console.log("Email sent!");
         res.json(newProfessional_Entry);
     } catch (err) {
         console.error("Error adding professional entry: ", err);
