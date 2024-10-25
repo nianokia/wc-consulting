@@ -9,7 +9,7 @@ const Header = () => {
    <div className="Header" style={{display: "flex", alignItems: "flex-end", justifyContent: "space-between"}}>
     <Link to='/' className="homeButton link-style" style={{display: "flex", flexDirection: "column", textDecoration: "none"}}>
       <div>
-        <img src="../public/logo.png" alt="Wright Choice Consulting logo" style={{width: '40px'}} />
+        <img src="../logo.png" alt="Wright Choice Consulting logo" style={{width: '40px'}} />
         <h4 style={{marginTop: "5px", marginBottom: 0}}>Wright Choice Consulting</h4>
       </div>
       <div>
