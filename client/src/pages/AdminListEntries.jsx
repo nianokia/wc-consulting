@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Footer from "../components/Footer";
 import { useAuth0 } from "@auth0/auth0-react";
 import { Link } from "react-router-dom";
 
@@ -71,6 +72,7 @@ const AdminListEntries = () => {
           Log Out
         </button>
       </div>
+      <Footer />
     </>
   )
 }

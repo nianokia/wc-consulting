@@ -1,5 +1,6 @@
 import React from "react";
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 import { Link, Outlet } from "react-router-dom";
 
 // PURPOSE - Displays details regarding hours, location, contact methods, and a question 
@@ -36,10 +37,10 @@ const ContactHome = () => {
           <span>Location :</span><span>250 South Pleasantburg Drive, Greenville, SC, 29607</span>
         </section>
       </div>
+      <br /><br />   
 
       <hr />
-      <Link to='/'>Home</Link>
-      {/* FOOTER COMP */}
+      <Footer />
     </>
   )
 }

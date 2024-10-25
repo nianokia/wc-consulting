@@ -1,8 +1,8 @@
 import React from 'react'
 import Header from "../components/Header";
+import Footer from '../components/Footer';
 import { Link } from 'react-router-dom'
 import { useAuth0 } from "@auth0/auth0-react";
-
 
 // ------ PURPOSE ------
 // Introduces visitor to the business and invites the user to explore more
@@ -38,7 +38,7 @@ const Home = () => {
         </button>
       </div>
       
-      {/* FOOTER COMP */}
+      <Footer />
     </div>
   );
 }

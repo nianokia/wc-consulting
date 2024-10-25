@@ -1,5 +1,6 @@
 import React from "react";
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
 
 // PURPOSE - Displays list of FAQs with a table of contents that jumps to that specific question on the page
@@ -61,10 +62,10 @@ const Faqs = () => {
           </section>
         </article>
       </div>
+      <br />
 
       <hr />
-      <Link to='/'>Home</Link>
-      {/* FOOTER COMP */}
+      <Footer />
     </>
   )
 }

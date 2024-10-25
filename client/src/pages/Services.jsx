@@ -1,5 +1,6 @@
 import React from "react";
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
 
 // PURPOSE - Communciates the available services to the visitor, such as family, individual, and couples therapy
@@ -44,10 +45,10 @@ const Services = () => {
           <Link to='/faqs'>FAQ</Link>
         </button>
       </section>
+      <br />
 
       <hr />
-      <Link to='/'>Home</Link>
-      {/* FOOTER COMP */}
+      <Footer />
     </>
   )
 }

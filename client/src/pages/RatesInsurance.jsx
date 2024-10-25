@@ -1,5 +1,6 @@
 import React from "react";
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
 
 // PURPOSE - Communicates details regarding rates, insurance, payment methods, and the cancellation policy
@@ -55,10 +56,10 @@ const RatesInsurance = () => {
         </section>
 
       </div>
+      <br />
 
       <hr />
-      <Link to='/'>Home</Link>
-      {/* FOOTER COMP */}
+      <Footer />
     </>
   )
 }

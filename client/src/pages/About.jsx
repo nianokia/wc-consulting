@@ -1,5 +1,6 @@
 import React from "react";
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
 
 // PURPOSE - Provides background information about the owner 
@@ -24,10 +25,10 @@ const About = () => {
       <button>
         <Link to='/contact'>Contact</Link>
       </button>
+      <br /><br />
 
       <hr />
-      <Link to='/'>Home</Link>
-      {/* FOOTER COMP */}
+      <Footer />
     </>
   )
 }

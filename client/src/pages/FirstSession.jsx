@@ -1,5 +1,6 @@
 import React from "react";
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 import { Link } from "react-router-dom";
 
 // PURPOSE - Details what a client can expect at their first session.
@@ -26,10 +27,10 @@ const FirstSession = () => {
       <button>
         <Link to='/faqs'>FAQs</Link>
       </button>
+      <br /><br />
 
       <hr />
-      <Link to='/'>Home</Link>
-      {/* FOOTER COMP */}
+      <Footer />
     </>
   )
 }
