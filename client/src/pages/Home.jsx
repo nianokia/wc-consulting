@@ -22,15 +22,23 @@ const Home = () => {
   };
 
   return (
-    <div>
+    <div className='Home' style={{width: '760px'}}>
       <Header />
       <Hero title="Wright Choice Consulting" tagline="Family Therapy/ Parent Coaching" image="/src/images/walkbridge.png" textalign='center' button="Contact" />
-      <h1>HOMEPAGE</h1>
       
-      <hr />
-
-      
-      <hr />
+      <section className='backgroundBlock'>
+        <h4>Background Information addressing the What? and Why?</h4>
+        <button><Link to='/services'>Services</Link></button>
+      </section>
+      <br />
+      <section className='videoBlock' style={{display: 'flex', justifyContent: 'space-around'}}>
+        <div className='video'>Video</div>
+        <div style={{display: 'flex', flexDirection: 'column', gap: "20px", justifyContent: 'center'}}>
+          <aside>"<em>Short blurb/ quote related said in the video</em>"</aside>
+          <button><Link to='/about'>About</Link></button>
+        </div>
+      </section>
+      <br />
 
       {/* --- add Login Button with Auth0 --- */}
       <div className='loginButton' style={{display: 'flex', justifyContent: 'flex-end'}}>

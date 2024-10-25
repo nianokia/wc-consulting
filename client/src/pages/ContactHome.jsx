@@ -8,7 +8,7 @@ import { Link, Outlet } from "react-router-dom";
 
 const ContactHome = () => {
   return (
-    <>
+    <div className="Contact" style={{width: "760px"}}>
       <Header />
       <h1>Contact Home</h1>
 
@@ -41,7 +41,7 @@ const ContactHome = () => {
 
       <hr />
       <Footer />
-    </>
+    </div>
   )
 }
 
