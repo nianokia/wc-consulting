@@ -10,10 +10,6 @@ This redesigned website will provide a clear and user-friendly experience for po
 * Uses SQL to relate table in a database and grab specific data and records.
 * Track form submission and display client_entries and professional_entries table on admin-side of the client.
 
-## WEEK 1
-* [Trello Board] (https://trello.com/invite/b/6706ff11d21043703e88d152/ATTIaba76391d295ac4919d76a19e0b4e0a1488E702F/wcc)
-* [Project Pitch Figma] (https://www.figma.com/board/9Hclt6RroLGZQGgFwg3qkg/Final-Project-Planning?node-id=110-915&t=zomsQ8rA2WFEu8iG-1)
-
 ## Technologies Used
 ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
 ![Vite](https://img.shields.io/badge/vite-%23646CFF.svg?style=for-the-badge&logo=vite&logoColor=white)
@@ -22,6 +18,8 @@ This redesigned website will provide a clear and user-friendly experience for po
 ![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
 ![Nodemon](https://img.shields.io/badge/NODEMON-%23323330.svg?style=for-the-badge&logo=nodemon&logoColor=%BBDEAD)
 ![Postgres](https://img.shields.io/badge/postgres-%23316192.svg?style=for-the-badge&logo=postgresql&logoColor=white)
+![Render](https://img.shields.io/badge/Render-%46E3B7.svg?style=for-the-badge&logo=render&logoColor=white)
+![Twilio](https://img.shields.io/badge/Twilio-F22F46?style=for-the-badge&logo=Twilio&logoColor=white)
 ![Jest](https://img.shields.io/badge/-jest-%23C21325?style=for-the-badge&logo=jest&logoColor=white)
 ![Testing-Library](https://img.shields.io/badge/-TestingLibrary-%23E33332?style=for-the-badge&logo=testing-library&logoColor=white)
 
@@ -37,9 +35,11 @@ This redesigned website will provide a clear and user-friendly experience for po
 * Additional Tools:
     * Jest / RTL
     * Sequelize
+    * Auth0
+    * Twilio/Sendgrid
 
 ## Demo
-![demo]()
+![demo](https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExMHc1azhzcnZtZmtsejk4b2IweTE0YnJ2c2hwczl0ajJ5b2pyN2dxZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xL5IJHbqqPoWezNTLN/giphy.gif)
 
 ## Setup Instructions
 
@@ -113,21 +113,33 @@ This redesigned website will provide a clear and user-friendly experience for po
 * Data fetched from the database will be parsed and displayed in the React components.
 
 ## Planning Process
-![planning-process-diagram]()
+<img width="700" alt="Screenshot 2024-10-25 at 8 18 30 PM" src="https://github.com/user-attachments/assets/483d1638-5432-478e-8103-d7c31e7e99bf">
+
+### Project Timeline
+* [Trello Board](https://trello.com/invite/b/6706ff11d21043703e88d152/ATTIaba76391d295ac4919d76a19e0b4e0a1488E702F/wcc)
+
+### Project Pitch Mind Map
+* [Project Pitch Figma](https://www.figma.com/board/9Hclt6RroLGZQGgFwg3qkg/Final-Project-Planning?node-id=110-915&t=zomsQ8rA2WFEu8iG-1)
 
 
 ## Future Implementations
+### Stretch Goals :
+* Present a pop-up modal on form submission to allow user to review and update submission before sending it
+* Implement AI chatbot to answer questions
 
-### Resources
+## Resources
+(*Refer to official documentation for setup specifics*)
+* [Vite Documentation](https://vitejs.dev/)
+* [Express Documentation](https://expressjs.com/)
+* [Sequelize Documentation](https://sequelize.org/)
+* [Auth0 Documentation](https://auth0.com/)
+* [Twilio/ Sendgrid Documentation](https://sendgrid.com/en-us)
 
-* [Vite Documentation](https://vitejs.dev/): (Refer to official documentation for setup specifics)
-
-### About the Developer
+## About the Developer
 Nia Wright is a software engineer who primarily works with HTML, CSS, Javascript, and React. Check out her other [projects](https://niawright.netlify.app/)!
 
-### License
+## License
 
 MIT License
 
 This project is open-source and licensed under the MIT License.
-
