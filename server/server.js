@@ -69,6 +69,36 @@ app.get("/api/professional-list", async (req, res) => {
     }
 });
 
+// --- delete specific entry from table ---
+app.delete('/api/client-list/:id', async (req, res) => {
+   try {
+       const id = req.params.id;
+       
+       // --- delete/ destroy specified client_entry ---
+       await Client_Entry.destroy({ where: {
+        client_entry_id: id } });
+        
+       console.log("Deleted Client Entry ", id);
+   } catch (err) {
+       console.error("Error deleting client entry: ", err);
+   }
+});
+
+// --- delete specific entry from table ---
+app.delete('/api/professional-list/:id', async (req, res) => {
+   try {
+       const id = req.params.id;
+
+       // --- delete/ destroy specified professional_entry ---
+       await Professional_Entry.destroy({ where: {
+        professional_entry_id: id } });
+
+       console.log("Deleted Professional Entry ", id);
+   } catch (err) {
+       console.error("Error deleting professional entry: ", err);
+   }
+});
+
 // --- add client form data to the database on submission ---
 app.post("/contact/client/add", async (req, res) => {
     // --- destructure req.body to retrieve the following properties ---
