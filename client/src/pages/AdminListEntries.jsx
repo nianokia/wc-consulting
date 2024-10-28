@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Footer from "../components/Footer";
+import Entry from "../components/Entry";
 import { useAuth0 } from "@auth0/auth0-react";
 
 /* ------ PURPOSE ------
@@ -49,12 +50,37 @@ const AdminListEntries = () => {
     setEntries(combinedResults);
   }
 
-  console.log("All Entries: ", entries);
-
   // --- monitors changes to entries and reruns loadEntries ---
   useEffect(() => {
     loadEntries();
   }, []);
+
+  const handleDelete = async (entry) => {
+    // --- check if entry is a client or professional then fetch the corresponding DELETE request ---
+    if (entry.client_entry_id) {
+      const response = await fetch(`${process.env.DOMAIN}/api/client-list/${entry.client_entry_id}`, {
+        method: "DELETE"
+      });
+
+      if (response.ok) {
+        loadEntries();
+      } else {
+        console.error("Error", response.statusText)
+      }
+    } else {
+      const response = await fetch(`${process.env.DOMAIN}/api/professional-list/${entry.professional_entry_id}`, {
+        method: "DELETE"
+      });
+
+      if (response.ok) {
+        loadEntries();
+      }else {
+        console.error("Error", response.statusText)
+      }
+    }
+    
+    console.log("Deleted the entry!");
+  };
 
   // --- specify returnTo URL to origin (Home.jsx) ---
   const handleLogout = () => {
@@ -69,7 +95,7 @@ const AdminListEntries = () => {
         {entries.map((entry, i) => {
           return (
             <li key={i}>
-              {entry.first_name} {entry.last_name}
+              <Entry entry={entry} handleDelete={handleDelete} />
             </li>
           )
         })}
