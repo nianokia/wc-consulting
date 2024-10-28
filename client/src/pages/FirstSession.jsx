@@ -10,7 +10,7 @@ const FirstSession = () => {
   return (
     <>
       <Header />
-      <Hero title="First Session" image='/src/images/walkbridge.png' />
+      <Hero title="First Session" image='../walkbridge.png' />
       <h1>First Session</h1>
 
       <div className="first-session-details">

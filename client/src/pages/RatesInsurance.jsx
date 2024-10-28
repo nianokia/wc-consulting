@@ -11,7 +11,7 @@ const RatesInsurance = () => {
     <>
       <Header />
       {/* HERO comp */}
-      <Hero title="Rates & Insurance" image="/src/images/walkbridge.png" />
+      <Hero title="Rates & Insurance" image="../walkbridge.png" />
       <h1>Rates & Insurance</h1>
 
       <div>

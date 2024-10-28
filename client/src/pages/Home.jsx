@@ -24,7 +24,7 @@ const Home = () => {
   return (
     <div className='Home' style={{width: '760px'}}>
       <Header />
-      <Hero title="Wright Choice Consulting" tagline="Family Therapy/ Parent Coaching" image="/src/images/walkbridge.png" textalign='center' button="Contact" link="/contact"/>
+      <Hero title="Wright Choice Consulting" tagline="Family Therapy/ Parent Coaching" image="../walkbridge.png" textalign='center' button="Contact" link="/contact"/>
       
       <section className='backgroundBlock'>
         <h4>Background Information addressing the What? and Why?</h4>

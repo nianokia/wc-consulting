@@ -13,7 +13,7 @@ const About = () => {
 
       <div className="name-and-headshot">
           <h2>Gregory B Wright LPCS</h2>
-          <img src="/src/images/headshot.jpeg" alt="Headshot of Gregory B Wright in front of a black background. He's a black man wearing glasses, a black blazer, a white buttondown shirt, and a paid navy and blue tie." />
+          <img src="../headshot.jpeg" alt="Headshot of Gregory B Wright in front of a black background. He's a black man wearing glasses, a black blazer, a white buttondown shirt, and a paid navy and blue tie." />
       </div>
 
       <div className="about-text-content">
