@@ -47,7 +47,9 @@ const Client_Entry = sequelize.define('client_entry', {
         allowNull: false,
     }, comment: {
         type: DataTypes.STRING,
-    },
+    }, created_at: {
+        type: DataTypes.DATE,
+    }
 }, {
     // --- this ensures that sequelize doesn't modify the table name specified or create a createdAt or updatedAt ---
     tableName: 'client_entries',

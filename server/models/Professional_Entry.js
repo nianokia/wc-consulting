@@ -36,7 +36,9 @@ const Professional_Entry = sequelize.define('professional_entry', {
     }, comment: {
         type: DataTypes.STRING,
         allowNull: false,
-    },
+    }, created_at: {
+        type: DataTypes.DATE,
+    }
 }, {
     // --- ensures that sequelize uses the tablename specified & doesn't add a createdAt or updatedAt ---
     tableName: 'professional_entries',
