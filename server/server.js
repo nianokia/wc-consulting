@@ -51,9 +51,11 @@ app.use(auth(config));
 app.get("/api/client-list", async (req, res) => {
     try {
         const client_entries = await Client_Entry.findAll();
+        console.log("Response.body in Client: ", response.body);
         res.json(client_entries);
     } catch (err) {
-        console.error("Error: ", err);
+        console.error("Error retrieving client entries: ", err);
+        console.log("error.response.body in Client: ", err.response.body);
         return res.status(400).json({ err });
     }
 });
@@ -62,9 +64,11 @@ app.get("/api/client-list", async (req, res) => {
 app.get("/api/professional-list", async (req, res) => {
     try {
         const professional_entries = await Professional_Entry.findAll();
+        console.log("Response.body in Professional: ", response.body);
         res.json(professional_entries);
     } catch (err) {
-        console.error("Error: ", err);
+        console.error("Error retrieving professional entries: ", err);
+        console.log("error.response.body in Client: ", err.response.body);
         return res.status(400).json({ err });
     }
 });
@@ -73,7 +77,7 @@ app.get("/api/professional-list", async (req, res) => {
 app.delete('/api/client-list/:id', async (req, res) => {
    try {
        const id = req.params.id;
-       
+
        // --- delete/ destroy specified client_entry ---
        await Client_Entry.destroy({ where: {
         client_entry_id: id } });
