@@ -48,10 +48,21 @@ app.use(auth(config));
 // -------- CRUD OPERATIONS --------
 
 // --- retrieve all data from client_entries table ---
-app.get("/api/list", async (req, res) => {
+app.get("/api/client-list", async (req, res) => {
     try {
         const client_entries = await Client_Entry.findAll();
         res.json(client_entries);
+    } catch (err) {
+        console.error("Error: ", err);
+        return res.status(400).json({ err });
+    }
+});
+
+// --- retrieve all data from professional_entries table ---
+app.get("/api/professional-list", async (req, res) => {
+    try {
+        const professional_entries = await Professional_Entry.findAll();
+        res.json(professional_entries);
     } catch (err) {
         console.error("Error: ", err);
         return res.status(400).json({ err });
