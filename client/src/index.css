@@ -24,6 +24,10 @@ body {
   min-width: 320px;
 }
 
+form input, textarea, select {
+  margin-left: 10px;
+}
+
 footer {
   width: 100%;
   text-align: end;
