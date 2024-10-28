@@ -100,6 +100,7 @@ const ClientForm = () => {
 
         <label>Type of Therapy
           <select name="type" id="type" value={state.type || ""} onChange={handleChange} required>
+            <option value="" disabled hidden>Select an option</option>
             <option value="family">Family</option>
             <option value="couple">Couple</option>
             <option value="individual">Indivdual</option>
@@ -110,6 +111,7 @@ const ClientForm = () => {
 
         <label>Issue
           <select name="issue" id="issue" value={state.issue || ""} onChange={handleChange} required>
+            <option value="" disabled hidden>Select an option</option>
             <option value="depression">Depression</option>
             <option value="anxiety">Anxiety</option>
             <option value="life_challenges">Life Challenges</option>
@@ -120,12 +122,13 @@ const ClientForm = () => {
         <br /><br />
 
         <label>Age
-          <input type="number" name="age" value={state.age || ""} onChange={handleChange} required/>
+          <input type="number" min='14' max='100' name="age" value={state.age || ""} onChange={handleChange} required/>
         </label>
         <br /><br />
 
         <label>Race/ Ethnicity
           <select name="race" id="race" value={state.race || ""} onChange={handleChange} required>
+            <option value="" disabled hidden>Select an option</option>
             <option value="aian">American Indian or Alaska Native</option>
             <option value="asian">Asian</option>
             <option value="black">Black or African-American</option>
@@ -141,6 +144,7 @@ const ClientForm = () => {
 
         <label>Gender
           <select name="gender" id="gender" value={state.gender || ""} onChange={handleChange} required>
+            <option value="" disabled hidden>Select an option</option>
             <option value="man">Man</option>
             <option value="woman">Woman</option>
             <option value="non_binary">Non-binary</option>
