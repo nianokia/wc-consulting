@@ -7,7 +7,7 @@ const ContactQuestion = () => {
   return (
     <>
       <h2 style={{textAlign: "center"}}>Are you a client or professional?</h2>
-      <div style={{display: "flex", justifyContent: "space-evenly"}}>
+      <div style={{display: "flex", justifyContent: "space-evenly", marginBottom: "30px"}}>
         <button>
           <Link to='/contact/client'>Client</Link>
         </button>
