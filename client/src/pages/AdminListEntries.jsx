@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Footer from "../components/Footer";
 import { useAuth0 } from "@auth0/auth0-react";
-import { Link } from "react-router-dom";
 
 /* ------ PURPOSE ------
   Displays list of all entries and allows admin to filter results and delete entries 
@@ -9,7 +8,7 @@ import { Link } from "react-router-dom";
 */
 
 const AdminListEntries = () => {
-  const [client_entries, setClient_Entries] = useState([]);
+  const [entries, setEntries] = useState([]);
 
   // --- state the method the app wants to use from the useAuth0 hook ---
   const { logout } = useAuth0();
@@ -18,34 +17,43 @@ const AdminListEntries = () => {
   var responseClone;
 
   // --- fetch all the client entries and update its corresponding state ---
-  const loadClientEntries = () => {
-    fetch(`${process.env.DOMAIN}/api/list`)
-      .then((response) => {
-        // --- clone response so that we can reuse gathered data ---
-        responseClone = response.clone();
-        return response.json();
+  const loadEntries = async () => {
+    // put both GET list routes into an array
+    const tableRoutes = [`${process.env.DOMAIN}/api/client-list`, `${process.env.DOMAIN}/api/professional-list`];
 
-      })
-      .then((client_entries) => {
-        setClient_Entries(client_entries);
-
-      }, (rejectionReason) => {
-        // --- log the error received and the response.json ---
-        console.log('Error parsing JSON from response: ', rejectionReason, responseClone);
-        // --- gather raw text from response ---
-        responseClone.text()
-        
-        .then((bodyText) => {
+    // Use map to fetch data from each table
+    const requests = tableRoutes.map((tableRoute) =>
+      fetch(tableRoute)
+        .then((response) => {
+          // --- clone response so that we can reuse gathered data ---
+          responseClone = response.clone();
+          return response.json();
+        })
+        .catch((err) => {
+          // --- log the error received and the response.json ---
+          console.error("Error parsing JSON from response: ", err, responseClone);
+          // --- gather raw text from response ---
+          const bodyText = responseClone.text();
           // --- log the raw text response ---
           console.log('Received the following instead of valid JSON:', bodyText);
-          
-        });
-      })
+        })
+    )
+
+    // --- wait for all promised to load then return a single promise ---
+    const results = await Promise.all(requests);
+
+    // --- concatenate both of the arrays in results into a single array ---
+    const combinedResults = results.flat();
+
+    // --- set entries state to the combined single array of all the fetched data ---
+    setEntries(combinedResults);
   }
 
-  // --- monitors changes to client_entries and reruns loadClientEntries ---
+  console.log("All Entries: ", entries);
+
+  // --- monitors changes to entries and reruns loadEntries ---
   useEffect(() => {
-    loadClientEntries();
+    loadEntries();
   }, []);
 
   // --- specify returnTo URL to origin (Home.jsx) ---
@@ -54,14 +62,14 @@ const AdminListEntries = () => {
   };
 
   return (
-    <>
+    <div className="AdminList">
       <h1>Admin List Entries</h1>
-      <ul>
+      <ul style={{ listStyle: "none" }}>
         {/* parameter i = unique index */}
-        {client_entries.map((client_entry, i) => {
+        {entries.map((entry, i) => {
           return (
             <li key={i}>
-              {client_entry.first_name} {client_entry.last_name}
+              {entry.first_name} {entry.last_name}
             </li>
           )
         })}
@@ -73,7 +81,7 @@ const AdminListEntries = () => {
         </button>
       </div>
       <Footer />
-    </>
+    </div>
   )
 }
 
