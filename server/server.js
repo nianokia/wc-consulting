@@ -51,7 +51,6 @@ app.use(auth(config));
 app.get("/api/client-list", async (req, res) => {
     try {
         const client_entries = await Client_Entry.findAll();
-        console.log("Response.body in Client: ", response.body);
         res.json(client_entries);
     } catch (err) {
         console.error("Error retrieving client entries: ", err);
@@ -63,7 +62,6 @@ app.get("/api/client-list", async (req, res) => {
 app.get("/api/professional-list", async (req, res) => {
     try {
         const professional_entries = await Professional_Entry.findAll();
-        console.log("Response.body in Professional: ", response.body);
         res.json(professional_entries);
     } catch (err) {
         console.error("Error retrieving professional entries: ", err);
