@@ -34,7 +34,9 @@ const AdminListEntries = () => {
           // --- log the error received and the response.json ---
           console.error("Error parsing JSON from response: ", err, responseClone);
           // --- gather raw text from response ---
-          const bodyText = responseClone.text();
+          responseClone.text();
+        })
+        .finally((bodyText) => {
           // --- log the raw text response ---
           console.log('Received the following instead of valid JSON:', bodyText);
         })
