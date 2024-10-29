@@ -55,7 +55,6 @@ app.get("/api/client-list", async (req, res) => {
         res.json(client_entries);
     } catch (err) {
         console.error("Error retrieving client entries: ", err);
-        console.log("error.response.body in Client: ", err.response.body);
         return res.status(400).json({ err });
     }
 });
@@ -68,7 +67,6 @@ app.get("/api/professional-list", async (req, res) => {
         res.json(professional_entries);
     } catch (err) {
         console.error("Error retrieving professional entries: ", err);
-        console.log("error.response.body in Client: ", err.response.body);
         return res.status(400).json({ err });
     }
 });
