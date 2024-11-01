@@ -7,6 +7,7 @@ import Client_Entry from './models/Client_Entry.js';
 import Professional_Entry from './models/Professional_Entry.js';
 import { auth } from 'express-openid-connect';
 import sgMail from '@sendgrid/mail';
+// import { error } from 'console';
 
 // -------- DEFINE VARIABLES --------
 const app = express();
@@ -26,7 +27,8 @@ const config = {
     secret: process.env.SECRET,
     baseURL: process.env.DOMAIN,
     clientID: process.env.VITE_AUTH0_CLIENT_ID,
-    issuerBaseURL: `https://${process.env.VITE_AUTH0_DOMAIN}`
+    issuerBaseURL: `https://${process.env.VITE_AUTH0_DOMAIN}`,
+    // allowedEmails: ['wrightchoiceconsulting@gmail.com', 'gregorywright0614@gmail.com', 'nw.niawright@gmail.com']
 };
 
 
@@ -43,7 +45,16 @@ app.use(express.static(path.join(__dirname, '../client/dist')));
 
 // --- use auth router to attach /login, /logout, & /callback routes to baseURL ---
 app.use(auth(config));
-
+// app.use((req, res, next) => {
+//     const { email } = req.user;
+//     console.log("Email: ", email);
+//     console.log("allowedEmails: ", config.allowedEmails);
+//     if (config.allowedEmails.includes(email)) {
+//         next();
+//     } else {
+//         res.status(403).json({ error: "Unauthorized access" });
+//     }
+// });
 
 // -------- CRUD OPERATIONS --------
 
