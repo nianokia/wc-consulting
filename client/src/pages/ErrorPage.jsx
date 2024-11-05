@@ -1,16 +1,21 @@
 import React from "react"
 import Header from "../components/Header";
+import Hero from "../components/Hero";
 import Footer from "../components/Footer";
 import { Link } from "react-router-dom"
 
 // PURPOSE - A component that users are directed to when the page they're trying to reach doesn't exist
 
-const NoPage = () => {
+const ErrorPage = () => {
   return (
     <>
       <Header />
-      <h1>404 Not Found</h1>
+      <Hero title='404 Not Found' image='../walkbridge.png' />
       <br />
+        <main style={{fontSize: "18px"}}>
+          Please navigate back to the Home page.
+        </main>
+      <br /><br />
       <hr />
       <Footer />
     </>
