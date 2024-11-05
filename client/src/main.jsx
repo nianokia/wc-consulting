@@ -17,7 +17,6 @@ import FirstSession from './pages/FirstSession.jsx'
 import ContactQuestion from './components/ContactQuestion.jsx'
 import ClientForm from './components/ClientForm.jsx'
 import ProfessionalForm from './components/ProfessionalForm.jsx'
-import AdminLogin from './pages/AdminLogin.jsx'
 import AdminListEntries from './pages/AdminListEntries.jsx'
 
 
@@ -54,9 +53,6 @@ const router = createBrowserRouter([{
 }, {
   path: '/first-session',
   element: <FirstSession />
-}, {
-  path: '/login',
-  element: <AdminLogin />
 }, {
   path: '/list',
   element: <AdminListEntries />
