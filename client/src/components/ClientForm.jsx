@@ -1,6 +1,5 @@
 import React, { useReducer } from "react";
 import { validateEmail, showEmailError, hideEmailError } from "../constants.jsx";
-
 /* ------ PURPOSE ------
   An interest form for prospective clients to fill out.
   Sends POST request with inputted form data to the server's database
