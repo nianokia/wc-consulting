@@ -1,4 +1,5 @@
 import React, { useReducer } from "react";
+import { validateEmail, showEmailError, hideEmailError } from "../constants.jsx";
 
 /* ------ PURPOSE ------
   An interest form for professionals to fill out if they want to request services.
@@ -67,22 +68,17 @@ const ProfessionalForm = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     
-    // --- select emailError div ---
-    const emailError = document.getElementById("emailError");
-    emailError.style = "color: red";
-
     // --- validate email input field ---
     if (!state.email) {
-      emailError.innerText = "Email required";
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(state.email)) {
-      emailError.innerText = "Invalid email address";
-      emailError.style.marginLeft = "10px";
+      showEmailError("Email required");
+    } else if (!validateEmail(state.email)) {
+      showEmailError("Invalid email address");
+      // emailError.style.marginLeft = "10px";
     } else {
-      emailError.style.display = "none";
+      hideEmailError();
       postProfessionalEntry(state)
+      console.log("Professional Entry: ", state);
     }
-
-    console.log("Professional Entry: ", state);
   }
 
   return (
