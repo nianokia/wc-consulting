@@ -1,6 +1,5 @@
 import React from "react";
 import moment from 'moment';
-// moment().format();
 
 /* ------ PURPOSE ------
   Display each entry with details. Allow admin to delete an entry.
