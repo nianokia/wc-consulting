@@ -1,10 +1,11 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 // PURPOSE - display a hero on certain pages with an image, title, and optional button
 // its a reusable component that can be called in many components while being editted in one component (normalizes code)
 
 const Hero = ({ title, image, button, textalign, tagline, link }) => {
+  const navigate = useNavigate();
   return (
     
     <div className="Hero" style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url(${image})`}}>
@@ -12,8 +13,8 @@ const Hero = ({ title, image, button, textalign, tagline, link }) => {
         <>
           <h1 style={{textAlign: textalign, margin: "10px"}}>{title}</h1>
           <h3 style={{textAlign: textalign, margin: "10px 0 20px 0"}}>{tagline}</h3>
-          <button style={{display: "block", margin: "auto"}}>
-            <Link to={link} style={{textDecoration: "none", color: "var(--text-color)"}}>{button}</Link>
+          <button onClick={() => navigate(link)} style={{display: "block", margin: "auto"}}>
+            {button}
           </button>
         </>
       ) : (
