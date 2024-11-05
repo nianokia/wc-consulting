@@ -13,9 +13,6 @@ const AdminListEntries = () => {
 
   // --- state the method the app wants to use from the useAuth0 hook ---
   const { logout } = useAuth0();
-  
-  // --- create variable to debug fetch request ---
-  var responseClone;
 
   // --- fetch all the client entries and update its corresponding state ---
   const loadEntries = async () => {
@@ -26,13 +23,10 @@ const AdminListEntries = () => {
     const requests = tableRoutes.map((tableRoute) =>
       fetch(tableRoute)
         .then((response) => {
-          // --- clone response so that we can reuse gathered data ---
-          responseClone = response.clone();
           return response.json();
         })
         .catch((err) => {
-          // --- log the error received and the response.json ---
-          console.error("Error parsing JSON from response: ", err, responseClone);
+          console.error("Error parsing JSON from tableRouts response: ", err);
         })
     )
 
