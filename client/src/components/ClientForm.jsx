@@ -1,5 +1,5 @@
-import React, { useEffect, useReducer } from "react";
-
+import React, { useReducer } from "react";
+import { validateEmail, showEmailError, hideEmailError } from "../constants.jsx";
 /* ------ PURPOSE ------
   An interest form for prospective clients to fill out.
   Sends POST request with inputted form data to the server's database
@@ -67,25 +67,23 @@ const ClientForm = () => {
     });
   }
 
-  // --- seperate event handler to account for preventing the event listener and to call postClientEntry with the state data ---
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // --- select emailError div ---
-    const emailError = document.getElementById("emailError");
-    emailError.style = "color: red";
+  // --- separate event handler to account for preventing the event listener and to call postClientEntry with the state data ---
+ const handleSubmit = (event) => {
+   event.preventDefault(); 
 
-    // --- validate email input field ---
-    if (!state.email) {
-      emailError.innerText = "Email required";
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(state.email)) {
-      emailError.innerText = "Invalid email address";
-      emailError.style.marginLeft = "10px";
-    } else {
-      emailError.style.display = "none";
-      postClientEntry(state)
-      console.log("Client Entry: ", state);
-    }
-  }
+   // --- validate email input field ---
+   if (!state.email) {
+     showEmailError("Email required");
+   } else if (!validateEmail(state.email)) {
+     showEmailError("Invalid email address");
+     // emailError.style.marginLeft = "10px";
+   } else {
+     hideEmailError();
+     postClientEntry(state)
+     console.log("Client Entry: ", state);
+   }
+ }
+
 
   return (
     <>
