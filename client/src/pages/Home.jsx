@@ -35,6 +35,7 @@ const Home = () => {
       
       <section className='backgroundBlock'>
         <h4>Background Information addressing the What? and Why?</h4>
+        {/* --- Research how to make this button with ReactRouter link more accessible --- */}
         <button><Link to='/services'>Services</Link></button>
       </section>
       <br />
