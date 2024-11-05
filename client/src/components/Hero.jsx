@@ -7,13 +7,13 @@ import { Link } from "react-router-dom";
 const Hero = ({ title, image, button, textalign, tagline, link }) => {
   return (
     
-    <div className="Hero" style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.5)), url(${image})`}}>
+    <div className="Hero" style={{backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url(${image})`}}>
       {textalign === 'center' ? (
         <>
-          <h1 style={{textAlign: "center", margin: "10px"}}>{title}</h1>
-          <h3 style={{textAlign: "center", margin: "10px 0 20px 0"}}>{tagline}</h3>
+          <h1 style={{textAlign: textalign, margin: "10px"}}>{title}</h1>
+          <h3 style={{textAlign: textalign, margin: "10px 0 20px 0"}}>{tagline}</h3>
           <button style={{display: "block", margin: "auto"}}>
-            <Link to={link}>{button}</Link>
+            <Link to={link} style={{textDecoration: "none", color: "var(--text-color)"}}>{button}</Link>
           </button>
         </>
       ) : (
