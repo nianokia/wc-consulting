@@ -27,7 +27,6 @@ const config = {
     baseURL: process.env.DOMAIN,
     clientID: process.env.VITE_AUTH0_CLIENT_ID,
     issuerBaseURL: `https://${process.env.VITE_AUTH0_DOMAIN}`,
-    // allowedEmails: ['wrightchoiceconsulting@gmail.com', 'gregorywright0614@gmail.com', 'nw.niawright@gmail.com']
 };
 
 
@@ -44,16 +43,7 @@ app.use(express.static(path.join(__dirname, '../client/dist')));
 
 // --- use auth router to attach /login, /logout, & /callback routes to baseURL ---
 app.use(auth(config));
-// app.use((req, res, next) => {
-//     const { email } = req.user;
-//     console.log("Email: ", email);
-//     console.log("allowedEmails: ", config.allowedEmails);
-//     if (config.allowedEmails.includes(email)) {
-//         next();
-//     } else {
-//         res.status(403).json({ error: "Unauthorized access" });
-//     }
-// });
+
 
 // -------- CRUD OPERATIONS --------
 
