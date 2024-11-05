@@ -10,21 +10,28 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 const Home = () => {
   // --- state method that app intends to use from useAuth0 hook ---
-  const { loginWithRedirect } = useAuth0();
+  const { loginWithRedirect, isAuthenticated, isLoading } = useAuth0();
 
-  // --- specify redirect URL to '/list' (AdminListEntries.jsx) & appState to current page (Home.jsx) ---
-  const handleLogin = () => {
-    console.log("Window Location Origin/list: ", `${window.location.origin}/list`);
-    loginWithRedirect({
-      authorizationParams: { redirect_uri: `${window.location.origin}/list` }, 
-      appState: { returnTo: window.location.href } 
-    });
-  };
+  if (isLoading) {
+    return <div>Loading...</div>
+  }
+
+  if (isAuthenticated) {
+    return (
+      <div>
+        <Header />
+        <Hero title="Wright Choice Consulting" tagline="Family Therapy/ Parent Coaching" image="../walkbridge.png" textalign='center' button="Contact" link="/contact"/>
+        <p>Welcome Admin!</p>
+        <button><Link to='/list'>Admin List Entries</Link></button>
+        <Footer />
+      </div>
+    )
+  }
 
   return (
     <div className='Home' style={{width: '760px'}}>
       <Header />
-      <Hero title="Wright Choice Consulting" tagline="Family Therapy/ Parent Coaching" image="/src/images/walkbridge.png" textalign='center' button="Contact" link="/contact"/>
+      <Hero title="Wright Choice Consulting" tagline="Family Therapy/ Parent Coaching" image="../walkbridge.png" textalign='center' button="Contact" link="/contact"/>
       
       <section className='backgroundBlock'>
         <h4>Background Information addressing the What? and Why?</h4>
@@ -42,7 +49,7 @@ const Home = () => {
 
       {/* --- add Login Button with Auth0 --- */}
       <div className='loginButton' style={{display: 'flex', justifyContent: 'flex-end'}}>
-        <button onClick={handleLogin}>
+        <button onClick={() => loginWithRedirect()}>
           Admin Login
         </button>
       </div>

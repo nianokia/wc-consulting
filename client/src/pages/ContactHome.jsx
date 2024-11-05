@@ -1,10 +1,12 @@
 import React from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import { Link, Outlet } from "react-router-dom";
+import ContactQuestion from "../components/ContactQuestion";
+import { Outlet } from "react-router-dom";
 
-// PURPOSE - Displays details regarding hours, location, contact methods, and a question 
-// directing users to a client or professional form to fill out to express interest in services
+/* ------ PURPOSE ------
+  Displays details regarding hours, location, contact methods, and a question directing users to a client or professional form to fill out to express interest in services.
+*/
 
 const ContactHome = () => {
   return (
@@ -12,12 +14,9 @@ const ContactHome = () => {
       <Header />
       <h1>Contact Home</h1>
 
-      {/* SWITCH BETWEEN QUESTION, CLIENT FORM, & PROFESSIONAL FORM */}
-      <Link to='/contact/question'>Question</Link>
-      <Link to='/contact/client'>Client</Link>
-      <Link to='/contact/professional'>Professional</Link>
+      <ContactQuestion />
 
-      {/* This Outlet is where the child routes above will be rendered on the parent component (Contact Home) */}
+      {/* Outlet = where form will be rendered on the parent component (ContactHome) */}
       <Outlet />
 
       <div>

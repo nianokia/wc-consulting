@@ -1,4 +1,5 @@
 import React, { useReducer } from "react";
+import { validateEmail, showEmailError, hideEmailError } from "../constants.jsx";
 
 /* ------ PURPOSE ------
   An interest form for professionals to fill out if they want to request services.
@@ -66,8 +67,18 @@ const ProfessionalForm = () => {
   // --- separate event handler to account for preventing the event listener & to call postProfessionalEntry with the state data ---
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("Professional Entry: ", state);
-    postProfessionalEntry(state);
+    
+    // --- validate email input field ---
+    if (!state.email) {
+      showEmailError("Email required");
+    } else if (!validateEmail(state.email)) {
+      showEmailError("Invalid email address");
+      // emailError.style.marginLeft = "10px";
+    } else {
+      hideEmailError();
+      postProfessionalEntry(state)
+      console.log("Professional Entry: ", state);
+    }
   }
 
   return (
@@ -80,27 +91,28 @@ const ProfessionalForm = () => {
         {/* --- set each input's value to the state value or "" so that the app is not trying to control an uncontrolled input --- */}
 
         <label>First Name
-          <input type="text" name="first_name" required value={state.first_name || ""} onChange={handleChange} />
+          <input type="text" name="first_name" required value={state.first_name || ""} onChange={handleChange} placeholder="John" />
         </label>
         <br /><br />
 
         <label>Last Name
-          <input type="text" name="last_name" required value={state.last_name || ""} onChange={handleChange} />
+          <input type="text" name="last_name" required value={state.last_name || ""} onChange={handleChange} placeholder="Doe" />
         </label>
         <br /><br />
 
         <label>Phone
-          <input type="text" name="phone" required value={state.phone || ""} onChange={handleChange} />
+          <input type="tel" name="phone" required value={state.phone || ""} onChange={handleChange} pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="000-000-0000" />
         </label>
         <br /><br />
 
-        <label>Email
-          <input type="text" name="email" required value={state.email || ""} onChange={handleChange} />
+        <label style={{display: "flex"}}>Email
+          <input type="email" name="email" required value={state.email || ""} onChange={handleChange} placeholder="abc123@testing.com" />
+          <div id="emailError"></div>
         </label>
         <br /><br />
 
         <label>Comment
-          <textarea name="comment" id="comment" required value={state.comment || ""} onChange={handleChange}></textarea>
+          <textarea name="comment" id="comment" required value={state.comment || ""} onChange={handleChange} placeholder="Why are you interested in services?" rows="3" cols="30"></textarea>
         </label>
         <br /><br />
 

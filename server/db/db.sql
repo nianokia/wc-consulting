@@ -35,7 +35,7 @@ CREATE TABLE public.client_entries (
     race character varying(100) NOT NULL,
     gender character varying(100) NOT NULL,
     comment character varying(400),
-    createdat timestamp without time zone
+    created_at timestamp without time zone
 );
 
 

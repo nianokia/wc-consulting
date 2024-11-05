@@ -3,7 +3,8 @@ import cors from 'cors';
 import 'dotenv/config';
 import path, { dirname } from 'path';
 import { fileURLToPath } from 'url';
-import { DataTypes, Sequelize } from 'sequelize';
+import Client_Entry from './models/Client_Entry.js';
+import Professional_Entry from './models/Professional_Entry.js';
 import { auth } from 'express-openid-connect';
 import sgMail from '@sendgrid/mail';
 
@@ -16,105 +17,6 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 
-// -------- SEQUELIZE FUNCTIONS & CONFIGURATIONS --------
-
-// --- connect sequelize to the database ---
-const sequelize = new Sequelize(process.env.DATABASE_URL);
-
-// --- verify that sequelize connected to the database ---
-async function authenticateDBConnection() {
-    try {
-        await sequelize.authenticate()
-        console.log("Connection successful");
-    } catch (err) { 
-        console.error("Detailed connection error:", { message: err.message, code: err.parent?.code, detail: err.parent?.detail }); throw err; 
-    }
-}
-authenticateDBConnection();
-
-// --- create a model that contains the same columns & constraints as the client_entries table ---
-const Client_Entry = sequelize.define('client_entry', {
-    client_entry_id: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
-        primaryKey: true,
-    }, first_name: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    }, last_name: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    }, email: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    }, type: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    }, issue: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    }, age: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-    }, race: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    }, gender: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    }, comment: {
-        type: DataTypes.STRING,
-    },
-}, {
-    // --- this ensures that sequelize doesn't modify the table name specified or create a createdAt or updatedAt ---
-    tableName: 'client_entries',
-    createdAt: false,
-    updatedAt: false,
-});
-
-// --- create a model that contains the same columns & constraints as the professional_entries table ---
-const Professional_Entry = sequelize.define('professional_entry', {
-    professional_entry_id: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
-        primaryKey: true,
-    }, first_name: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    }, last_name: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    }, phone: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    }, email: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    }, comment: {
-        type: DataTypes.STRING,
-        allowNull: false,
-    },
-}, {
-    // --- ensures that sequelize uses the tablename specified & doesn't add a createdAt or updatedAt ---
-    tableName: 'professional_entries',
-    createdAt: false,
-    updatedAt: false,
-})
-
-// --- sync client & professional model & table together so they're gathering the same information with the same constraints and data types ---
-Client_Entry.sync().then((data) => {
-    console.log("Client model & table synced succesfully!");
-}).catch((err) => {
-    console.log("Error syncing client table & model: ", err);
-});
-
-Professional_Entry.sync().then((data) => {
-    console.log("Professional model & table synced successfully!");
-}).catch((err) => {
-    console.error("Error syncing professional table & model :", err);
-})
-
-
 // -------- AUTH0 CONFIGURATION --------
 
 // --- configure Auth0 router ---
@@ -124,8 +26,9 @@ const config = {
     secret: process.env.SECRET,
     baseURL: process.env.DOMAIN,
     clientID: process.env.VITE_AUTH0_CLIENT_ID,
-    issuerBaseURL: `https://${process.env.VITE_AUTH0_DOMAIN}`
+    issuerBaseURL: `https://${process.env.VITE_AUTH0_DOMAIN}`,
 };
+
 
 // -------- TWILIO --------
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
@@ -135,24 +38,65 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 app.use(cors());
 app.use(express.json());
 
-// --- use auth router to attach /login, /logout, and /callback routes to the baseURL ---
-app.use(auth(config));
-
 // --- direct server to use the compiled build files from React ---
 app.use(express.static(path.join(__dirname, '../client/dist')));
+
+// --- use auth router to attach /login, /logout, & /callback routes to baseURL ---
+app.use(auth(config));
 
 
 // -------- CRUD OPERATIONS --------
 
 // --- retrieve all data from client_entries table ---
-app.get("/api/list", async (req, res) => {
+app.get("/api/client-list", async (req, res) => {
     try {
         const client_entries = await Client_Entry.findAll();
         res.json(client_entries);
     } catch (err) {
-        console.error("Error: ", err);
+        console.error("Error retrieving client entries: ", err);
         return res.status(400).json({ err });
     }
+});
+
+// --- retrieve all data from professional_entries table ---
+app.get("/api/professional-list", async (req, res) => {
+    try {
+        const professional_entries = await Professional_Entry.findAll();
+        res.json(professional_entries);
+    } catch (err) {
+        console.error("Error retrieving professional entries: ", err);
+        return res.status(400).json({ err });
+    }
+});
+
+// --- delete specific entry from table ---
+app.delete('/api/client-list/:id', async (req, res) => {
+   try {
+       const id = req.params.id;
+
+       // --- delete/ destroy specified client_entry ---
+       await Client_Entry.destroy({ where: {
+        client_entry_id: id } });
+        
+       console.log("Deleted Client Entry ", id);
+   } catch (err) {
+       console.error("Error deleting client entry: ", err);
+   }
+});
+
+// --- delete specific entry from table ---
+app.delete('/api/professional-list/:id', async (req, res) => {
+   try {
+       const id = req.params.id;
+
+       // --- delete/ destroy specified professional_entry ---
+       await Professional_Entry.destroy({ where: {
+        professional_entry_id: id } });
+
+       console.log("Deleted Professional Entry ", id);
+   } catch (err) {
+       console.error("Error deleting professional entry: ", err);
+   }
 });
 
 // --- add client form data to the database on submission ---
