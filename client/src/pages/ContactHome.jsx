@@ -12,33 +12,43 @@ const ContactHome = () => {
   return (
     <div className="Contact" style={{width: "760px"}}>
       <Header />
-      <h1>Contact Home</h1>
+      <h1>Contact</h1>
+      <hr />
 
       <ContactQuestion />
 
       {/* Outlet = where form will be rendered on the parent component (ContactHome) */}
       <Outlet />
 
-      <div>
-        <section>
-          <span>Hours: </span><span>Monday - Friday -- Upon request/ Evenings, Saturday -- 10 AM - 3 PM</span>
+      <div style={{marginBottom: "115px"}}>
+        <section style={{display: "flex", width: "70%", alignItems: "start", gap: "20px"}}>
+          <h4 style={{margin: "0", width: "18%"}}>Hours: </h4>
+          <span>
+            <p style={{margin: "0"}}>
+              Monday - Friday -- Upon request/ Evenings
+            </p>
+            <p style={{marginTop: "5px", marginBottom: "0px"}}>
+              Saturday -- 10 AM - 3 PM
+            </p>
+          </span>
         </section>
         <br />
-        <section>
-          <span>Email :</span><span>wrightchoiceconsulting@gmail.com</span>
+        <section style={{display: "flex", width: "70%", gap: "20px"}}>
+          <h4 style={{margin: "0", width: "18%"}}>Email :</h4>
+          <span>wrightchoiceconsulting@gmail.com</span>
         </section>
         <br />
-        <section>
-          <span>Phone:</span><span>(866)323-7260</span>
+        <section style={{display: "flex", width: "70%", gap: "20px"}}>
+          <h4 style={{margin: "0", width: "18%"}}>Phone:</h4>
+          <span>(866)323-7260</span>
         </section>
         <br />
-        <section>
-          <span>Location :</span><span>250 South Pleasantburg Drive, Greenville, SC, 29607</span>
+        <section style={{display: "flex", width: "70%", gap: "20px"}}>
+          <h4 style={{margin: "0", width: "18%"}}>Location :</h4>
+          <span>250 South Pleasantburg Drive, Greenville, SC, 29607</span>
         </section>
       </div>
-      <br /><br />   
 
-      <hr />
       <Footer />
     </div>
   )
