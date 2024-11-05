@@ -2,7 +2,7 @@ import React from 'react'
 import Header from "../components/Header";
 import Footer from '../components/Footer';
 import Hero from '../components/Hero'
-import { Link } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useAuth0 } from "@auth0/auth0-react";
 
 // ------ PURPOSE ------
@@ -11,6 +11,10 @@ import { useAuth0 } from "@auth0/auth0-react";
 const Home = () => {
   // --- state method that app intends to use from useAuth0 hook ---
   const { loginWithRedirect, isAuthenticated, isLoading } = useAuth0();
+
+  // --- useNavigate allows me to not rely on Links to navigate to different components ---
+  // --- allows me to add navigation to other elements ---
+  const navigate = useNavigate();
 
   if (isLoading) {
     return <div>Loading...</div>
@@ -22,7 +26,7 @@ const Home = () => {
         <Header />
         <Hero title="Wright Choice Consulting" tagline="Family Therapy/ Parent Coaching" image="../walkbridge.png" textalign='center' button="Contact" link="/contact"/>
         <p>Welcome Admin!</p>
-        <button><Link to='/list'>Admin List Entries</Link></button>
+        <button onClick={() => navigate('/list')}>Admin List Entries</button>
         <Footer />
       </div>
     )
@@ -36,14 +40,14 @@ const Home = () => {
       <section className='backgroundBlock'>
         <h4>Background Information addressing the What? and Why?</h4>
         {/* --- Research how to make this button with ReactRouter link more accessible --- */}
-        <button><Link to='/services'>Services</Link></button>
+        <button onClick={() => navigate('/services')}>Services</button>
       </section>
       <br />
       <section className='videoBlock' style={{display: 'flex', justifyContent: 'space-around'}}>
         <div className='video'>Video</div>
         <div style={{display: 'flex', flexDirection: 'column', gap: "20px", justifyContent: 'center'}}>
           <aside>"<em>Short blurb/ quote related said in the video</em>"</aside>
-          <button><Link to='/about'>About</Link></button>
+          <button onClick={() => navigate('/about')}>About</button>
         </div>
       </section>
       <br />
