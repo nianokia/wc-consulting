@@ -43,7 +43,7 @@ const AdminListEntries = () => {
   // --- monitors changes to entries and reruns loadEntries ---
   useEffect(() => {
     loadEntries();
-  }, []);
+  }, [entries]);
 
   const handleDelete = async (entry) => {
     // --- check if entry is a client or professional then fetch the corresponding DELETE request ---
