@@ -7,7 +7,6 @@ import Client_Entry from './models/Client_Entry.js';
 import Professional_Entry from './models/Professional_Entry.js';
 import { auth } from 'express-openid-connect';
 import sgMail from '@sendgrid/mail';
-// import { error } from 'console';
 
 // -------- DEFINE VARIABLES --------
 const app = express();
