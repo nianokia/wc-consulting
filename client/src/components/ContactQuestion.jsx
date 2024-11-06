@@ -1,7 +1,9 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-// PURPOSE - Displays question on ContactHome component to direct user to 2 the client or professional form
+/* ------ PURPOSE ------
+  Displays question on ContactHome component to direct user to 2 the client or professional form
+*/
 
 const ContactQuestion = () => {
   const navigate = useNavigate();

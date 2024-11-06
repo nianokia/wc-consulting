@@ -1,8 +1,10 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-// PURPOSE - display a hero on certain pages with an image, title, and optional button
-// its a reusable component that can be called in many components while being editted in one component (normalizes code)
+/* ------ PURPOSE ------
+  Display a hero on certain pages with an image, title, and optional button
+  - a reusable component thats called in many components while being editted in one component (normalizes code)
+*/
 
 const Hero = ({ title, image, button, textalign, tagline, link }) => {
   const navigate = useNavigate();

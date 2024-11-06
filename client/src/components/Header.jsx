@@ -1,9 +1,10 @@
 import React from "react";
 import { Link, useNavigate } from 'react-router-dom';
 
-// PURPOSE - display a header at the top of every page with the business name and logo and a navbar of the company
-// its a reusable component that can be called in many components while being editted in one component (normalizes code)
-
+/* ------ PURPOSE ------
+  Display a header at the top of every page with the business name and logo and a navbar of the company
+  - a reusable component thas called in many components while being editted in one component (normalizes code)
+*/
 const Header = () => {
   const navigate = useNavigate();
  return (
