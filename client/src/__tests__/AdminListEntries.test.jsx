@@ -1,8 +1,8 @@
 /**
  * ------ ADMIN LIST ENTRIES TEST ------
  * Render component ( √ )
- * Fetch mapped Entries ( X )
- * Render Entry component ( X )
+ * Fetch mapped Entries ( √ )
+ * Render Entry component ( √ )
  * Render Logout Button ( √ )
  *   Check that Logout successfully logouts with Auth0 and returns to Home.jsx or '/' ( √ )
  * Render filters ( X )
@@ -15,27 +15,73 @@ import { MemoryRouter } from "react-router-dom";
 import { Auth0Provider } from "@auth0/auth0-react";
 import AdminListEntries from '../pages/AdminListEntries.jsx';
 
+const mockClientEntries = [{ client_entry_id: 1, first_name: "Client 1" }];
+const mockProfessionalEntries = [{ professional_entry_id: 1, first_name: "Professional 1" }];
+
 describe('AdminListEntries page component', () => {
+    // --- execute a fetch before each test ---
     beforeEach(()=> {
         global.fetch = vi.fn();
     })
 
+    // --- clear mocks after each test ---
     afterEach(() => {
         vi.clearAllMocks();
     })
 
     test('display entries', async () => {
-        const mockTableRoutes = [`${process.env.DOMAIN}/api/client-list`, `${process.env.DOMAIN}/api/professional-list`];
-        mockTableRoutes.forEach((tableRoute) => {
-            fetch.mockResolvedValueOnce({ok: true})
+        // --- fetch both mock entries from different paths ---
+        fetch.mockImplementation((url) => {
+            //  --- if url includes client-list fetch from this path ---
+            if (url.includes("client-list")) {
+                return Promise.resolve({
+                    ok: true,
+                    json: () => Promise.resolve(mockClientEntries),
+                });
+            //  --- if url includes professional-list fetch from this path ---
+            } else if (url.includes("professional-list")) {
+                return Promise.resolve({
+                    ok: true,
+                    json: () => Promise.resolve(mockProfessionalEntries),
+                });
+            }
+            // --- if url doesn't exist throw an error message ---
+            return Promise.reject(new Error("Unknown URL"));
         })
         
         render(<MemoryRouter><AdminListEntries /></MemoryRouter>);
 
-        expect(screen.getByText('jane')).toBeTruthy();
+        await waitFor(() => {
+            // --- expect data to display ---
+            expect(screen.getByText("Client 1")).toBeTruthy();
+            expect(screen.getByText("Professional 1")).toBeTruthy();
+
+            // --- expect fetch to be made to 2 different paths ---
+            expect(fetch).toHaveBeenCalledWith(`${process.env.DOMAIN}/api/client-list`);
+            expect(fetch).toHaveBeenCalledWith(`${process.env.DOMAIN}/api/professional-list`);
+        })
     })
 
     test('displays page content (heading, li)', async () => {
+        // --- fetch both mock entries from different paths ---
+        fetch.mockImplementation((url) => {
+            //  --- if url includes client-list fetch from this path ---
+            if (url.includes("client-list")) {
+                return Promise.resolve({
+                    ok: true,
+                    json: () => Promise.resolve(mockClientEntries),
+                });
+            //  --- if url includes professional-list fetch from this path ---
+            } else if (url.includes("professional-list")) {
+                return Promise.resolve({
+                    ok: true,
+                    json: () => Promise.resolve(mockProfessionalEntries),
+                });
+            }
+            // --- if url doesn't exist throw an error message ---
+            return Promise.reject(new Error("Unknown URL"));
+        })
+        
         render(<MemoryRouter><AdminListEntries /></MemoryRouter>);
 
         // --- select elements ---
@@ -46,6 +92,25 @@ describe('AdminListEntries page component', () => {
     })    
 
     test('logout button logs admin out', async () => {
+        // --- fetch both mock entries from different paths ---
+        fetch.mockImplementation((url) => {
+            //  --- if url includes client-list fetch from this path ---
+            if (url.includes("client-list")) {
+                return Promise.resolve({
+                    ok: true,
+                    json: () => Promise.resolve(mockClientEntries),
+                });
+            //  --- if url includes professional-list fetch from this path ---
+            } else if (url.includes("professional-list")) {
+                return Promise.resolve({
+                    ok: true,
+                    json: () => Promise.resolve(mockProfessionalEntries),
+                });
+            }
+            // --- if url doesn't exist throw an error message ---
+            return Promise.reject(new Error("Unknown URL"));
+        })
+        
         render(<Auth0Provider><MemoryRouter><AdminListEntries /></MemoryRouter></Auth0Provider>);
         
         // --- select Log Out button ---
