@@ -8,17 +8,29 @@
  */
 import React from "react";
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import { describe, test, expect } from 'vitest';
+import { describe, test, expect, vi } from 'vitest';
 import { MemoryRouter } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
 import Home from '../pages/Home.jsx';
 
+// --- mock the useAuth0 hook ---
+vi.mock("@auth0/auth0-react", () => ({
+    useAuth0: vi.fn(),
+}));
+
 describe('Home page component', () => {
     test('display Home page contents (headings, video)', async () => {
+        // --- declare the return value from the mock hook ---
+        useAuth0.mockReturnValue({
+            isAuthenticated: false,
+            isLoading: false,
+            loginWithRedirect: vi.fn()
+        })
+        
         render(<MemoryRouter><Home /></MemoryRouter>);
 
         // --- select elements ---
-        const backgroundHeading = await screen.findByRole('heading', { name: /Background Information addressing the What? and Why?/i });
+        const backgroundHeading = screen.getByText('Background Information addressing the What? and Why?');
 
         // --- verify ---
         expect(backgroundHeading).toBeTruthy();
