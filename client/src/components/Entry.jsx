@@ -23,7 +23,7 @@ const Entry = ({ entry, handleDelete }) => {
           <h3>{entry.first_name} {entry.last_name}</h3>
           <p>{entry.email}</p>
           <p>{entry.type}</p>
-          <p>{entry.issue}</p>
+          <p>{entry.issues}</p>
           <p>{entry.age}</p>
           <p>{entry.race}</p>
           <p>{entry.gender}</p>

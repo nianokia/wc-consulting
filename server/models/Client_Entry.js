@@ -33,8 +33,8 @@ const Client_Entry = sequelize.define('client_entry', {
     }, type: {
         type: DataTypes.STRING,
         allowNull: false,
-    }, issue: {
-        type: DataTypes.STRING,
+    }, issues: {
+        type: DataTypes.ARRAY(DataTypes.TEXT),
         allowNull: false,
     }, age: {
         type: DataTypes.INTEGER,

@@ -102,7 +102,7 @@ app.delete('/api/professional-list/:id', async (req, res) => {
 // --- add client form data to the database on submission ---
 app.post("/contact/client/add", async (req, res) => {
     // --- destructure req.body to retrieve the following properties ---
-    const { first_name, last_name, email, type, issue, age, race, gender, comment } = req.body;
+    const { first_name, last_name, email, type, issues, age, race, gender, comment } = req.body;
 
     // --- define email message configurations ---
     const msg = {
@@ -114,7 +114,7 @@ app.post("/contact/client/add", async (req, res) => {
             Details:
             Email: ${email}
             Type: ${type}
-            Issue: ${issue}
+            Issue: ${issues}
             Age: ${age}
             Race: ${race}
             Gender: ${gender}
@@ -128,7 +128,7 @@ app.post("/contact/client/add", async (req, res) => {
             <ul>
                 <li>Email: ${email}</li>
                 <li>Type: ${type}</li>
-                <li>Issue: ${issue}</li>
+                <li>Issue: ${issues}</li>
                 <li>Age: ${age}</li>
                 <li>Race: ${race}</li>
                 <li>Gender: ${gender}</li>
@@ -142,7 +142,7 @@ app.post("/contact/client/add", async (req, res) => {
     try {
         const newClient_Entry = await Client_Entry.create({
             // --- add properties from req.body into client_entries table through the create Client_Entry model ---
-            first_name, last_name, email, type, issue, age, race, gender, comment
+            first_name, last_name, email, type, issues: issues, age, race, gender, comment
         });
 
         // --- sendEmail ---
