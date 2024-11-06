@@ -10,11 +10,13 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 const AdminListEntries = () => {
   const [entries, setEntries] = useState([]);
+  // --- monitors whether handleDelete was called and returns true or false ---
+  const [isDeletingEntry, setIsDeletingEntry] = useState(false);
 
   // --- state the method the app wants to use from the useAuth0 hook ---
   const { logout } = useAuth0();
 
-  // --- fetch all the client entries and update its corresponding state ---
+  // --- fetch all entries from both client & professional tables and combine the results into one array ---
   const loadEntries = async () => {
     // put both GET list routes into an array
     const tableRoutes = [`${process.env.DOMAIN}/api/client-list`, `${process.env.DOMAIN}/api/professional-list`];
@@ -35,40 +37,47 @@ const AdminListEntries = () => {
 
     // --- concatenate both of the arrays in results into a single array ---
     const combinedResults = results.flat();
-
-    // --- set entries state to the combined single array of all the fetched data ---
-    setEntries(combinedResults);
+    return combinedResults;
   }
 
-  // --- monitors changes to entries and reruns loadEntries ---
+  // --- monitors changes to isDeletingEntry and reruns loadEntries when entry is deleted ---
+  // --- call an async function to fetch response from loadEntries and then setEntries to its value ---
   useEffect(() => {
-    loadEntries();
-  }, [entries]);
+    async function getFinalEntries() {
+      const finalEntries = await loadEntries();
+      console.log("Final Entries: ", finalEntries);
+      setEntries(finalEntries);
+      console.log("Entries: ", entries);
+      console.log("Deleted");
+    }
+    getFinalEntries();
+  }, [isDeletingEntry]);
 
   const handleDelete = async (entry) => {
+    // --- update isDeletingEntry to true since the function is deleting an entry ---
+    setIsDeletingEntry(true);
+
     // --- check if entry is a client or professional then fetch the corresponding DELETE request ---
-    if (entry.client_entry_id) {
+    if (entry.client_entry_id) { 
       const response = await fetch(`${process.env.DOMAIN}/api/client-list/${entry.client_entry_id}`, {
         method: "DELETE"
       });
 
-      if (response.ok) {
-        loadEntries();
-      } else {
+      if (!response.ok) {
         console.error("Error", response.statusText)
-      }
+      } 
     } else {
       const response = await fetch(`${process.env.DOMAIN}/api/professional-list/${entry.professional_entry_id}`, {
         method: "DELETE"
       });
 
-      if (response.ok) {
-        loadEntries();
-      }else {
+      if (!response.ok) {
         console.error("Error", response.statusText)
-      }
+      } 
     }
     
+    // --- update isDeleting to false since function is finished deleting the entry ---
+    setIsDeletingEntry(false);
     console.log("Deleted the entry!");
   };
 
