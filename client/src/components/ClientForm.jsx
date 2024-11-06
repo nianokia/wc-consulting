@@ -1,18 +1,19 @@
 import React, { useReducer } from "react";
 import { validateEmail, showEmailError, hideEmailError } from "../constants.jsx";
+
 /* ------ PURPOSE ------
   An interest form for prospective clients to fill out.
   Sends POST request with inputted form data to the server's database
 */ 
 
 const ClientForm = () => {
-  // --- define empty client_entry record ---
+  // --- define empty client_entry record with empty array for issues property ---
   const initialState = {
     first_name: '',
     last_name: '',
     email: '',
     type: '',
-    issue: '',
+    issues: [],
     age: '',
     race: '',
     gender: '',
@@ -25,6 +26,8 @@ const ClientForm = () => {
       case 'editField':
         // --- retain existing state data while updating specified field with input value ---
         return { ...state, [action.field]: action.value };
+      case 'editIssues':
+        return { ...state, issues: action.payload }
       case 'reset':
         return { ...initialState };
       default:
@@ -43,8 +46,18 @@ const ClientForm = () => {
     dispatch({ type: 'editField', field: name, value });
   }
 
+  // --- handle updates to checkbox inputs in Issues label ---
+  const handleIssues = (event) => {
+    const { checked, value } = event.target;
+
+    // --- set newValue to [value] or null([]) if checked or unchecked ---
+    let newValue = checked ? [value] : [];
+
+    // --- execute editIssues case & filter through existing issue key to contain only ---
+    dispatch({ type: 'editIssues', payload: [...state.issues.filter((issue) => issue !== value), ...newValue] })
+  }
+
   const clearForm = () => {
-    // --- execute reset case ---
     dispatch({ type: 'reset' });
   }
 
@@ -68,21 +81,29 @@ const ClientForm = () => {
   }
 
   // --- separate event handler to account for preventing the event listener and to call postClientEntry with the state data ---
- const handleSubmit = (event) => {
-   event.preventDefault(); 
+  const handleSubmit = (event) => {
+    event.preventDefault(); 
 
-   // --- validate email input field ---
-   if (!state.email) {
-     showEmailError("Email required");
-   } else if (!validateEmail(state.email)) {
-     showEmailError("Invalid email address");
-     // emailError.style.marginLeft = "10px";
-   } else {
-     hideEmailError();
-     postClientEntry(state)
-     console.log("Client Entry: ", state);
-   }
- }
+    // --- validate email input field ---
+    if (!state.email) {
+      showEmailError("Email required");
+    } else if (!validateEmail(state.email)) {
+      showEmailError("Invalid email address");
+    } else {
+      hideEmailError();
+
+      // --- store state.issues property into variable ---
+      const issuesArray = state.issues;
+
+      // --- update the issues property in state to issuesArray ---
+      // --- then send this & all other state values to the POST operation ---
+      postClientEntry({
+        ...state,
+        issues: issuesArray
+      });
+      console.log('Client Entry: ', state);
+    }
+  }
 
 
   return (
@@ -122,19 +143,47 @@ const ClientForm = () => {
         <br /><br />
 
         <label>Issue
-          <select name="issue" id="issue" value={state.issue || ""} onChange={handleChange} required>
-            <option value="" disabled hidden>Select an option</option>
-            <option value="depression">Depression</option>
-            <option value="anxiety">Anxiety</option>
-            <option value="stress">Stress</option>
-            <option value="parenting">Parenting</option>
-            <option value="grief_loss">Grief/ Loss</option>
-            <option value="self_esteem">Self-Esteem</option>
-            <option value="life_challenges">Life Challenges</option>
-            <option value="anger">Anger Management</option>
-            <option value="relationship">Relationship Difficulties</option>
-            <option value="sports">Sports Performance</option>
-          </select>
+          {/* --- might map through this later --- */}
+          <div className="issue-group">
+            <input type="checkbox" name="issues" value="depression" onChange={handleIssues} />
+            <label>Depression</label>
+          </div>
+          <div className="issue-group">
+            <input type="checkbox" name="issues" value="anxiety" onChange={handleIssues} />
+            <label>Anxiety</label>
+          </div>
+          <div className="issue-group">
+            <input type="checkbox" name="issues" value="stress" onChange={handleIssues} />
+            <label>Stress</label>
+          </div>
+          <div className="issue-group">
+            <input type="checkbox" name="issues" value="parenting" onChange={handleIssues} />
+            <label>Parenting</label>
+          </div>
+          <div className="issue-group">
+            <input type="checkbox" name="issues" value="grief_loss" onChange={handleIssues} />
+            <label>Grief/ Loss</label>
+          </div>
+          <div className="issue-group">
+            <input type="checkbox" name="issues" value="self_esteem" onChange={handleIssues} />
+            <label>Self-Esteem</label>
+          </div>
+          <div className="issue-group">
+            <input type="checkbox" name="issues" value="life_challenges" onChange={handleIssues} />
+            <label>Life Challenges</label>
+          </div>
+          <div className="issue-group">
+            <input type="checkbox" name="issues" value="anger" onChange={handleIssues} />
+            <label>Anger Management</label>
+          </div>
+          <div className="issue-group">
+            <input type="checkbox" name="issues" value="relationship" onChange={handleIssues} />
+            <label>Relationship Difficulties</label>
+          </div>
+          <div className="issue-group">
+            <input type="checkbox" name="issues" value="sports" onChange={handleIssues} />
+            <label>Sports Performance</label>
+          </div>
         </label>
         <br /><br />
 
