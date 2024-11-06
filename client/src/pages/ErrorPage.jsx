@@ -2,7 +2,6 @@ import React from "react"
 import Header from "../components/Header";
 import Hero from "../components/Hero";
 import Footer from "../components/Footer";
-import { Link } from "react-router-dom"
 
 // PURPOSE - A component that users are directed to when the page they're trying to reach doesn't exist
 
@@ -22,4 +21,4 @@ const ErrorPage = () => {
   )
 }
 
-export default NoPage
+export default ErrorPage
