@@ -26,7 +26,7 @@ const config = {
     secret: process.env.SECRET,
     baseURL: process.env.DOMAIN,
     clientID: process.env.VITE_AUTH0_CLIENT_ID,
-    issuerBaseURL: `https://${process.env.VITE_AUTH0_DOMAIN}`,
+    issuerBaseURL: `https://${process.env.VITE_AUTH0_DOMAIN}`
 };
 
 
@@ -107,7 +107,7 @@ app.post("/contact/client/add", async (req, res) => {
     // --- define email message configurations ---
     const msg = {
         to: 'nw.niawright@gmail.com',
-        from: 'nw.niawright@gmail.com', // Use the email or domain you verified above
+        from: 'nw.niawright@gmail.com', // Use the same verified email or domain above
         subject: 'WCC - A Prospective Client Expressed Interest in Services',
         text: `
             ${first_name} ${last_name} expressed interest in services!
@@ -151,7 +151,7 @@ app.post("/contact/client/add", async (req, res) => {
 
         res.json(newClient_Entry);
     } catch (err) {
-        console.error("Error: ", err.response.body);
+        console.error("Error adding client entry: ", err);
         return res.status(400).json({ err });
     }
 });
@@ -164,7 +164,7 @@ app.post("/contact/professional/add", async (req, res) => {
     // --- define email message configurations ---
     const msg = {
         to: 'nw.niawright@gmail.com',
-        from: 'nw.niawright@gmail.com', // Use the email address or domain you verified above
+        from: 'nw.niawright@gmail.com', // Use the same email or domain verified above
         subject: 'WCC - A Professional Expressed Interest in Services',
         text:  `
             ${first_name} ${last_name} expressed interest in services!
@@ -217,3 +217,5 @@ app.get("*", (req, res) => {
 app.listen(PORT, () => {
     console.log(`WCC server running on ${process.env.DOMAIN}`);
 });
+
+export default app;
