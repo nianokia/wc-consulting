@@ -75,12 +75,14 @@ app.delete('/api/client-list/:id', async (req, res) => {
        const id = req.params.id;
 
        // --- delete/ destroy specified client_entry ---
-       await Client_Entry.destroy({ where: {
+       const response = await Client_Entry.destroy({ where: {
         client_entry_id: id } });
-        
+       
        console.log("Deleted Client Entry ", id);
+       return res.sendStatus(204);
    } catch (err) {
        console.error("Error deleting client entry: ", err);
+       return res.status(400).json({ err });
    }
 });
 
@@ -90,12 +92,14 @@ app.delete('/api/professional-list/:id', async (req, res) => {
        const id = req.params.id;
 
        // --- delete/ destroy specified professional_entry ---
-       await Professional_Entry.destroy({ where: {
+       const response = await Professional_Entry.destroy({ where: {
         professional_entry_id: id } });
 
        console.log("Deleted Professional Entry ", id);
+       return res.sendStatus(204);
    } catch (err) {
        console.error("Error deleting professional entry: ", err);
+       return res.status(400).json({ err });
    }
 });
 
