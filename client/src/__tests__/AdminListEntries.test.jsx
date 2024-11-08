@@ -33,13 +33,13 @@ describe('AdminListEntries page component', () => {
     afterEach(() => {
         vi.clearAllMocks();
     })
+    
+    // --- declare the return value from the mock hook ---
+    useAuth0.mockReturnValue({
+        logout: vi.fn()
+    })
 
     test('display entries', async () => {
-        // --- declare the return value from the mock hook ---
-        useAuth0.mockReturnValue({
-            logout: vi.fn()
-        })
-        
         // --- fetch both mock entries from different paths ---
         fetch.mockImplementation((url) => {
             //  --- if url includes client-list fetch from this path ---
