@@ -1,5 +1,5 @@
 import React from "react";
-import moment from 'moment';
+import dayjs from 'dayjs';
 
 /* ------ PURPOSE ------
   Display each entry with details. Allow admin to delete an entry.
@@ -12,7 +12,7 @@ const Entry = ({ entry, handleDelete }) => {
   }
 
   const formatDate = (createdAtDate) => {
-    const date = moment(createdAtDate).format("MMM D, YYYY h:mm a");
+    const date = dayjs(createdAtDate).format("MMM D, YYYY h:mm a");
     return date;
   }
 
