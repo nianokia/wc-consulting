@@ -37,7 +37,6 @@ describe('AdminListEntries page component', () => {
     test('display entries', async () => {
         // --- declare the return value from the mock hook ---
         useAuth0.mockReturnValue({
-            isAuthenticated: true,
             logout: vi.fn()
         })
         
@@ -122,7 +121,7 @@ describe('AdminListEntries page component', () => {
             return Promise.reject(new Error("Unknown URL"));
         })
 
-        const { isAuthenticated } = useAuth0();
+        const { logout } = useAuth0();
         
         render(<MemoryRouter><AdminListEntries /></MemoryRouter>);
         
@@ -135,13 +134,7 @@ describe('AdminListEntries page component', () => {
         // --- click Log Out button ---
         fireEvent.click(logoutButton);
 
-        // --- verify that admin is logged out after button click ---
-        if (!isAuthenticated) {
-            // --- verify that Home page content displays if user is not authenticated or logged out ---
-            expect(screen.findByRole('heading', { name: /Wright Choice Consulting/i })).toBeTruthy();
-        } else {
-            // --- verify that AdminListEntries page content displays if user is authenticated or still logged in ---
-            expect(screen.findByRole('heading', { name: /Admin List Entries/i })).toBeTruthy();
-        }
+        // --- verify that the Auth0 logout hook is called ---
+        expect(logout).toHaveBeenCalled();
     })
 })
