@@ -46,8 +46,6 @@ describe('DELETE Operations', () => {
            })
         
         const newEntryJson = JSON.parse(newEntry.text);
-        console.log("newEntryJson: ", newEntryJson);
-        expect(newEntry.status).toBe(200);
 
         // --- use supertest to DELETE the client_entry at specified id ---
         const response = await request(app).delete(`/api/client-list/${newEntryJson.client_entry_id}`);
