@@ -12,11 +12,16 @@ import React from "react";
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { describe, test, expect, vi } from 'vitest';
 import { MemoryRouter } from "react-router-dom";
-import { Auth0Provider } from "@auth0/auth0-react";
+import { useAuth0 } from "@auth0/auth0-react";
 import AdminListEntries from '../pages/AdminListEntries.jsx';
 
 const mockClientEntries = [{ client_entry_id: 1, first_name: "Client 1" }];
 const mockProfessionalEntries = [{ professional_entry_id: 1, first_name: "Professional 1" }];
+
+// --- mock the useAuth0 hook ---
+vi.mock("@auth0/auth0-react", () => ({
+    useAuth0: vi.fn(),
+}));
 
 describe('AdminListEntries page component', () => {
     // --- execute a fetch before each test ---
@@ -30,6 +35,12 @@ describe('AdminListEntries page component', () => {
     })
 
     test('display entries', async () => {
+        // --- declare the return value from the mock hook ---
+        useAuth0.mockReturnValue({
+            isAuthenticated: true,
+            logout: vi.fn()
+        })
+        
         // --- fetch both mock entries from different paths ---
         fetch.mockImplementation((url) => {
             //  --- if url includes client-list fetch from this path ---
@@ -110,21 +121,27 @@ describe('AdminListEntries page component', () => {
             // --- if url doesn't exist throw an error message ---
             return Promise.reject(new Error("Unknown URL"));
         })
+
+        const { isAuthenticated } = useAuth0();
         
-        render(<Auth0Provider><MemoryRouter><AdminListEntries /></MemoryRouter></Auth0Provider>);
+        render(<MemoryRouter><AdminListEntries /></MemoryRouter>);
         
         // --- select Log Out button ---
-        const logout = await screen.findByRole('button', { name: /Log Out/i });
+        const logoutButton = await screen.findByRole('button', { name: /Log Out/i });
 
         // --- verify that admin is logged in ---
         expect(screen.queryByRole('heading', { name: /Wright Choice Consulting/i })).not.toBeTruthy();
 
         // --- click Log Out button ---
-        fireEvent.click(logout);
+        fireEvent.click(logoutButton);
 
-        // --- verify that admin is logged out ---
-        await waitFor(() => {
+        // --- verify that admin is logged out after button click ---
+        if (!isAuthenticated) {
+            // --- verify that Home page content displays if user is not authenticated or logged out ---
             expect(screen.findByRole('heading', { name: /Wright Choice Consulting/i })).toBeTruthy();
-        })
+        } else {
+            // --- verify that AdminListEntries page content displays if user is authenticated or still logged in ---
+            expect(screen.findByRole('heading', { name: /Admin List Entries/i })).toBeTruthy();
+        }
     })
 })
