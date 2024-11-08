@@ -37,7 +37,7 @@ describe('About page component', () => {
         // click button
         fireEvent.click(contactButton);
 
-        // --- verify that button redirects to Contact page ---
+        // --- verify that content from Contact page displays after button click ---
         await waitFor(() => {
             expect(screen.findByRole('heading', { name: 'Contact' })).toBeTruthy();
         })  
