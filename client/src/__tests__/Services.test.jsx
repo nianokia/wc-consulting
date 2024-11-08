@@ -31,11 +31,8 @@ describe('Services page component', () => {
         expect(individualsHeading).toBeTruthy();
 
         // --- verify that images exist on page ---
-        // expect(familyImage.alt).toBeTruthy('full alt text');
         // expect(familyImage.src).toBeTruthy('../family.jpg');
-        // expect(couplesImage.alt).toBeTruthy('full alt text');
         // expect(couplesImage.src).toBeTruthy('../couple.jpg');
-        // expect(individualsImage.alt).toBeTruthy('full alt text');
         // expect(individualsImage.src).toBeTruthy('../individual.jpg');
     })
 
