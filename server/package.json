@@ -6,7 +6,8 @@
   "scripts": {
     "dev": " concurrently 'npm start' 'cd .. && cd client && npm run dev' ",
     "start": "nodemon server.js",
-    "server": "nodemon server.js"
+    "server": "nodemon server.js",
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest"
   },
   "keywords": [],
   "author": "Nia Wright",
@@ -22,6 +23,10 @@
     "nodemon": "^3.1.7",
     "pg": "^8.13.0",
     "pg-hstore": "^2.3.4",
-    "sequelize": "^6.37.4"
+    "sequelize": "^6.37.4",
+    "supertest": "^7.0.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
   }
 }

@@ -13,6 +13,10 @@ export default defineConfig(({ mode }) => {
       'process.env.DOMAIN': JSON.stringify(env.DOMAIN),
     },
     plugins: [react()],
+    test: {
+      globals: true,
+      environment: 'jsdom',
+    },
     server: {
       proxy: {
         '/api': {

@@ -26,7 +26,7 @@ const config = {
     secret: process.env.SECRET,
     baseURL: process.env.DOMAIN,
     clientID: process.env.VITE_AUTH0_CLIENT_ID,
-    issuerBaseURL: `https://${process.env.VITE_AUTH0_DOMAIN}`,
+    issuerBaseURL: `https://${process.env.VITE_AUTH0_DOMAIN}`
 };
 
 
@@ -75,12 +75,14 @@ app.delete('/api/client-list/:id', async (req, res) => {
        const id = req.params.id;
 
        // --- delete/ destroy specified client_entry ---
-       await Client_Entry.destroy({ where: {
+       const response = await Client_Entry.destroy({ where: {
         client_entry_id: id } });
-        
+       
        console.log("Deleted Client Entry ", id);
+       return res.sendStatus(204);
    } catch (err) {
        console.error("Error deleting client entry: ", err);
+       return res.status(400).json({ err });
    }
 });
 
@@ -90,31 +92,33 @@ app.delete('/api/professional-list/:id', async (req, res) => {
        const id = req.params.id;
 
        // --- delete/ destroy specified professional_entry ---
-       await Professional_Entry.destroy({ where: {
+       const response = await Professional_Entry.destroy({ where: {
         professional_entry_id: id } });
 
        console.log("Deleted Professional Entry ", id);
+       return res.sendStatus(204);
    } catch (err) {
        console.error("Error deleting professional entry: ", err);
+       return res.status(400).json({ err });
    }
 });
 
 // --- add client form data to the database on submission ---
 app.post("/contact/client/add", async (req, res) => {
     // --- destructure req.body to retrieve the following properties ---
-    const { first_name, last_name, email, type, issue, age, race, gender, comment } = req.body;
+    const { first_name, last_name, email, type, issues, age, race, gender, comment } = req.body;
 
     // --- define email message configurations ---
     const msg = {
         to: 'nw.niawright@gmail.com',
-        from: 'nw.niawright@gmail.com', // Use the email or domain you verified above
+        from: 'nw.niawright@gmail.com', // Use the same verified email or domain above
         subject: 'WCC - A Prospective Client Expressed Interest in Services',
         text: `
             ${first_name} ${last_name} expressed interest in services!
             Details:
             Email: ${email}
             Type: ${type}
-            Issue: ${issue}
+            Issue: ${issues}
             Age: ${age}
             Race: ${race}
             Gender: ${gender}
@@ -128,7 +132,7 @@ app.post("/contact/client/add", async (req, res) => {
             <ul>
                 <li>Email: ${email}</li>
                 <li>Type: ${type}</li>
-                <li>Issue: ${issue}</li>
+                <li>Issue: ${issues}</li>
                 <li>Age: ${age}</li>
                 <li>Race: ${race}</li>
                 <li>Gender: ${gender}</li>
@@ -142,7 +146,7 @@ app.post("/contact/client/add", async (req, res) => {
     try {
         const newClient_Entry = await Client_Entry.create({
             // --- add properties from req.body into client_entries table through the create Client_Entry model ---
-            first_name, last_name, email, type, issue, age, race, gender, comment
+            first_name, last_name, email, type, issues, age, race, gender, comment
         });
 
         // --- sendEmail ---
@@ -151,7 +155,7 @@ app.post("/contact/client/add", async (req, res) => {
 
         res.json(newClient_Entry);
     } catch (err) {
-        console.error("Error: ", err.response.body);
+        console.error("Error adding client entry: ", err);
         return res.status(400).json({ err });
     }
 });
@@ -164,7 +168,7 @@ app.post("/contact/professional/add", async (req, res) => {
     // --- define email message configurations ---
     const msg = {
         to: 'nw.niawright@gmail.com',
-        from: 'nw.niawright@gmail.com', // Use the email address or domain you verified above
+        from: 'nw.niawright@gmail.com', // Use the same email or domain verified above
         subject: 'WCC - A Professional Expressed Interest in Services',
         text:  `
             ${first_name} ${last_name} expressed interest in services!
@@ -217,3 +221,5 @@ app.get("*", (req, res) => {
 app.listen(PORT, () => {
     console.log(`WCC server running on ${process.env.DOMAIN}`);
 });
+
+export default app;
