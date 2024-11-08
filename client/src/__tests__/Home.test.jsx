@@ -19,14 +19,13 @@ vi.mock("@auth0/auth0-react", () => ({
 }));
 
 describe('Home page component', () => {
-    test('display Home page contents (headings, video)', async () => {
-        // --- declare the return value from the mock hook ---
-        useAuth0.mockReturnValue({
-            isAuthenticated: false,
-            isLoading: false,
-            loginWithRedirect: vi.fn()
-        })
+    // --- declare the return value from the mock hook ---
+    useAuth0.mockReturnValue({
+        isAuthenticated: false,
+        loginWithRedirect: vi.fn()
+    })
         
+    test('display Home page contents (headings, video)', async () => {
         render(<MemoryRouter><Home /></MemoryRouter>);
 
         // --- select elements ---
@@ -64,24 +63,27 @@ describe('Home page component', () => {
         })
     })
 
-    test('admin login button logs user in and redirects to AdminListEntries page', async () => {
+    test('admin login button logs user in and displays AdminListEntries page', async () => {
         render(<MemoryRouter><Home /></MemoryRouter>);
 
         // --- import isAuthenticated Auth0 method ---
-        const { isAuthenticated } = useAuth0();
+        const { loginWithRedirect, isAuthenticated } = useAuth0();
 
         // --- select admin login button ---
         const login = await screen.findByRole('button', { name: /Admin Login/i });
         // --- verify AdminListEntries page content doesn't currently exist ---
         expect(screen.queryByRole('heading', { name: /Admin List Entries/i })).not.toBeTruthy();
+        
         // --- click Admin Login button ---
         fireEvent.click(login);
+        // --- verify that the Auth0 loginWithRedirect hook is called ---
+        expect(loginWithRedirect).toHaveBeenCalled();
         
         if (isAuthenticated) {
-            // --- verify button redirects to AdminListEntries page if user authenticated ---
+            // --- verify button displays AdminListEntries content if user is authenticated ---
             expect(screen.findByRole('heading', { name: /Admin List Entries/i })).toBeTruthy();
         } else {
-            // --- verify button redirects to Home page if user not authenticated ---
+            // --- verify button displays Home page content if user is not authenticated ---
             expect(screen.findByRole('heading', { name: /Background Information addressing the What? and Why?/i })).toBeTruthy();
         }
     })
