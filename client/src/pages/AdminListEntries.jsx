@@ -13,6 +13,10 @@ const AdminListEntries = () => {
   // --- monitors whether handleDelete was called and returns true or false ---
   const [isDeletingEntry, setIsDeletingEntry] = useState(false);
 
+  // --- set what the list will sort by ---
+  const [sort, setSort] = useState('newest');
+  const [sortDirection, setSortDirection] = useState(true);
+
   // --- state the method the app wants to use from the useAuth0 hook ---
   const { logout } = useAuth0();
 
@@ -28,7 +32,7 @@ const AdminListEntries = () => {
           return response.json();
         })
         .catch((err) => {
-          console.error("Error parsing JSON from tableRouts response: ", err);
+          console.error("Error parsing JSON from tableRoutes response: ", err);
         })
     )
 
@@ -39,20 +43,7 @@ const AdminListEntries = () => {
     const combinedResults = results.flat();
     return combinedResults;
   }
-
-  // --- monitors changes to isDeletingEntry and reruns loadEntries when entry is deleted ---
-  // --- call an async function to fetch response from loadEntries and then setEntries to its value ---
-  useEffect(() => {
-    async function getFinalEntries() {
-      const finalEntries = await loadEntries();
-      console.log("Final Entries: ", finalEntries);
-      setEntries(finalEntries);
-      console.log("Entries: ", entries);
-      console.log("Deleted");
-    }
-    getFinalEntries();
-  }, [isDeletingEntry]);
-
+  
   const handleDelete = async (entry) => {
     // --- update isDeletingEntry to true since the function is deleting an entry ---
     setIsDeletingEntry(true);
@@ -78,8 +69,61 @@ const AdminListEntries = () => {
     
     // --- update isDeleting to false since function is finished deleting the entry ---
     setIsDeletingEntry(false);
+
+    // --- fetch entries ---
+    const newEntries = await loadEntries();
+    // --- sort fetched entries ---
+    const sortedEntries = newEntries.sort((a,b) => {
+      let dateA = new Date(a.created_at);
+      let dateB = new Date(b.created_at);
+      return sortDirection ? dateA - dateB : dateB - dateA;
+    });
+    
+    setEntries(sortedEntries);
+
+    // --- toggle sort to switch back and forth when called ---
+    setSort(sort === 'newest' ? 'newest' : 'oldest');
+    setSortDirection(!sortDirection);
+
     console.log("Deleted the entry!");
   };
+
+  const handleSort = async () => {
+    // --- copy entries array ---
+    let sortedEntries = [...entries];
+
+    // --- sort entries from newest or oldest ---
+    if (sort === 'newest') {
+      sortedEntries.sort((a,b) => {
+        let dateA = new Date(a.created_at);
+        let dateB = new Date(b.created_at);
+        return sortDirection ? dateB - dateA : dateA - dateB;
+      });
+    } else if (sort === 'oldest') {
+      sortedEntries.sort((a,b) => {
+        let dateA = new Date(a.created_at);
+        let dateB = new Date(b.created_at);
+        return sortDirection ? dateA - dateB : dateB - dateA;
+      });
+    }
+    
+    console.log("Sorted Entries: ", sortedEntries);
+    setEntries(sortedEntries);
+
+    // --- toggle sort to switch back and forth when called ---
+    setSort(sort === 'newest' ? 'newest' : 'oldest');
+    setSortDirection(!sortDirection);
+  };
+
+  // --- monitors changes to isDeletingEntry and reruns loadEntries when entry is deleted ---
+  // --- call an async function to fetch response from loadEntries and then setEntries to its value ---
+  useEffect(() => {
+    async function getFinalEntries() {
+      const finalEntries = await loadEntries();
+      setEntries(finalEntries);
+    }
+    getFinalEntries();
+  }, []);
 
   // --- specify returnTo URL to origin (Home.jsx) ---
   const handleLogout = () => {
@@ -89,6 +133,14 @@ const AdminListEntries = () => {
   return (
     <div className="AdminList">
       <h1>Admin List Entries</h1>
+      
+      <div style={{display: "flex", justifyContent: "flex-end"}}>
+        <h6>Sort by Date:</h6>
+        <button className="filterButton" id="sortByDateButton" style={{margin: "18px 12px"}} onClick={handleSort}>
+          Sort by Date
+        </button>
+      </div>
+
       <ul style={{ listStyle: "none" }}>
         {/* parameter i = unique index */}
         {entries.map((entry, i) => {
