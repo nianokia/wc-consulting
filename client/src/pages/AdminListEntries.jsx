@@ -1,12 +1,27 @@
 import React, { useEffect, useState } from "react";
+// import * as React from 'react';
 import Footer from "../components/Footer";
 import Entry from "../components/Entry";
 import { useAuth0 } from "@auth0/auth0-react";
+import { styled } from '@mui/material/styles';
+import ToggleButton from '@mui/material/ToggleButton';
+import { Button } from "@mui/material";
 
 /* ------ PURPOSE ------
   Displays list of all entries and allows admin to filter results and delete entries 
   (admin expressed that they will not likely use the delete feature as they want to analyze the data)
 */
+
+const StyledToggleButton = styled(ToggleButton)(({ theme }) => ({
+  [`& .${filterButton}`]: {
+    margin: theme.spacing(0.5),
+    border: 0,
+    borderRadius: theme.shape.borderRadius,
+    [`&.${toggleButtonGroupClasses.disabled}`]: {
+      border: 0,
+    },
+  }
+}));
 
 const AdminListEntries = () => {
   const [entries, setEntries] = useState([]);
@@ -16,6 +31,7 @@ const AdminListEntries = () => {
   // --- set what the list will sort by ---
   const [sort, setSort] = useState('newest');
   const [sortDirection, setSortDirection] = useState(true);
+  const [selected, setSelected] = useState(false);
 
   // --- state the method the app wants to use from the useAuth0 hook ---
   const { logout } = useAuth0();
@@ -132,13 +148,28 @@ const AdminListEntries = () => {
 
   return (
     <div className="AdminList">
-      <h1>Admin List Entries</h1>
+      <h1 style={{marginY: '20px'}}>Admin List Entries</h1>
       
-      <div style={{display: "flex", justifyContent: "flex-end"}}>
-        <h6>Sort by Date:</h6>
-        <button className="filterButton" id="sortByDateButton" style={{margin: "18px 12px"}} onClick={handleSort}>
-          Sort by Date
-        </button>
+      <div style={{display: "flex", justifyContent: "space-between", alignItems: 'center'}}>
+        <div>
+          <div className="logoutButton" style={{display: "flex", justifyContent: "flex-end"}}>
+            <Button onClick={handleLogout}>
+              Log Out
+            </Button>
+          </div>
+        </div>
+        <div style={{display: "flex", gap: '20px', alignItems: 'center'}}>
+          <h6>Sort by Date:</h6>
+          <ToggleButton
+            value="check"
+            selected={selected}
+            size="small"
+            onChange={() => setSelected((prevSelected) => !prevSelected)}
+            onClick={handleSort}
+          >
+            Newest
+          </ToggleButton>
+        </div>
       </div>
 
       <ul style={{ listStyle: "none" }}>
@@ -153,9 +184,9 @@ const AdminListEntries = () => {
       </ul>
       <hr />
       <div className="logoutButton" style={{display: "flex", justifyContent: "flex-end"}}>
-        <button onClick={handleLogout}>
+        <Button onClick={handleLogout}>
           Log Out
-        </button>
+        </Button>
       </div>
       <Footer />
     </div>
