@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-// import * as React from 'react';
 import Footer from "../components/Footer";
 import Entry from "../components/Entry";
 import { useAuth0 } from "@auth0/auth0-react";
 import { styled } from '@mui/material/styles';
 import ToggleButton from '@mui/material/ToggleButton';
 import { Button } from "@mui/material";
+import { useMediaQuery } from '@mui/material';
 
 /* ------ PURPOSE ------
   Displays list of all entries and allows admin to filter results and delete entries 
@@ -13,17 +13,24 @@ import { Button } from "@mui/material";
 */
 
 const StyledToggleButton = styled(ToggleButton)(({ theme }) => ({
-  [`& .${filterButton}`]: {
-    margin: theme.spacing(0.5),
-    border: 0,
-    borderRadius: theme.shape.borderRadius,
-    [`&.${toggleButtonGroupClasses.disabled}`]: {
-      border: 0,
-    },
-  }
+  margin: theme.spacing(0.5),
+  border: `1 dotted ${theme.palette.background.darker}`,
+  borderRadius: 8,
 }));
 
+const LogoutButton = styled(Button)(({ theme }) => ({
+  color: theme.palette.primary.contrastText,
+  backgroundColor: theme.palette.primary.light,
+  '&:hover': {
+    backgroundColor: theme.palette.secondary.main,
+    color: theme.palette.secondary.contrastText
+  },
+  borderRadius: 8
+}))
+
 const AdminListEntries = () => {
+  const isMobile = useMediaQuery('(max-width: 450px)');
+  const isMidSize = useMediaQuery('(max-width: 760px)');
   const [entries, setEntries] = useState([]);
   // --- monitors whether handleDelete was called and returns true or false ---
   const [isDeletingEntry, setIsDeletingEntry] = useState(false);
@@ -149,18 +156,17 @@ const AdminListEntries = () => {
   return (
     <div className="AdminList">
       <h1 style={{marginY: '20px'}}>Admin List Entries</h1>
-      
       <div style={{display: "flex", justifyContent: "space-between", alignItems: 'center'}}>
         <div>
           <div className="logoutButton" style={{display: "flex", justifyContent: "flex-end"}}>
-            <Button onClick={handleLogout}>
+            <LogoutButton variant="contained" onClick={handleLogout}>
               Log Out
-            </Button>
+            </LogoutButton>
           </div>
         </div>
         <div style={{display: "flex", gap: '20px', alignItems: 'center'}}>
           <h6>Sort by Date:</h6>
-          <ToggleButton
+          <StyledToggleButton
             value="check"
             selected={selected}
             size="small"
@@ -168,11 +174,11 @@ const AdminListEntries = () => {
             onClick={handleSort}
           >
             Newest
-          </ToggleButton>
+          </StyledToggleButton>
         </div>
       </div>
 
-      <ul style={{ listStyle: "none" }}>
+      <ul style={{ listStyle: "none", paddingLeft: '0' }}>
         {/* parameter i = unique index */}
         {entries.map((entry, i) => {
           return (
@@ -182,11 +188,11 @@ const AdminListEntries = () => {
           )
         })}
       </ul>
-      <hr />
+
       <div className="logoutButton" style={{display: "flex", justifyContent: "flex-end"}}>
-        <Button onClick={handleLogout}>
+        <LogoutButton variant="contained" onClick={handleLogout}>
           Log Out
-        </Button>
+        </LogoutButton>
       </div>
       <Footer />
     </div>
