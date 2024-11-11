@@ -190,8 +190,8 @@ const ClientForm = () => {
                   />
                 </Box>
                 <div id="emailError">
-                    {errorObject.emailError}
-                  </div>
+                  {errorObject.emailError}
+                </div>
               </Box>
               {/* ------ TYPE INPUT ------ */}
               <Box sx={{ display: 'flex', justifyContent: 'center' }}>
