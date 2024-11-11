@@ -5,8 +5,12 @@ import Hero from '../components/Hero'
 import { useNavigate } from 'react-router-dom'
 import { useAuth0 } from "@auth0/auth0-react";
 
-// ------ PURPOSE ------
-// Introduces visitor to the business and invites the user to explore more
+// ------ MUI IMPORTS ------
+import { Container, Box, useMediaQuery, Button, Typography } from '@mui/material';
+
+/* ------ PURPOSE ------
+  Introduces visitor to the business and invites the user to explore more
+*/
 
 const Home = () => {
   // --- state method that app intends to use from useAuth0 hook ---
@@ -15,6 +19,10 @@ const Home = () => {
   // --- useNavigate allows me to not rely on Links to navigate to different components ---
   // --- allows me to add navigation to other elements ---
   const navigate = useNavigate();
+
+  // --- MUI responsive breakpoints ---
+  const isMobile = useMediaQuery('(max-width: 450px)');
+  const isMidSize = useMediaQuery('(max-width: 760px)');
 
   if (isLoading) {
     return <div>Loading...</div>
@@ -31,36 +39,93 @@ const Home = () => {
       </div>
     )
   }
-
+  
   return (
-    <div className='Home' style={{width: '760px'}}>
+    <Container id="Home" sx={{ maxWidth: isMobile ? 400 : isMidSize ? 760 : 1200, m: '10px auto' }}>
       <Header />
+
       <Hero title="Wright Choice Consulting" tagline="Family Therapy/ Parent Coaching" image="../walkbridge.png" textalign='center' button="Contact" link="/contact"/>
       
-      <section className='backgroundBlock'>
-        <h4>Background Information addressing the What? and Why?</h4>
-        {/* --- Research how to make this button with ReactRouter link more accessible --- */}
-        <button onClick={() => navigate('/services')}>Services</button>
-      </section>
-      <br />
-      <section className='videoBlock' style={{display: 'flex', justifyContent: 'space-around'}}>
-        <div className='video'>Video</div>
-        <div style={{display: 'flex', flexDirection: 'column', gap: "20px", justifyContent: 'center'}}>
-          <aside>"<em>Short blurb/ quote related said in the video</em>"</aside>
-          <button onClick={() => navigate('/about')}>About</button>
-        </div>
-      </section>
-      <br />
+      {/* ------ BACKGROUND SECTION ------ */}
+      <Box id='backgroundBlock' sx={{
+        display: 'block',
+        width: '75%',
+        m: '10px auto',
+        mb: '28px',
+        textAlign: 'center',
+        p: isMobile ? '25px 35px' : '50px 70px',
+        borderRadius: '10px',
+        backgroundColor: 'primary.main'
+      }}>
+        <Typography variant='h4' sx={{ fontSize: isMobile ? '16px' : '20px', mb: 2 }}>
+          Background Information addressing the What? and Why?
+        </Typography>
+        {/* ------ SERVICES BUTTON ------ */}
+        <Button onClick={() => navigate('/services')} sx={{
+          backgroundColor: 'background.main',
+          color: 'primary.darker',
+          '&:hover': { backgroundColor: 'primary.lighter', color: 'primary.darker' }
+        }}>
+          Services
+        </Button>
+      </Box>
 
-      {/* --- add Login Button with Auth0 --- */}
-      <div className='loginButton' style={{display: 'flex', justifyContent: 'flex-end'}}>
-        <button onClick={() => loginWithRedirect()}>
+      {/* ------ VIDEO SECTION ------- */}
+      <Box id='videoBlock' sx={{
+        display: 'flex',
+        justifyContent: 'space-around',
+        m: '1',
+        mb: '34px',
+        textAlign: 'center',
+        p: '20px 5px',
+        backgroundColor: 'secondary.main',
+        color: 'secondary.lightest'
+      }}>
+        <Box id='video' sx={{ 
+          p: isMobile ? '56px 60px' : '80px 150px',
+          backgroundColor: 'background.main',
+          color: 'background.darkest'
+        }}>
+          Video
+        </Box>
+        <Box sx={{ 
+          display: 'flex',
+          flexDirection: 'column',
+          gap: "20px",
+          justifyContent: 'center'
+        }}>
+          <aside>
+            "<em>Short blurb/ quote related said in the video</em>"
+          </aside>
+          {/* ------ ABOUT BUTTON ------ */}
+          <Button onClick={() => navigate('/about')} sx={{ 
+            display: 'block',
+            m: '10px auto',
+            backgroundColor: 'accent.main',
+            color: 'accent.darkest',
+            '&:hover': { backgroundColor: 'accent.light', color: 'accent.darkest' }
+          }}>
+            About
+          </Button>
+        </Box>
+      </Box>
+
+      {/* ------ add Login Button with Auth0 ------ */}
+      <Box className='loginButton' sx={{
+        display: 'flex',
+        justifyContent: 'flex-end'
+      }}>
+        <Button variant='outlined' onClick={() => loginWithRedirect()} sx={{
+          backgroundColor: 'primary.lightest',
+          color: 'background.dark',
+          borderRadius: '8px'
+        }}>
           Admin Login
-        </button>
-      </div>
-      
+        </Button>
+      </Box>
+
       <Footer />
-    </div>
+    </Container>
   );
 }
 
