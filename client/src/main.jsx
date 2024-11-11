@@ -2,6 +2,8 @@ import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { Auth0Provider } from '@auth0/auth0-react';
+import { AppContextProvider } from './context.jsx';
+import { createTheme, ThemeProvider } from '@mui/material';
 
 import './index.css'
 
@@ -59,6 +61,74 @@ const router = createBrowserRouter([{
 }
 ]);
 
+let theme = createTheme({
+  palette: {
+    primary: {
+      main: '#70A288',
+      lighter: '#e2ece7',
+      lightest: '#f1f6f3',
+      darker: '#16201b',
+      darkest: '#0b100e',
+    },
+    secondary: {
+      main: '#04395E',
+      lighter: '#cdd7df',
+      lightest: '#e6ebef',
+      darker: '#010b13',
+      darkest: '#000609',
+    },
+    tonalOffset: 0.5,
+  }
+})
+
+theme = createTheme(theme, {
+  palette: {
+    tertiary: theme.palette.augmentColor({
+      color: {
+        main: '#D5896F',
+        lighter: '#f7e7e2',
+        lightest: '#fbf3f1',
+        darker: '#2b1b16',
+        darkest: '#150e0b',
+      },
+      name: 'tertiary',
+    }),
+    accent: theme.palette.augmentColor({
+      color: {
+        main: '#DAB785',
+        lighter: '#f8f1e7',
+        lightest: '#fbf8f3',
+        darker: '#2c251b',
+        darkest: '#16120d',
+      },
+      name: 'accent',
+    }),
+    default: theme.palette.augmentColor({
+      color: {
+        main: '#031D44',
+        lighter: '#cdd2da',
+        lightest: '#e6e8ec',
+        darker: '#01060e',
+        darkest: '#000307',
+      },
+      name: 'default',
+    }),
+    background: theme.palette.augmentColor({
+      color: {
+        main: '#FAFAFA',
+        darker: '#323232',
+        darkest: '#191919',
+      },
+      name: 'background',
+    }),
+    tonalOffset: 0.5,
+  }
+})
+
+// theme.palette.terciary = augmentColor(theme.palette.terciary);
+// theme.palette.accent = augmentColor(theme.palette.accent);
+// theme.palette.default = augmentColor(theme.palette.default);
+
 // --- appState contains info about app's state before login attempt ---
 const onRedirectCallback = (appState) => {
 // --- replace current history entry with a new one ---
@@ -83,7 +153,11 @@ createRoot(document.getElementById('root')).render(
       }}
       onRedirectCallback={onRedirectCallback}
     >
-      <RouterProvider router={router} />
+      <ThemeProvider theme={theme}>
+        <AppContextProvider>
+          <RouterProvider router={router} />
+        </AppContextProvider>
+      </ThemeProvider>
     </Auth0Provider>
   </StrictMode>,
 )
