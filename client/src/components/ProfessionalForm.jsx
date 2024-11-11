@@ -1,5 +1,23 @@
-import React, { useReducer } from "react";
+import React, { useContext, useReducer, useState } from "react";
+import { AppContext } from "../context.jsx";
 import { validateEmail, showEmailError, hideEmailError } from "../constants.jsx";
+
+// ------ MUI IMPORTS ------
+import { styled, useMediaQuery, Box, Collapse, Container, TextField, Button } from '@mui/material';
+
+// --- custom MUI components ---
+const SubmitButton = styled(Button)(({ theme }) => ({
+  color: theme.palette.primary.contrastText,
+  backgroundColor: theme.palette.primary.light,
+  '&:hover': {
+    backgroundColor: theme.palette.secondary.main,
+    color: theme.palette.secondary.contrastText
+  },
+  borderRadius: 8,
+  marginTop: '10px',
+  marginBottom: '50px',
+  width: '30%',
+}))
 
 /* ------ PURPOSE ------
   An interest form for professionals to fill out if they want to request services.
@@ -7,6 +25,21 @@ import { validateEmail, showEmailError, hideEmailError } from "../constants.jsx"
 */
 
 const ProfessionalForm = () => {
+  const [errorObject, setErrorObject] = useState({
+    firstNameError: false,
+    lastNameError: false,
+    emailError: false,
+    phoneError: false,
+    commentError: false
+  });
+
+  // --- MUI responsive breakpoints ---
+  const isMobile = useMediaQuery('(max-width: 450px)');
+  const isMidSize = useMediaQuery('(max-width: 760px)');
+
+  // --- import checked from useContext ---
+  const { checked, setChecked } = useContext(AppContext);
+
   // --- define empty professtional_entry record ---
   const initialState = {
     first_name: '',
@@ -73,7 +106,6 @@ const ProfessionalForm = () => {
       showEmailError("Email required");
     } else if (!validateEmail(state.email)) {
       showEmailError("Invalid email address");
-      // emailError.style.marginLeft = "10px";
     } else {
       hideEmailError();
       postProfessionalEntry(state)
@@ -83,42 +115,95 @@ const ProfessionalForm = () => {
 
   return (
     <>
-      <h1>Professional Form</h1>
-      <form onSubmit={handleSubmit}>
-
-        {/* --- each input's onChange is handleChange because it works for each input --- */}
-
-        {/* --- set each input's value to the state value or "" so that the app is not trying to control an uncontrolled input --- */}
-
-        <label>First Name
-          <input type="text" name="first_name" required value={state.first_name || ""} onChange={handleChange} placeholder="John" />
-        </label>
-        <br /><br />
-
-        <label>Last Name
-          <input type="text" name="last_name" required value={state.last_name || ""} onChange={handleChange} placeholder="Doe" />
-        </label>
-        <br /><br />
-
-        <label>Phone
-          <input type="tel" name="phone" required value={state.phone || ""} onChange={handleChange} pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="000-000-0000" />
-        </label>
-        <br /><br />
-
-        <label style={{display: "flex"}}>Email
-          <input type="email" name="email" required value={state.email || ""} onChange={handleChange} placeholder="abc123@testing.com" />
-          <div id="emailError"></div>
-        </label>
-        <br /><br />
-
-        <label>Comment
-          <textarea name="comment" id="comment" required value={state.comment || ""} onChange={handleChange} placeholder="Why are you interested in services?" rows="3" cols="30"></textarea>
-        </label>
-        <br /><br />
-
-        <button type="submit">Submit</button>
-        <br /><br />
-      </form>
+      <Box sx={{ maxWidth: isMobile ? 350 : isMidSize ? 760 : 1200 }}>
+        {/* --- MUI collapse form in & out --- */}
+        <Collapse in={checked} timeout={1000}>
+          <Container>
+            <h2>Professional Form</h2>
+            <form onSubmit={handleSubmit}>
+              {/* ------ NAME INPUT ------ */}
+              <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                <TextField
+                  error={errorObject.firstNameError}
+                  label="First Name"
+                  name="first_name"
+                  value={state.first_name || ''}
+                  onChange={(event) => {
+                    handleChange(event);
+                    setErrorObject((prevState) => ({...prevState, firstNameError: !event.target.value}));
+                  }}
+                  required
+                  placeholder="John"
+                  sx={{ my: 1.5, width: '45%', mr: 1 }}
+                />
+                <TextField
+                  label="Last Name"
+                  name="last_name"
+                  value={state.last_name || ''}
+                  onChange={handleChange}
+                  required
+                  placeholder="Doe"
+                  sx={{ my: 1.5, width: '45%', ml: 1 }}
+                />
+              </Box>
+              {/* ------ PHONE INPUT ------ */}
+              <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                <TextField
+                  label="Phone"
+                  name="phone"
+                  type="tel"
+                  value={state.phone || ''}
+                  onChange={handleChange}
+                  required
+                  fullWidth
+                  placeholder="(###) ###-####"
+                  helperText='Use format: (###) ###-####'
+                  inputProps={{ inputMode: 'numeric', pattern: "\\(\\d{3}\\) \\d{3}-\\d{4}" }}
+                  sx={{my: 1.5, width: '92%'}}
+                />
+              </Box>
+              {/* ------ EMAIL INPUT ------ */}
+              <Box>
+                <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                  <TextField
+                    label="Email"
+                    name="email"
+                    type="email"
+                    value={state.email || ''}
+                    onChange={handleChange}
+                    required
+                    placeholder="abc123@testing.com"
+                    sx={{ my: 1.5, width: '92%' }}
+                  />
+                </Box>
+                <div id="emailError" style={{ margin: isMobile ? '0px 15px 20px 0px' : '0px 30px 20px 0px', textAlign: 'end' }}>
+                  {errorObject.emailError}
+                </div>
+              </Box>
+              {/* ------ COMMENT INPUT ------ */}
+              <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                <TextField
+                  label="Comment"
+                  name="comment"
+                  value={state.comment || ''}
+                  onChange={handleChange}
+                  fullWidth
+                  multiline
+                  maxRows={4}
+                  required
+                  inputProps={{ maxLength: 400 }}
+                  placeholder="Why are you interested in services?"
+                  sx={{my: 1.5, width: '92%'}}
+                />
+              </Box>
+              {/* ------ SUBMIT BUTTON ------ */}
+              <Box sx={{ display: 'flex', justifyContent: 'end', width:'95%' }}>
+                <SubmitButton type="submit">Submit</SubmitButton>  
+              </Box>
+            </form>
+          </Container>
+        </Collapse>
+      </Box>
     </>
   )
 }
