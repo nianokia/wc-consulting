@@ -186,10 +186,11 @@ const ClientForm = () => {
                     value={state.email || ''}
                     onChange={handleChange}
                     required
+                    placeholder="abc123@testing.com"
                     sx={{ my: 1.5, width: '92%' }}
                   />
                 </Box>
-                <div id="emailError">
+                <div id="emailError" style={{ margin: isMobile ? '0px 15px 20px 0px' : '0px 30px 20px 0px', textAlign: 'end' }}>
                   {errorObject.emailError}
                 </div>
               </Box>
@@ -355,6 +356,8 @@ const ClientForm = () => {
                   fullWidth
                   multiline
                   maxRows={4}
+                  inputProps={{ maxLength: 400 }}
+                  placeholder="Why are you interested in services?"
                   sx={{my: 1.5, width: '92%'}}
                 />
               </Box>
