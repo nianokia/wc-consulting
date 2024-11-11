@@ -7,6 +7,7 @@ import Client_Entry from './models/Client_Entry.js';
 import Professional_Entry from './models/Professional_Entry.js';
 import { auth } from 'express-openid-connect';
 import sgMail from '@sendgrid/mail';
+import { raceMapping, genderMapping, capitalizeFirstLetter } from './constants.js';
 
 // -------- DEFINE VARIABLES --------
 const app = express();
@@ -75,7 +76,7 @@ app.delete('/api/client-list/:id', async (req, res) => {
        const id = req.params.id;
 
        // --- delete/ destroy specified client_entry ---
-       const response = await Client_Entry.destroy({ where: {
+       await Client_Entry.destroy({ where: {
         client_entry_id: id } });
        
        console.log("Deleted Client Entry ", id);
@@ -92,7 +93,7 @@ app.delete('/api/professional-list/:id', async (req, res) => {
        const id = req.params.id;
 
        // --- delete/ destroy specified professional_entry ---
-       const response = await Professional_Entry.destroy({ where: {
+       await Professional_Entry.destroy({ where: {
         professional_entry_id: id } });
 
        console.log("Deleted Professional Entry ", id);
@@ -108,38 +109,42 @@ app.post("/contact/client/add", async (req, res) => {
     // --- destructure req.body to retrieve the following properties ---
     const { first_name, last_name, email, type, issues, age, race, gender, comment } = req.body;
 
+    const formattedIssues = issues.join(', ');
+    const capitalizedFName = capitalizeFirstLetter(first_name);
+    const capitalizedLName = capitalizeFirstLetter(last_name);
+
     // --- define email message configurations ---
     const msg = {
         to: 'nw.niawright@gmail.com',
         from: 'nw.niawright@gmail.com', // Use the same verified email or domain above
         subject: 'WCC - A Prospective Client Expressed Interest in Services',
         text: `
-            ${first_name} ${last_name} expressed interest in services!
+            ${capitalizedFName} ${capitalizedLName} expressed interest in services!
             Details:
             Email: ${email}
             Type: ${type}
-            Issue: ${issues}
+            Issue: ${formattedIssues}
             Age: ${age}
-            Race: ${race}
-            Gender: ${gender}
+            Race: ${raceMapping[race]}
+            Gender: ${genderMapping[gender]}
             Comment: ${comment}
-            You can reach out to ${first_name} ${last_name} at ${email}.
+            You can reach out to ${capitalizedFName} ${capitalizedLName} at ${email}.
         `,
         html: `
-            <h1>${first_name} ${last_name} expressed interest in services!</h1>
+            <h1>${capitalizedFName} ${capitalizedLName} expressed interest in services!</h1>
             <br />
             <h3>Details:</h3>
             <ul>
                 <li>Email: ${email}</li>
                 <li>Type: ${type}</li>
-                <li>Issue: ${issues}</li>
+                <li>Issue: ${formattedIssues}</li>
                 <li>Age: ${age}</li>
-                <li>Race: ${race}</li>
-                <li>Gender: ${gender}</li>
+                <li>Race: ${raceMapping[race]}</li>
+                <li>Gender: ${genderMapping[gender]}</li>
                 <li>Comment: ${comment}</li>
             </ul>
             <br />
-            You can reach out to ${first_name} ${last_name} at ${email}.
+            You can reach out to ${capitalizedFName} ${capitalizedLName} at ${email}.
         `,
     }
     
@@ -152,7 +157,6 @@ app.post("/contact/client/add", async (req, res) => {
         // --- sendEmail ---
         await sgMail.send(msg);
         console.log("Email sent!");
-
         res.json(newClient_Entry);
     } catch (err) {
         console.error("Error adding client entry: ", err);
@@ -165,21 +169,24 @@ app.post("/contact/professional/add", async (req, res) => {
     // --- destructure req.body to retrieve the properties below ---
     const { first_name, last_name, phone, email, comment } = req.body;
 
+    const capitalizedFName = capitalizeFirstLetter(first_name);
+    const capitalizedLName = capitalizeFirstLetter(last_name);
+
     // --- define email message configurations ---
     const msg = {
         to: 'nw.niawright@gmail.com',
         from: 'nw.niawright@gmail.com', // Use the same email or domain verified above
         subject: 'WCC - A Professional Expressed Interest in Services',
         text:  `
-            ${first_name} ${last_name} expressed interest in services!
+            ${capitalizedFName} ${capitalizedLName} expressed interest in services!
             Details:
             Phone: ${phone}
             Email: ${email}
             Comment: ${comment}
-            You can reach out to ${first_name} ${last_name} at ${email}.
+            You can reach out to ${capitalizedFName} ${capitalizedLName} at ${email}.
         `,
         html:  `
-            <h1>${first_name} ${last_name} expressed interest in services!</h1>
+            <h1>${capitalizedFName} ${capitalizedLName} expressed interest in services!</h1>
             <br />
             <h3>Details:</h3>
             <ul>
@@ -188,7 +195,7 @@ app.post("/contact/professional/add", async (req, res) => {
                 <li>Comment: ${comment}</li>
             </ul>
             <br />
-            You can reach out to ${first_name} ${last_name} at ${email}.
+            You can reach out to ${capitalizedFName} ${capitalizedLName} at ${email}.
         `,
     }
     
@@ -211,9 +218,6 @@ app.post("/contact/professional/add", async (req, res) => {
 app.get("*", (req, res) => {
     // --- verify that all routes are given index.html to allow React to manage routing ---
     res.sendFile(path.join(__dirname, '../client/dist', 'index.html'));
-
-    // --- req.isAuthenticated is provided from the auth router ---
-    // res.send(req.oidc.isAuthenticated() ? 'Logged in' : 'Logged out');
 
     console.log('Welcome to Wright Choice Consulting.');
 });
