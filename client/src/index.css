@@ -28,14 +28,6 @@ form input, textarea, select {
   margin-left: 10px;
 }
 
-footer {
-  width: 100%;
-  text-align: end;
-  margin-top: 25px;
-  padding: 5px 10px;
-  background-color: #bbc7ce;
-}
-
 .backgroundBlock {
   width: 75%;
   display: block;
@@ -64,21 +56,4 @@ footer {
 .Home section button {
   display: block;
   margin: 10px auto;
-}
-
-.link-style {
-  color: var(--text-color);
-}
-
-.link-style:visited {
-  color: black;
-}
-
-.Hero {
-  width: 100%;
-  margin: 30px 0px;
-  padding: 100px 0;
-  background-size: cover;
-  background-position: center;
-  color: var(--background-color);
 }
