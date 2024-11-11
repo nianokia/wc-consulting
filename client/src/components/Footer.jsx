@@ -13,7 +13,7 @@ const Footer = () => {
   const isMidSize = useMediaQuery('(max-width: 760px)');
 
   return (
-    <Box sx={{ maxWidth: isMobile ? 400 : isMidSize ? 760 : 1200, width: '100%' }}>
+    <Box sx={{ maxWidth: isMobile ? 400 : isMidSize ? 760 : 1200, width: '100%', textAlign: 'end', mt: '25px', p: '5px 10px', backgroundColor: '#bbc7ce' }}>
       <footer>Wright Choice Consulting</footer>
     </Box>
   )
