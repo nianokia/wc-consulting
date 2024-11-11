@@ -13,7 +13,6 @@ const StyledButton = styled(Button)(({ theme }) => ({
     backgroundColor: theme.palette.tertiary.light,
     color: theme.palette.tertiary.contrastText
   },
-  width: '25%',
   borderRadius: 8
 }))
 
@@ -48,12 +47,12 @@ const Hero = ({ title, image, button, textalign, tagline, link }) => {
           <Typography variant='h3' sx={{textAlign: textalign, m: '10px 0 20px 0', fontSize: isMobile ? '18px' : '28px'}}>
             {tagline}
           </Typography>
-          <StyledButton onClick={() => navigate(link)} style={{display: 'block', margin: 'auto'}}>
+          <StyledButton onClick={() => navigate(link)} sx={{display: 'block', m: 'auto', width: isMobile ? '30%' : '20%' }}>
             {button}
           </StyledButton>
         </>
       ) : (
-        <Typography variant='h1' sx={{ paddingLeft: isMobile ? '30px' : '50px', fontSize: isMobile ? '30px' : '48px' }}>
+        <Typography variant='h1' sx={{ pl: isMobile ? '30px' : '50px', fontSize: isMobile ? '30px' : '48px' }}>
           {title}
         </Typography>
       )}
