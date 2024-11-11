@@ -1,12 +1,49 @@
-import React, { useReducer } from "react";
+import React, { useContext, useReducer, useState } from "react";
+import { AppContext } from "../context.jsx";
 import { validateEmail, showEmailError, hideEmailError } from "../constants.jsx";
+
+// ------ MUI IMPORTS ------
+import { styled, useMediaQuery, Box, Collapse, Container, TextField, FormControl, InputLabel, Select, Grid2, FormControlLabel, Checkbox, MenuItem, Button, Typography } from '@mui/material';
+
+// --- custom MUI components ---
+const SubmitButton = styled(Button)(({ theme }) => ({
+  color: theme.palette.primary.contrastText,
+  backgroundColor: theme.palette.primary.light,
+  '&:hover': {
+    backgroundColor: theme.palette.secondary.main,
+    color: theme.palette.secondary.contrastText
+  },
+  borderRadius: 8,
+  marginTop: '10px',
+  marginBottom: '50px',
+  width: '30%',
+}))
+
 /* ------ PURPOSE ------
   An interest form for prospective clients to fill out.
   Sends POST request with inputted form data to the server's database
 */ 
 
 const ClientForm = () => {
-  // --- define empty client_entry record with empty array for issues property ---
+  const [errorObject, setErrorObject] = useState({
+    firstNameError: false,
+    lastNameError: false,
+    emailError: false,
+    typeError: false,
+    issuesError: false,
+    ageError: false,
+    raceError: false, 
+    genderError: false
+  });
+
+  // --- MUI responsive breakpoints ---
+  const isMobile = useMediaQuery('(max-width: 450px)');
+  const isMidSize = useMediaQuery('(max-width: 760px)');
+
+  // --- import checked from useContext ---
+  const { checked, setChecked } = useContext(AppContext);
+
+  // --- define empty client_entry record  ---
   const initialState = {
     first_name: '',
     last_name: '',
@@ -53,14 +90,17 @@ const ClientForm = () => {
     let newValue = checked ? [value] : [];
 
     // --- execute editIssues case & filter through existing issue key to contain only ---
-    dispatch({ type: 'editIssues', payload: [...state.issues.filter((issue) => issue !== value), ...newValue] })
+    dispatch({ 
+      type: 'editIssues', 
+      payload: [...state.issues.filter((issue) => issue !== value), ...newValue]
+    })
   }
 
   const clearForm = () => {
     dispatch({ type: 'reset' });
   }
 
-  // --- send POST to corresponding POST path in the server to accurately send form data to database ---
+  // --- POST to corresponding path in the server to accurately send form data to database ---
   const postClientEntry =  async (newClientEntry) => {
     return fetch(`${process.env.DOMAIN}/contact/client/add`, {
       method: 'POST',
@@ -71,7 +111,6 @@ const ClientForm = () => {
       return response.json();
     })
     .then(() => {
-      // --- clear form once data is sent to the database ---
       clearForm();
     })
     .catch((err) => {
@@ -104,130 +143,229 @@ const ClientForm = () => {
     }
   }
 
-
   return (
     <>
-      <h1>Client Form</h1>
-      <form onSubmit={handleSubmit}>
-
-        {/* --- each input will have the same onChange that sets the field value of the table --- */}
-        
-        {/* --- each value is set to its respective updated state value OR an empty string "" ---
-        --- this prevents console from receiving an error that the app is trying to control an uncontrolled input. --- */}
-
-        <label>First Name
-          <input type="text" name="first_name" value={state.first_name || ""} onChange={handleChange} required placeholder="John"/>
-        </label>
-
-        <label>Last Name
-          <input type="text" name="last_name" value={state.last_name || ""} onChange={handleChange} required placeholder="Doe"/>
-        </label>
-        <br /><br />
-
-        <label style={{display: "flex"}}>Email
-          <input type="email" name="email" value={state.email || ""} onChange={handleChange} required placeholder="abc123@testing.com" />
-          <div id="emailError"></div>
-        </label>
-        <br /><br />
-
-        <label>Type of Therapy
-          <select name="type" id="type" value={state.type || ""} onChange={handleChange} required>
-            <option value="" disabled hidden>Select an option</option>
-            <option value="family">Family</option>
-            <option value="couple">Couple</option>
-            <option value="individual">Indivdual</option>
-            <option value="eap">EAP</option>
-          </select>
-        </label>
-        <br /><br />
-
-        <label>Issue
-          {/* --- might map through this later --- */}
-          <div className="issue-group">
-            <input type="checkbox" name="issues" value="depression" onChange={handleIssues} />
-            <label>Depression</label>
-          </div>
-          <div className="issue-group">
-            <input type="checkbox" name="issues" value="anxiety" onChange={handleIssues} />
-            <label>Anxiety</label>
-          </div>
-          <div className="issue-group">
-            <input type="checkbox" name="issues" value="stress" onChange={handleIssues} />
-            <label>Stress</label>
-          </div>
-          <div className="issue-group">
-            <input type="checkbox" name="issues" value="parenting" onChange={handleIssues} />
-            <label>Parenting</label>
-          </div>
-          <div className="issue-group">
-            <input type="checkbox" name="issues" value="grief_loss" onChange={handleIssues} />
-            <label>Grief/ Loss</label>
-          </div>
-          <div className="issue-group">
-            <input type="checkbox" name="issues" value="self_esteem" onChange={handleIssues} />
-            <label>Self-Esteem</label>
-          </div>
-          <div className="issue-group">
-            <input type="checkbox" name="issues" value="life_challenges" onChange={handleIssues} />
-            <label>Life Challenges</label>
-          </div>
-          <div className="issue-group">
-            <input type="checkbox" name="issues" value="anger" onChange={handleIssues} />
-            <label>Anger Management</label>
-          </div>
-          <div className="issue-group">
-            <input type="checkbox" name="issues" value="relationship" onChange={handleIssues} />
-            <label>Relationship Difficulties</label>
-          </div>
-          <div className="issue-group">
-            <input type="checkbox" name="issues" value="sports" onChange={handleIssues} />
-            <label>Sports Performance</label>
-          </div>
-        </label>
-        <br /><br />
-
-        <label>Age
-          <input type="number" min='18' max='100' name="age" value={Number(state.age).toString() || ""} onChange={handleChange} required/>
-        </label>
-        <br /><br />
-
-        <label>Race/ Ethnicity
-          <select name="race" id="race" value={state.race || ""} onChange={handleChange} required>
-            <option value="" disabled hidden>Select an option</option>
-            <option value="aian">American Indian or Alaska Native</option>
-            <option value="asian">Asian</option>
-            <option value="black">Black or African-American</option>
-            <option value="pacific">Native Hawaiian or Other Pacific Islander</option>
-            <option value="middle_eastern">Middle Eastern or North African</option>
-            <option value="hispanic">Hispanic/ Latino</option>
-            <option value="white">White</option>
-            <option value="other">Other</option>
-            <option value="prefer_not_to_say">Prefer not to say</option>
-          </select>
-        </label>
-        <br /><br />
-
-        <label>Gender
-          <select name="gender" id="gender" value={state.gender || ""} onChange={handleChange} required>
-            <option value="" disabled hidden>Select an option</option>
-            <option value="man">Man</option>
-            <option value="woman">Woman</option>
-            <option value="non_binary">Non-binary</option>
-            <option value="transgender">Transgender</option>
-            <option value="other">Other</option>
-            <option value="prefer_not_to_say">Prefer not to say</option>
-          </select>
-        </label>
-        <br /><br />
-
-        <label>Comment
-          <textarea name="comment" id="comment" value={state.comment || ""} onChange={handleChange} placeholder="Why are you interested in services?" rows="3" cols="30"></textarea>
-        </label>
-        <br /><br />
-
-        <button type="submit">Submit</button>
-        <br /><br />
-      </form>
+      <Box sx={{ maxWidth: isMobile ? 350 : isMidSize ? 760 : 1200 }}>
+        {/* --- MUI collapse form in & out --- */}
+        <Collapse in={checked} timeout={1000}>
+          <Container>
+            <h2>Client Form</h2>
+            <form onSubmit={handleSubmit}>
+              {/* ------ NAME INPUT ------ */}
+              <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                <TextField
+                  error={errorObject.firstNameError}
+                  label="First Name"
+                  name="first_name"
+                  value={state.first_name || ''}
+                  onChange={(event) => {
+                    handleChange(event);
+                    setErrorObject((prevState) => ({...prevState, firstNameError: !event.target.value}));
+                  }}
+                  required
+                  placeholder="John"
+                  sx={{ my: 1.5, width: '45%', mr: 1 }}
+                />
+                <TextField
+                  label="Last Name"
+                  name="last_name"
+                  value={state.last_name || ''}
+                  onChange={handleChange}
+                  required
+                  placeholder="Doe"
+                  sx={{ my: 1.5, width: '45%', ml: 1 }}
+                />
+              </Box>
+              {/* ------ EMAIL INPUT ------ */}
+              <Box>
+                <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                  <TextField
+                    label="Email"
+                    name="email"
+                    type="email"
+                    value={state.email || ''}
+                    onChange={handleChange}
+                    required
+                    sx={{ my: 1.5, width: '92%' }}
+                  />
+                </Box>
+                <div id="emailError">
+                    {errorObject.emailError}
+                  </div>
+              </Box>
+              {/* ------ TYPE INPUT ------ */}
+              <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                <FormControl fullWidth style={{ alignItems: 'center' }}>
+                  <InputLabel id="type-label" sx={{marginLeft: isMobile ? '10px' : '30px'}} required>Type of Therapy</InputLabel>
+                  <Select
+                    labelId="type-label"
+                    name="type"
+                    value={state.type || ''}
+                    onChange={handleChange}
+                    required
+                    sx={{my: 1.5, width: '92%'}}
+                  >
+                    <MenuItem value="" disabled>Select an option</MenuItem>
+                    <MenuItem value="family">Family</MenuItem>
+                    <MenuItem value="couple">Couple</MenuItem>
+                    <MenuItem value="individual">Individual</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
+              {/* ------ ISSUES INPUT ------*/}
+              <Box sx={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row', justifyContent: 'center', marginLeft: isMobile ? '15px' : '20px' }}>
+                <Typography sx={{ margin: '0px 20px 0px 10px'}} color="background.dark">
+                  Issues:
+                </Typography>
+                <Grid2 container columns={{ xs: 8, sm: 9, md: 8 }}>
+                  <Grid2 size={{ xs: 4, sm: 4, md: 4 }}>
+                    <FormControlLabel
+                      control={<Checkbox checked={state.issues?.includes('depression')} onChange={handleIssues} value="depression" />}
+                      label="Depression"
+                    />
+                  </Grid2>
+                  <Grid2 size={{ xs: 4, sm: 4, md: 4 }}>
+                    <FormControlLabel
+                      control={<Checkbox checked={state.issues?.includes('anxiety')} onChange={handleIssues} value="anxiety" />}
+                      label="Anxiety"
+                    />
+                  </Grid2>
+                  <Grid2 size={{ xs: 4, sm: 4, md: 4 }}>
+                    <FormControlLabel
+                      control={<Checkbox checked={state.issues?.includes('stress')} onChange={handleIssues} value="stress" />}
+                      label="Stress"
+                    />
+                  </Grid2>
+                  <Grid2 size={{ xs: 4, sm: 4, md: 4 }}>
+                    <FormControlLabel
+                      control={<Checkbox checked={state.issues?.includes('parenting')} onChange={handleIssues} value="parenting" />}
+                      label="Parenting"
+                    />
+                  </Grid2>
+                  <Grid2 size={{ xs: 4, sm: 4, md: 4 }}>
+                    <FormControlLabel
+                      control={<Checkbox checked={state.issues?.includes('grief_loss')} onChange={handleIssues} value="grief_loss" />}
+                      label="Grief/ Loss"
+                    />
+                  </Grid2>
+                  <Grid2 size={{ xs: 4, sm: 4, md: 4 }}>
+                    <FormControlLabel
+                      control={<Checkbox checked={state.issues?.includes('self-esteem')} onChange={handleIssues} value="self-esteem" />}
+                      label="Self-Esteem"
+                    />
+                  </Grid2>
+                  <Grid2 size={{ xs: 4, sm: 4, md: 4 }}>
+                    <FormControlLabel
+                      control={<Checkbox checked={state.issues?.includes('life_challenges')} onChange={handleIssues} value="life_challenges" />}
+                      label="Life Challenges"
+                    />
+                  </Grid2>
+                  <Grid2 size={{ xs: 4, sm: 4, md: 4 }}>
+                    <FormControlLabel
+                      control={<Checkbox checked={state.issues?.includes('anger')} onChange={handleIssues} value="anger" />}
+                      label="Anger Management"
+                    />
+                  </Grid2>
+                  <Grid2 size={{ xs: 4, sm: 4, md: 4 }}>
+                    <FormControlLabel
+                      control={<Checkbox checked={state.issues?.includes('relationship')} onChange={handleIssues} value="relationship" />}
+                      label="Relationship Difficulties"
+                    />
+                  </Grid2>
+                  <Grid2 size={{ xs: 4, sm: 4, md: 4 }}>
+                    <FormControlLabel
+                      control={<Checkbox checked={state.issues?.includes('sports')} onChange={handleIssues} value="anger" />}
+                      label="Sports Performance"
+                    />
+                  </Grid2>
+                </Grid2>
+              </Box>
+              {/* ------ AGE INPUT ------ */}
+              <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                <TextField
+                  label="Age"
+                  name="age"
+                  type="number"
+                  InputProps={{ inputProps: { min: 18, max: 100 } }}
+                  value={state.age || ''}
+                  onChange={handleChange}
+                  required
+                  fullWidth
+                  sx={{my: 1.5, width: '92%'}}
+                />
+              </Box>
+              {/* ------ RACE INPUT ------ */}
+              <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                <FormControl fullWidth style={{ alignItems: 'center' }}>
+                  <InputLabel id="race-label" sx={{marginLeft: isMobile ? '10px' : '30px'}} required>Race/Ethnicity</InputLabel>
+                  <Select
+                    labelId="race-label"
+                    name="race"
+                    value={state.race || ''}
+                    onChange={handleChange}
+                    required
+                    sx={{my: 1.5, width: '92%'}}
+                  >
+                    <MenuItem value="" disabled>
+                      Select an option
+                    </MenuItem>
+                    <MenuItem value="aian">American Indian or Alaska Native</MenuItem>
+                    <MenuItem value="asian">Asian</MenuItem>
+                    <MenuItem value="black">Black or African-American</MenuItem>  
+                    <MenuItem value="pacific">Native Hawaiian or Other Pacific Islander</MenuItem>
+                    <MenuItem value="middle_eastern">Middle Eastern or North African</MenuItem>
+                    <MenuItem value="hispanic">Hispanic/ Latino</MenuItem>
+                    <MenuItem value="white">White</MenuItem>
+                    <MenuItem value="other">Other</MenuItem>
+                    <MenuItem value="prefer_not_to_say">Prefer not to say</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
+              {/* ------ GENDER INPUT ------ */}
+              <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                <FormControl fullWidth style={{ alignItems: 'center' }}>
+                  <InputLabel id="gender-label" sx={{marginLeft: isMobile ? '10px' : '30px'}} required>Gender</InputLabel>
+                  <Select
+                    labelId="gender-label"
+                    name="gender"
+                    value={state.gender || ''}
+                    onChange={handleChange}
+                    required
+                    sx={{my: 1.5, width: '92%'}}
+                  >
+                    <MenuItem value="" disabled>
+                      Select an option
+                    </MenuItem>
+                    <MenuItem value="man">Man</MenuItem>
+                    <MenuItem value="woman">Woman</MenuItem>
+                    <MenuItem value="non_binary">Non-binary</MenuItem>
+                    <MenuItem value="transgender">Transgender</MenuItem>
+                    <MenuItem value="other">Other</MenuItem>
+                    <MenuItem value="prefer_not_to_say">Prefer not to say</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
+              {/* ------ COMMENT INPUT ------ */}
+              <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                <TextField
+                  label="Comment"
+                  name="comment"
+                  value={state.comment || ''}
+                  onChange={handleChange}
+                  fullWidth
+                  multiline
+                  maxRows={4}
+                  sx={{my: 1.5, width: '92%'}}
+                />
+              </Box>
+              {/* ------ SUBMIT BUTTON ------ */}
+              <Box sx={{ display: 'flex', justifyContent: 'end', width:'95%' }}>
+                <SubmitButton type="submit">Submit</SubmitButton>  
+              </Box>
+            </form>
+          </Container>
+        </Collapse>
+      </Box>
     </>
   )
 }
