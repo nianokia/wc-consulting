@@ -17,7 +17,7 @@ const ContactHome = () => {
   const isMidSize = useMediaQuery('(max-width: 760px)');
 
   return (
-    <Container className="Contact" sx={{ maxWidth: isMobile ? 400 : isMidSize ? 760 : 1200, m: '10px auto' }}>
+    <Container id="Contact" sx={{ maxWidth: isMobile ? 400 : isMidSize ? 760 : 1200, m: '10px auto' }}>
       <Header />
       <h1>Contact</h1>
       <hr />
