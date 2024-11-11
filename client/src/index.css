@@ -23,37 +23,3 @@ body {
   place-items: center;
   min-width: 320px;
 }
-
-form input, textarea, select {
-  margin-left: 10px;
-}
-
-.backgroundBlock {
-  width: 75%;
-  display: block;
-  margin: 10px auto;
-  text-align: center;
-  padding: 50px 70px;
-  border-radius: 10px;
-  background-color: var(--primary-color);
-}
-
-.videoBlock {
-  display: block;
-  margin: 10px auto;
-  text-align: center;
-  padding: 20px 5px;
-  background-color: var(--secondary-color);
-  color: var(--background-color);
-}
-
-.video {
-  padding: 80px 150px;
-  background-color: var(--background-color);
-  color: var(--text-color);
-}
-
-.Home section button {
-  display: block;
-  margin: 10px auto;
-}
