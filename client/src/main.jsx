@@ -125,10 +125,6 @@ theme = createTheme(theme, {
   }
 })
 
-// theme.palette.terciary = augmentColor(theme.palette.terciary);
-// theme.palette.accent = augmentColor(theme.palette.accent);
-// theme.palette.default = augmentColor(theme.palette.default);
-
 // --- appState contains info about app's state before login attempt ---
 const onRedirectCallback = (appState) => {
 // --- replace current history entry with a new one ---
