@@ -111,6 +111,8 @@ const ProfessionalForm = () => {
       postProfessionalEntry(state)
       console.log("Professional Entry: ", state);
     }
+
+    setChecked(false);
   }
 
   return (

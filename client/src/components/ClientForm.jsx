@@ -140,6 +140,7 @@ const ClientForm = () => {
         issues: issuesArray
       });
       console.log('Client Entry: ', state);
+      setChecked(false);
     }
   }
 
