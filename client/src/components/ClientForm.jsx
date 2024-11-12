@@ -286,7 +286,7 @@ const ClientForm = () => {
                   </Grid2>
                   <Grid2 size={{ xs: 4, sm: 4, md: 4, xl: 1 }}>
                     <FormControlLabel
-                      control={<Checkbox checked={state.issues?.includes('sports')} onChange={handleIssues} value="anger" />}
+                      control={<Checkbox checked={state.issues?.includes('sports')} onChange={handleIssues} value="sports" />}
                       label="Sports Performance"
                     />
                   </Grid2>
