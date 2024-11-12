@@ -48,7 +48,7 @@ const RatesInsurance = () => {
             backgroundColor: 'rgba(0,0,0,0.1)',
             p: '10px',
             mb: 1,
-            width: isMobile ? '100px' : '175px',
+            width: isMobile ? '100px' : isMidSize ? '175px' : '275px',
             textAlign: 'center', 
             fontSize: isMobile ? '18px' : '24px'
           }}>
@@ -67,7 +67,7 @@ const RatesInsurance = () => {
             backgroundColor: 'rgba(0,0,0,0.1)',
             p: '10px',
             my: 1,
-            width: isMobile ? '100px' : '175px',
+            width: isMobile ? '100px' : isMidSize ? '175px' : '275px',
             textAlign: 'center', 
             fontSize: isMobile ? '18px' : '24px'
           }}>
@@ -86,7 +86,7 @@ const RatesInsurance = () => {
             backgroundColor: 'rgba(0,0,0,0.1)',
             p: '10px',
             my: 1,
-            width: isMobile ? '100px' : '175px',
+            width: isMobile ? '100px' : isMidSize ? '175px' : '275px',
             textAlign: 'center', 
             fontSize: isMobile ? '18px' : '24px'
           }}>
@@ -108,7 +108,7 @@ const RatesInsurance = () => {
             backgroundColor: 'rgba(0,0,0,0.1)',
             p: '10px',
             my: 1,
-            width: isMobile ? '100px' : '175px',
+            width: isMobile ? '100px' : isMidSize ? '175px' : '275px',
             textAlign: 'center', 
             fontSize: isMobile ? '18px' : '24px'
           }}>
@@ -126,7 +126,7 @@ const RatesInsurance = () => {
         <hr />
         {/* ------ QUESTION BLOCK ------ */}
         <Box sx={{ display: 'flex', alignItems: 'start', gap: '20px', justifyContent: 'end', mt: 5 }}>
-          <Typography variant='h5' sx={{
+          <Typography variant='h6' sx={{
             backgroundColor: 'rgba(0,0,0,0.075)',
             width: isMobile ? '25%' : '15%',
             p: '8px 10px',
