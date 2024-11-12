@@ -20,7 +20,7 @@ const Footer = () => {
       minWidth: isMobile ? 350 : isMidSize ? 760 : 1550,
       m: '0 auto',
       mt: '25px',
-      p: '5px 25px',
+      p: isMobile ? '5px 10px' : '5px 25px',
       backgroundColor: '#bbc7ce'
     }}>
       <footer style={{ display: 'flex', alignItems: 'center', justifyContent: 'end' }}>
