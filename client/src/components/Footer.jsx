@@ -1,6 +1,8 @@
 import React from "react";
 
+// ------ MUI IMPORTS ------
 import { useMediaQuery, Box } from "@mui/material";
+import { Copyright } from "@mui/icons-material";
 
 /* ------ PURPOSE ------ 
   Display a footer at the end of every page with the name of the company.
@@ -13,8 +15,16 @@ const Footer = () => {
   const isMidSize = useMediaQuery('(max-width: 760px)');
 
   return (
-    <Box sx={{ maxWidth: isMobile ? 400 : isMidSize ? 760 : 1200, width: '100%', textAlign: 'end', mt: '25px', p: '5px 10px', backgroundColor: '#bbc7ce' }}>
-      <footer>Wright Choice Consulting</footer>
+    <Box sx={{
+      maxWidth: isMobile ? 400 : isMidSize ? 1200 : 1600,
+      minWidth: isMobile ? 350 : isMidSize ? 760 : 1550,
+      m: '0 auto',
+      mt: '25px',
+      p: '5px 25px',
+      backgroundColor: '#bbc7ce'
+    }}>
+      <footer style={{ display: 'flex', alignItems: 'center', justifyContent: 'end' }}>
+        <Copyright sx={{ fontSize: '18px', mr: 0.5 }}/> Wright Choice Consulting</footer>
     </Box>
   )
 }
