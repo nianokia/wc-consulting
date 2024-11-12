@@ -41,10 +41,16 @@ const Home = () => {
   }
   
   return (
-    <Container id="Home" sx={{ maxWidth: isMobile ? 400 : isMidSize ? 760 : 1200, m: '10px auto' }}>
+    <Container id="Home" sx={{
+      maxWidth: isMobile ? 400 : isMidSize ? 1200 : 1600,
+      minWidth: isMobile ? 350 : isMidSize ? 760 : 1660, 
+      width: '100%',
+      m: '10px auto',
+      mb: '0',
+    }}>
       <Header />
 
-      <Hero title="Wright Choice Consulting" tagline="Family Therapy/ Parent Coaching" image="../walkbridge.png" textalign='center' button="Contact" link="/contact"/>
+      <Hero title="Wright Choice Consulting" tagline="Solution Focused Brief Therapy" image="../walkbridge.png" textalign='center' button="Contact" link="/contact"/>
       
       {/* ------ BACKGROUND SECTION ------ */}
       <Box id='backgroundBlock' sx={{
@@ -53,15 +59,18 @@ const Home = () => {
         m: '10px auto',
         mb: '28px',
         textAlign: 'center',
-        p: isMobile ? '25px 35px' : '50px 70px',
+        p: isMobile ? '25px 35px' : '25px 70px',
         borderRadius: '10px',
         backgroundColor: 'primary.main'
       }}>
-        <Typography variant='h4' sx={{ fontSize: isMobile ? '16px' : '20px', mb: 2 }}>
-          Background Information addressing the What? and Why?
+        <Typography variant='h4' sx={{ fontSize: isMobile ? '15px' : '28px', mb: 1 }}>
+          Your trusted partner in Mental Health:
+        </Typography>
+        <Typography variant='h4' sx={{ fontSize: isMobile ? '15px' : '24px', mb: 2 }}>
+          Navigating Life's Challenges Together.
         </Typography>
         {/* ------ SERVICES BUTTON ------ */}
-        <Button onClick={() => navigate('/services')} sx={{
+        <Button onClick={() => navigate('/services')} variant='contained' sx={{
           backgroundColor: 'background.main',
           color: 'primary.darker',
           '&:hover': { backgroundColor: 'primary.lighter', color: 'primary.darker' }
@@ -70,23 +79,22 @@ const Home = () => {
         </Button>
       </Box>
 
-      {/* ------ VIDEO SECTION ------- */}
-      <Box id='videoBlock' sx={{
+      {/* ------ ABOUT SECTION ------- */}
+      <Box id='aboutBlock' sx={{
         display: 'flex',
         justifyContent: 'space-around',
-        m: '1',
+        m: 0,
         mb: '34px',
         textAlign: 'center',
-        p: '20px 5px',
+        p: isMobile ? '20px 5px' : '20px',
         backgroundColor: 'secondary.main',
         color: 'secondary.lightest'
       }}>
-        <Box id='video' sx={{ 
-          p: isMobile ? '56px 60px' : '80px 150px',
-          backgroundColor: 'background.main',
+        <Box id='headshot2' sx={{ 
+          p: isMobile ? '56px 60px' : '10px',
           color: 'background.darkest'
         }}>
-          Video
+          <img src="../headshot4crop.png" alt="Picture of Gregory Wright with transparent background"  width='320px' />
         </Box>
         <Box sx={{ 
           display: 'flex',
@@ -94,12 +102,49 @@ const Home = () => {
           gap: "20px",
           justifyContent: 'center'
         }}>
-          <aside>
-            "<em>Short blurb/ quote related said in the video</em>"
+          <aside style={{ padding: '0 10px', width: '90%', alignSelf: 'center' }}>
+            <Typography variant='h5' sx={{ textAlign: 'start', fontSize: '28px' }}>
+              "<em>I always say sometimes therapy can feel worse before it gets better, but there is <strong>always</strong> light at the end of the tunnel.</em>"
+            </Typography>
+            <Typography variant='overline' sx={{ fontSize: '16px' }}>
+              <em>- Gregory Wright, LPCS</em>
+            </Typography>
           </aside>
+          <Box sx={{
+            display: 'flex',
+            flexDirection: isMobile ? 'column' : 'row',
+            justifyContent: 'space-between',
+            gap: '20px',
+            width: '90%',
+            m: '0 auto'
+          }}>
+            <Typography variant='body1' sx={{
+              display: 'block',
+              width: '50%',
+              backgroundColor: 'secondary.light',
+              color: 'secondary.darkest',
+              borderRadius: '8px',
+              p: 1,
+              alignContent: 'center'
+            }}>
+              We offer services for families, couples and individuals looking for a hand in navigating life's challenges.
+            </Typography>
+            <Typography variant='body1' sx={{
+              display: 'block',
+              width: '50%',
+              backgroundColor: 'secondary.light',
+              color: 'secondary.darkest',
+              borderRadius: '8px',
+              p: 1,
+              alignContent: 'center'
+            }}>
+              If you're seeking therapy or professional services (licensed supervision hours, conference invitations, EAP referrals), you can send me a message and I'll be in touch!
+            </Typography>
+          </Box>
           {/* ------ ABOUT BUTTON ------ */}
-          <Button onClick={() => navigate('/about')} sx={{ 
+          <Button onClick={() => navigate('/about')} variant='contained' sx={{ 
             display: 'block',
+            width: '15%',
             m: '10px auto',
             backgroundColor: 'accent.main',
             color: 'accent.darkest',
@@ -109,13 +154,14 @@ const Home = () => {
           </Button>
         </Box>
       </Box>
+      
 
       {/* ------ add Login Button with Auth0 ------ */}
       <Box className='loginButton' sx={{
         display: 'flex',
         justifyContent: 'flex-end'
       }}>
-        <Button variant='outlined' onClick={() => loginWithRedirect()} sx={{
+        <Button variant='contained' onClick={() => loginWithRedirect()} sx={{
           backgroundColor: 'primary.lightest',
           color: 'background.dark',
           borderRadius: '8px'
