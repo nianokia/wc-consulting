@@ -23,6 +23,7 @@ const About = () => {
       maxWidth: isMobile ? 400 : isMidSize ? 1200 : 1600,
       minWidth: isMobile ? 350 : isMidSize ? 760 : 1660, 
       width: '100%', 
+      m: '10px auto',
     }}>
       <Header />
       <Typography variant='h1' sx={{ fontSize: isMobile ? '36px' : '48px', mt: 2 }}>

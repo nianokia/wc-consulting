@@ -36,6 +36,7 @@ const FirstSession = () => {
       maxWidth: isMobile ? 400 : isMidSize ? 1200 : 1600,
       minWidth: isMobile ? 350 : isMidSize ? 760 : 1660, 
       width: '100%', 
+      m: '10px auto',
     }} >
       <Header />
       <Hero title="First Session" image='../walkbridge.png' />
@@ -55,7 +56,7 @@ const FirstSession = () => {
         <Typography variant='body1' sx={{ my: 2.5, fontSize: isMobile ? '15px' : '17px' }}>
           At the end of the first session I will offer your three options:
         </Typography>
-        
+
         {/* ------ LIST SECTION ------ */}
         <List sx={{
           listStyleType: 'none',
