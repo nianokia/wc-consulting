@@ -35,31 +35,69 @@ const ContactHome = () => {
 
       {/* ------ CONTACT INFORMATION SECTION ------ */}
       <Box sx={{ mb: '115px', ml: isMobile ? 1 : 3 }}>
-        <Box sx={{ display: "flex", flexDirection: isMobile ? 'column' : 'row', width: isMobile ? '100%' : '70%', alignItems: 'start', gap: '20px' }}>
-          <h4 style={{margin:'0', width: '18%'}}>Hours: </h4>
-          <span>
-            <p style={{margin: '0'}}>
+        <Box sx={{
+          display: "flex",
+          flexDirection: isMobile ? 'column' : 'row',
+          width: isMobile ? '100%' : '70%',
+          alignItems: 'start',
+          gap: '20px'
+        }}>
+          <Typography variant='h4' sx={{ m:'0', width: '18%' }}>
+            Hours: 
+          </Typography>
+          <Box>
+            <Typography variant='body1' sx={{ m: '0', fontSize: isMobile ? '16px' : '18px' }}>
               Tuesday -- 6 PM - 8 PM (virtual only)
-            </p>
-            <p style={{marginTop: '5px', marginBottom: '0px'}}>
+            </Typography>
+            <Typography variant='body1' sx={{ mt: '5px', mb: 0, fontSize: isMobile ? '16px' : '18px' }}>
               Saturday -- 10 AM - 3 PM
-            </p>
-          </span>
+            </Typography>
+          </Box>
         </Box>
         <br />
-        <Box sx={{ display: "flex", flexDirection: isMobile ? 'column' : 'row', width: isMobile ? '100%' : '70%', alignItems: 'start', gap: '20px' }}>
-          <h4 style={{margin: "0", width: "18%"}}>Email:</h4>
-          <span>wrightchoiceconsulting@gmail.com</span>
+        <Box sx={{
+          display: "flex",
+          flexDirection: isMobile ? 'column' : 'row',
+          width: isMobile ? '100%' : '70%',
+          alignItems: 'start',
+          gap: '20px'
+        }}>
+          <Typography variant='h4' sx={{margin: "0", width: "18%"}}>
+            Email:
+          </Typography>
+          <Typography variant='body1' sx={{ fontSize: isMobile ? '16px' : '18px', alignSelf: isMobile ? 'start' : 'center' }}>
+            wrightchoiceconsulting@gmail.com
+          </Typography>
         </Box>
         <br />
-        <Box sx={{ display: "flex", flexDirection: isMobile ? 'column' : 'row', width: isMobile ? '100%' : '70%', alignItems: 'start', gap: '20px' }}>
-          <h4 style={{margin: "0", width: "18%"}}>Phone:</h4>
-          <span>(866)323-7260</span>
+        <Box sx={{
+          display: "flex",
+          flexDirection: isMobile ? 'column' : 'row',
+          width: isMobile ? '100%' : '70%',
+          alignItems: 'start',
+          gap: '20px'
+        }}>
+          <Typography variant='h4' sx={{margin: "0", width: "18%"}}>
+            Phone:
+          </Typography>
+          <Typography variant='body1' sx={{ fontSize: isMobile ? '16px' : '18px', alignSelf: isMobile ? 'start' : 'center' }}>
+            (866) 323-7260
+          </Typography>
         </Box>
         <br />
-        <Box sx={{ display: "flex", flexDirection: isMobile ? 'column' : 'row', width: isMobile ? '100%' : '70%', alignItems: 'start', gap: '20px' }}>
-          <h4 style={{margin: "0", width: "18%"}}>Location:</h4>
-          <span>250 South Pleasantburg Drive, Greenville, SC, 29607</span>
+        <Box sx={{
+          display: "flex",
+          flexDirection: isMobile ? 'column' : 'row',
+          width: isMobile ? '100%' : '70%',
+          alignItems: 'start',
+          gap: '20px'
+        }}>
+          <Typography variant='h4' sx={{ margin: "0", width: "18%" }}>
+            Location:
+          </Typography>
+          <Typography variant='body1' sx={{ fontSize: isMobile ? '16px' : '18px', alignSelf: 'center' }}>
+            250 South Pleasantburg Drive, Greenville, SC, 29607
+          </Typography>
         </Box>
       </Box>
 
