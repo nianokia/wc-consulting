@@ -25,7 +25,7 @@ const ContactQuestion = () => {
 
   // --- MUI responsive breakpoints ---
   const isMobile = useMediaQuery('(max-width: 450px)');
-  const isMidSize = useMediaQuery('(max-width: 760px)');
+  const isMidSize = useMediaQuery('(max-width: 1024px)');
 
   // --- import checked from useContext ---
   const { checked, setChecked } = useContext(AppContext);
@@ -37,8 +37,8 @@ const ContactQuestion = () => {
 
   return (
     <Container className="ContactQuestion" sx={{
-      maxWidth: isMobile ? 400 : isMidSize ? 1200 : 1600,
-      minWidth: isMobile ? 350 : isMidSize ? 760 : 1600,
+      maxWidth: isMobile ? 400 : isMidSize ? 1024 : 1600,
+      minWidth: isMobile ? 350 : isMidSize ? 700 : 1660, 
       width: '100%',
       backgroundColor: "secondary.main",
       p: "25px",

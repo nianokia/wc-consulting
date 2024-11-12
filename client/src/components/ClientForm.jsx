@@ -38,7 +38,7 @@ const ClientForm = () => {
 
   // --- MUI responsive breakpoints ---
   const isMobile = useMediaQuery('(max-width: 450px)');
-  const isMidSize = useMediaQuery('(max-width: 760px)');
+  const isMidSize = useMediaQuery('(max-width: 1024px)');
 
   // --- import checked from useContext ---
   const { checked, setChecked } = useContext(AppContext);
@@ -146,8 +146,8 @@ const ClientForm = () => {
   return (
     <>
       <Box sx={{
-        maxWidth: isMobile ? 400 : isMidSize ? 1200 : 1600,
-        minWidth: isMobile ? 350 : isMidSize ? 760 : 1440,
+        maxWidth: isMobile ? 400 : isMidSize ? 1024 : 1600,
+        minWidth: isMobile ? 350 : isMidSize ? 500 : 1440,
         width: '100%',
       }}>
         {/* --- MUI collapse form in & out --- */}
