@@ -194,7 +194,7 @@ const ClientForm = () => {
                     sx={{ my: 1.5, width: '92%' }}
                   />
                 </Box>
-                <div id="emailError" style={{ margin: isMobile ? '0px 15px 20px 0px' : '0px 30px 20px 0px', textAlign: 'end' }}>
+                <div id="emailError" style={{ margin: isMobile ? '0px 15px 20px 0px' : isMidSize ? '0px 30px 20px 0px' : '0px 50px 20px 0px', textAlign: 'end' }}>
                   {errorObject.emailError}
                 </div>
               </Box>
