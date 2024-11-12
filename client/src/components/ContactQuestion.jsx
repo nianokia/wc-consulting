@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { AppContext } from "../context";
 
 // ------ MUI IMPORTS ------
-import { styled, Container, Button, useMediaQuery } from '@mui/material';
+import { styled, useMediaQuery, Container, Typography, Box, Button,  } from '@mui/material';
 
 // --- custom MUI components ---
 const FormButton = styled(Button)(({ theme }) => ({
@@ -14,7 +14,6 @@ const FormButton = styled(Button)(({ theme }) => ({
     color: theme.palette.primary.darkest
   },
   borderRadius: 8,
-  width: '44%',
 }))
 
 /* ------ PURPOSE ------
@@ -37,24 +36,36 @@ const ContactQuestion = () => {
   };
 
   return (
-    <Container className="ContactQuestion" sx={{ maxWidth: isMobile ? 400 : isMidSize ? 760 : 1200, backgroundColor: "secondary.main", p: "25px", m: isMobile ? '12px auto' : '30px auto' }}>
-      <h2 style={{textAlign: "center", color: 'var(--background-color)'}}>
+    <Container className="ContactQuestion" sx={{
+      maxWidth: isMobile ? 400 : isMidSize ? 1200 : 1600,
+      minWidth: isMobile ? 350 : isMidSize ? 760 : 1600,
+      width: '100%',
+      backgroundColor: "secondary.main",
+      p: "25px",
+      m: isMobile ? '12px auto' : '30px auto'
+    }}>
+      <Typography variant='h2' sx={{
+        textAlign: "center",
+        color: 'background.main',
+        fontSize: isMobile ? '24px' : isMidSize ? '36px' : '48px',
+        my: 3
+      }}>
         Are you a client or professional?
-      </h2>
-      <div style={{display: "flex", justifyContent: "space-evenly", marginBottom: "30px"}}>
-        <FormButton checked={checked} onClick={() => {
+      </Typography>
+      <Box sx={{ display: "flex", justifyContent: "space-evenly", mb: "30px" }}>
+        <FormButton checked={checked} sx={{ width: isMidSize ? '44%' : '25%' }} onClick={() => {
           navigate('/contact/client'); 
           handleFormTransition();
         }}>
           Client
         </FormButton>
-        <FormButton checked={checked} onClick={() => {
+        <FormButton checked={checked} sx={{ width: isMidSize ? '44%' : '25%' }} onClick={() => {
           navigate('/contact/professional');
           handleFormTransition();
         }}>
           Professional
         </FormButton>
-      </div>
+      </Box>
     </Container>
   )
 }
