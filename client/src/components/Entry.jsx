@@ -3,9 +3,8 @@ import dayjs from 'dayjs';
 import { issueMapping, raceMapping, genderMapping, capitalizeFirstLetter } from "../constants.jsx";
 
 // ------ MUI IMPORTS ------
-import { styled, Card, CardHeader, Box, Chip, Stack, Divider, Typography, IconButton, useMediaQuery } from '@mui/material';
+import { styled, useMediaQuery, Container, Card, CardHeader, Box, Chip, Stack, Divider, Typography, IconButton } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
-
 
 /* ------ PURPOSE ------
   Display each entry with details. Allow admin to delete an entry.
@@ -42,8 +41,10 @@ const StyledChip = styled(Chip)(({ theme }) => ({
 }))
 
 const Entry = ({ entry, handleDelete }) => {
+  // --- MUI responsive breakpoints ---
   const isMobile = useMediaQuery('(max-width: 450px)');
   const isMidSize = useMediaQuery('(max-width: 760px)');
+
   // --- send selected entry to parent's handleDelete function ---
   const onDelete = (selectedEntry) => {
     handleDelete(selectedEntry);
@@ -58,10 +59,13 @@ const Entry = ({ entry, handleDelete }) => {
   const capitalizedLName = capitalizeFirstLetter(entry.last_name);
   
   return (
-    <>
+    <Container sx={{
+      maxWidth: isMobile ? 400 : isMidSize ? 1200 : 1665,
+      minWidth: isMobile ? 350 : isMidSize ? 700 : 1200,
+    }}>
     {entry.client_entry_id ? (
       //  ------ CLIENT ENTRY ------
-      <ClientCard variant="outlined" sx={{ maxWidth: isMobile ? 350 : isMidSize ? 760 : 1200 }}>
+      <ClientCard variant="outlined" sx={{ maxWidth: isMobile ? 350 : isMidSize ? 700 : 1200 }}>
         <Stack direction="row"
           sx={{ justifyContent: 'space-between', alignItems: 'center' }}
         >
@@ -120,7 +124,7 @@ const Entry = ({ entry, handleDelete }) => {
       </ClientCard>
     ) : (
       //  ------ PROFESSIONAL ENTRY ------ 
-      <ProfessionalCard variant="outlined" sx={{ maxWidth: isMobile ? 350 : isMidSize ? 760 : 1200 }}>
+      <ProfessionalCard variant="outlined" sx={{ maxWidth: isMobile ? 350 : isMidSize ? 700 : 1200 }}>
         <Stack direction="row"
           sx={{ justifyContent: 'space-between', alignItems: 'center' }}
         >
@@ -147,7 +151,7 @@ const Entry = ({ entry, handleDelete }) => {
         </Box>
       </ProfessionalCard>
     )}      
-    </>
+    </Container>
   )
 };
 
