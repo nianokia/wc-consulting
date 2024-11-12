@@ -21,7 +21,8 @@ const Footer = () => {
       m: '0 auto',
       mt: '25px',
       p: isMobile ? '5px 10px' : isMidSize ? '5px 10px' : '5px 25px',
-      backgroundColor: '#bbc7ce'
+      backgroundColor: '#bbc7ce',
+      fontFamily: 'poppins.font'
     }}>
       <footer style={{ display: 'flex', alignItems: 'center', justifyContent: 'end' }}>
         <Copyright sx={{ fontSize: '18px', mr: 0.5 }}/> Wright Choice Consulting</footer>

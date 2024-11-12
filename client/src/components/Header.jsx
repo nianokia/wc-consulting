@@ -54,6 +54,7 @@ const Header = () => {
           <Typography variant='h4' sx={{
             display: 'block',
             mt: 0.5, ml: 1, mb: 0,
+            fontFamily: 'merriweather.font',
             fontSize: isMobile ? '16px' : isMidSize ? '18px' : '20px',
             color: 'secondary.darker'
           }}
@@ -63,6 +64,7 @@ const Header = () => {
           <Typography variant='h6' sx={{
             display: isMobile ? 'none' : 'block',
             ml: 1,
+            fontFamily: 'merriweather.font', 
             fontSize: isMidSize ? '16px' : '18px',
             color: 'secondary.darker'
           }}>
@@ -108,7 +110,7 @@ const Header = () => {
                   handleCloseNavMenu();
                   navigate(page.link);
                 }}>
-                  <Typography sx={{ textAlign: 'center' }}>{page.title}</Typography>
+                  <Typography sx={{ textAlign: 'center', fontFamily: 'jakarta.font' }}>{page.title}</Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -116,7 +118,7 @@ const Header = () => {
         ) : (
           <ButtonGroup variant='text' aria-label='text button group' sx={{ color: 'secondary.main' }}>
             {pages.map((page) => (
-              <Button onClick={() => navigate(page.link)} sx={{ color: 'secondary.main', fontSize: isMidSize ? '14px' : '16px' }}>
+              <Button onClick={() => navigate(page.link)} sx={{ color: 'secondary.main', fontFamily: 'jakarta.font', fontSize: isMidSize ? '14px' : '16px' }}>
                 {page.title}
               </Button>
             ))}

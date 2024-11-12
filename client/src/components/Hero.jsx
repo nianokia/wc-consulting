@@ -45,7 +45,7 @@ const Hero = ({ title, image, button, textalign, tagline, link }) => {
           <Typography variant='h1' sx={{textAlign: textalign, m: 1, fontSize: isMobile ? '30px' : '48px' }}>
             {title}
           </Typography>
-          <Typography variant='h3' sx={{textAlign: textalign, m: '10px 0 20px 0', fontSize: isMobile ? '18px' : '28px'}}>
+          <Typography variant='h3' sx={{textAlign: textalign, m: '10px 0 20px 0', fontFamily: 'lora.font', fontSize: isMobile ? '18px' : '28px'}}>
             {tagline}
           </Typography>
           <StyledButton onClick={() => navigate(link)} variant='contained' sx={{display: 'block', m: 'auto', width: isMobile ? '30%' : isMidSize? '20%' : '12%' }}>
