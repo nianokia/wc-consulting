@@ -145,7 +145,11 @@ const ClientForm = () => {
 
   return (
     <>
-      <Box sx={{ maxWidth: isMobile ? 350 : isMidSize ? 760 : 1200 }}>
+      <Box sx={{
+        maxWidth: isMobile ? 400 : isMidSize ? 1200 : 1600,
+        minWidth: isMobile ? 350 : isMidSize ? 760 : 1440,
+        width: '100%',
+      }}>
         {/* --- MUI collapse form in & out --- */}
         <Collapse in={checked} timeout={1000}>
           <Container>
@@ -197,7 +201,9 @@ const ClientForm = () => {
               {/* ------ TYPE INPUT ------ */}
               <Box sx={{ display: 'flex', justifyContent: 'center' }}>
                 <FormControl fullWidth style={{ alignItems: 'center' }}>
-                  <InputLabel id="type-label" sx={{marginLeft: isMobile ? '10px' : '30px'}} required>Type of Therapy</InputLabel>
+                  <InputLabel id="type-label" required sx={{
+                    ml: isMobile ? '10px' : isMidSize ? '30px' : '45px'
+                  }}>Type of Therapy</InputLabel>
                   <Select
                     labelId="type-label"
                     name="type"
@@ -214,66 +220,71 @@ const ClientForm = () => {
                 </FormControl>
               </Box>
               {/* ------ ISSUES INPUT ------*/}
-              <Box sx={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row', justifyContent: 'center', marginLeft: isMobile ? '15px' : '20px' }}>
+              <Box sx={{
+                display: 'flex',
+                flexDirection: isMobile ? 'column' : 'row',
+                justifyContent: 'center',
+                ml: isMobile ? '15px' : isMidSize ? '20px' : '45px'
+              }}>
                 <Typography sx={{ margin: '0px 20px 0px 10px'}} color="background.dark">
                   Issues:
                 </Typography>
-                <Grid2 container columns={{ xs: 8, sm: 9, md: 8 }}>
-                  <Grid2 size={{ xs: 4, sm: 4, md: 4 }}>
+                <Grid2 container columns={{ xs: 8, sm: 9, md: 8, xl: 10 }}>
+                  <Grid2 size={{ xs: 4, sm: 4, md: 4, xl: 2 }}>
                     <FormControlLabel
                       control={<Checkbox checked={state.issues?.includes('depression')} onChange={handleIssues} value="depression" />}
                       label="Depression"
                     />
                   </Grid2>
-                  <Grid2 size={{ xs: 4, sm: 4, md: 4 }}>
+                  <Grid2 size={{ xs: 4, sm: 4, md: 4, xl: 2 }}>
                     <FormControlLabel
                       control={<Checkbox checked={state.issues?.includes('anxiety')} onChange={handleIssues} value="anxiety" />}
                       label="Anxiety"
                     />
                   </Grid2>
-                  <Grid2 size={{ xs: 4, sm: 4, md: 4 }}>
+                  <Grid2 size={{ xs: 4, sm: 4, md: 4, xl: 2 }}>
                     <FormControlLabel
                       control={<Checkbox checked={state.issues?.includes('stress')} onChange={handleIssues} value="stress" />}
                       label="Stress"
                     />
                   </Grid2>
-                  <Grid2 size={{ xs: 4, sm: 4, md: 4 }}>
+                  <Grid2 size={{ xs: 4, sm: 4, md: 4, xl: 2 }}>
                     <FormControlLabel
                       control={<Checkbox checked={state.issues?.includes('parenting')} onChange={handleIssues} value="parenting" />}
                       label="Parenting"
                     />
                   </Grid2>
-                  <Grid2 size={{ xs: 4, sm: 4, md: 4 }}>
+                  <Grid2 size={{ xs: 4, sm: 4, md: 4, xl: 2 }}>
                     <FormControlLabel
                       control={<Checkbox checked={state.issues?.includes('grief_loss')} onChange={handleIssues} value="grief_loss" />}
                       label="Grief/ Loss"
                     />
                   </Grid2>
-                  <Grid2 size={{ xs: 4, sm: 4, md: 4 }}>
+                  <Grid2 size={{ xs: 4, sm: 4, md: 4, xl: 2 }}>
                     <FormControlLabel
                       control={<Checkbox checked={state.issues?.includes('self-esteem')} onChange={handleIssues} value="self-esteem" />}
                       label="Self-Esteem"
                     />
                   </Grid2>
-                  <Grid2 size={{ xs: 4, sm: 4, md: 4 }}>
+                  <Grid2 size={{ xs: 4, sm: 4, md: 4, xl: 2 }}>
                     <FormControlLabel
                       control={<Checkbox checked={state.issues?.includes('life_challenges')} onChange={handleIssues} value="life_challenges" />}
                       label="Life Challenges"
                     />
                   </Grid2>
-                  <Grid2 size={{ xs: 4, sm: 4, md: 4 }}>
+                  <Grid2 size={{ xs: 4, sm: 4, md: 4, xl: 2 }}>
                     <FormControlLabel
                       control={<Checkbox checked={state.issues?.includes('anger')} onChange={handleIssues} value="anger" />}
                       label="Anger Management"
                     />
                   </Grid2>
-                  <Grid2 size={{ xs: 4, sm: 4, md: 4 }}>
+                  <Grid2 size={{ xs: 4, sm: 4, md: 4, xl: 2 }}>
                     <FormControlLabel
                       control={<Checkbox checked={state.issues?.includes('relationship')} onChange={handleIssues} value="relationship" />}
                       label="Relationship Difficulties"
                     />
                   </Grid2>
-                  <Grid2 size={{ xs: 4, sm: 4, md: 4 }}>
+                  <Grid2 size={{ xs: 4, sm: 4, md: 4, xl: 1 }}>
                     <FormControlLabel
                       control={<Checkbox checked={state.issues?.includes('sports')} onChange={handleIssues} value="anger" />}
                       label="Sports Performance"
@@ -298,7 +309,7 @@ const ClientForm = () => {
               {/* ------ RACE INPUT ------ */}
               <Box sx={{ display: 'flex', justifyContent: 'center' }}>
                 <FormControl fullWidth style={{ alignItems: 'center' }}>
-                  <InputLabel id="race-label" sx={{marginLeft: isMobile ? '10px' : '30px'}} required>Race/Ethnicity</InputLabel>
+                  <InputLabel id="race-label" sx={{ml: isMobile ? '10px' : isMidSize ? '30px' : '45px'}} required>Race/Ethnicity</InputLabel>
                   <Select
                     labelId="race-label"
                     name="race"
@@ -325,7 +336,7 @@ const ClientForm = () => {
               {/* ------ GENDER INPUT ------ */}
               <Box sx={{ display: 'flex', justifyContent: 'center' }}>
                 <FormControl fullWidth style={{ alignItems: 'center' }}>
-                  <InputLabel id="gender-label" sx={{marginLeft: isMobile ? '10px' : '30px'}} required>Gender</InputLabel>
+                  <InputLabel id="gender-label" sx={{ml: isMobile ? '10px' : isMidSize ? '30px' : '45px'}} required>Gender</InputLabel>
                   <Select
                     labelId="gender-label"
                     name="gender"
