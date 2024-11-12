@@ -13,13 +13,12 @@
   /* ------ OVERALL APP STYLING ------ */
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   background-color: var(--background-color);
-  max-width: 760px;
   margin: 10px auto;
 }
 
 body {
   margin: 0;
   display: flex;
-  place-items: center;
-  min-width: 320px;
+  justify-content: center;
+  align-items: center;
 }
