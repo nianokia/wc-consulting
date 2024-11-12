@@ -5,7 +5,7 @@ import ContactQuestion from "../components/ContactQuestion";
 import { Outlet } from "react-router-dom";
 
 // ------ MUI IMPORTS ------
-import { Container, Box, useMediaQuery } from '@mui/material';
+import { useMediaQuery, Container, Box, Typography } from '@mui/material';
 
 /* ------ PURPOSE ------
   Displays details regarding hours, location, contact methods, and a question directing users to a client or professional form to fill out to express interest in services.
@@ -17,9 +17,15 @@ const ContactHome = () => {
   const isMidSize = useMediaQuery('(max-width: 760px)');
 
   return (
-    <Container id="Contact" sx={{ maxWidth: isMobile ? 400 : isMidSize ? 760 : 1200, m: '10px auto' }}>
+    <Container id="Contact" sx={{
+      maxWidth: isMobile ? 400 : isMidSize ? 1200 : 1600,
+      minWidth: isMobile ? 350 : isMidSize ? 760 : 1660, 
+      width: '100%', 
+    }}>
       <Header />
-      <h1>Contact</h1>
+      <Typography variant='h1' sx={{ fontSize: isMobile ? '36px' : '48px', mt: 2, ml: 1 }}>
+        Contact
+      </Typography>
       <hr />
 
       <ContactQuestion />
@@ -27,7 +33,8 @@ const ContactHome = () => {
       {/* Outlet = where form will be rendered on the parent component (ContactHome) */}
       <Outlet />
 
-      <Box sx={{ mb: '115px' }}>
+      {/* ------ CONTACT INFORMATION SECTION ------ */}
+      <Box sx={{ mb: '115px', ml: isMobile ? 1 : 3 }}>
         <Box sx={{ display: "flex", flexDirection: isMobile ? 'column' : 'row', width: isMobile ? '100%' : '70%', alignItems: 'start', gap: '20px' }}>
           <h4 style={{margin:'0', width: '18%'}}>Hours: </h4>
           <span>
