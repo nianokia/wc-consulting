@@ -65,7 +65,7 @@ const Faqs = () => {
             }}>
               Questions
             </Typography>
-            <List sx={{ listStyle: 'none', pl: '0' }}>
+            <List sx={{ listStyle: 'none', pl: '0', fontFamily: 'nunito.font' }}>
               {/* Jumps to the specific question on the page onclick */}
               <ListItem sx={{ marginBottom: '8px' }}>
                 <Link href='#q1' sx={{ color: 'secondary.main' }}>
