@@ -115,7 +115,11 @@ const ProfessionalForm = () => {
 
   return (
     <>
-      <Box sx={{ maxWidth: isMobile ? 350 : isMidSize ? 760 : 1200 }}>
+      <Box sx={{ 
+        maxWidth: isMobile ? 400 : isMidSize ? 1200 : 1600,
+        minWidth: isMobile ? 350 : isMidSize ? 760 : 1440,
+        width: '100%',
+      }}>
         {/* --- MUI collapse form in & out --- */}
         <Collapse in={checked} timeout={1000}>
           <Container>
