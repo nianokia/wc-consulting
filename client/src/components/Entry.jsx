@@ -70,26 +70,26 @@ const Entry = ({ entry, handleDelete }) => {
           sx={{ justifyContent: 'space-between', alignItems: 'center' }}
         >
           <CardHeader title={`${capitalizedFName} ${capitalizedLName}`} subheader={entry.email} />
-          <Typography gutterBottom variant="body1" sx={{mx: '15px'}}>
+          <Typography gutterBottom variant="body1" sx={{ mx: '15px', fontSize: isMobile ? 'auto' : isMidSize ? '20px' : '25px' }}>
             {formatDate(entry.created_at)}
           </Typography>
         </Stack>
         <Box sx={{ px: 2.5 }}>
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: isMobile ? 'none' : 'space-between', flexDirection: isMobile ? 'column' : 'row' }}>
-            <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+            <Typography variant="body2" sx={{ color: 'text.secondary', fontSize: isMobile ? 'auto' : isMidSize ? 'auto' : '17px' }}>
               Therapy: {capitalizeFirstLetter(entry.type)}
             </Typography>
-            <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+            <Typography variant="body2" sx={{ color: 'text.secondary', fontSize: isMobile ? 'auto' : isMidSize ? 'auto' : '17px' }}>
               Age: {entry.age}
             </Typography>
-            <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+            <Typography variant="body2" sx={{ color: 'text.secondary', fontSize: isMobile ? 'auto' : isMidSize ? 'auto' : '17px' }}>
               Race: {raceMapping[entry.race]}
             </Typography>
-            <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+            <Typography variant="body2" sx={{ color: 'text.secondary', fontSize: isMobile ? 'auto' : isMidSize ? 'auto' : '17px' }}>
               Gender: {genderMapping[entry.gender]}
             </Typography>
           </Box>
-          <Typography variant="body3">
+          <Typography variant="body1">
             {entry.comment ? <p>{entry.comment}</p> : null}
           </Typography>
         </Box>
@@ -129,17 +129,17 @@ const Entry = ({ entry, handleDelete }) => {
           sx={{ justifyContent: 'space-between', alignItems: 'center' }}
         >
           <CardHeader title={`${capitalizedFName} ${capitalizedLName}`} subheader={entry.email} />
-          <Typography gutterBottom variant="body1" sx={{mx: '15px'}}>
+          <Typography gutterBottom variant="body1" sx={{ mx: '15px', fontSize: isMobile ? 'auto' : isMidSize ? '20px' : '25px' }}>
             {formatDate(entry.created_at)}
           </Typography>
         </Stack>
         <Box sx={{ px: 2.5, py: 1 }}>
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <Typography variant="body3">
+            <Typography variant="body1">
               Phone: {entry.phone}
             </Typography>
           </Box>
-          <Typography variant="body3">
+          <Typography variant="body1">
             {entry.comment ? <p>{entry.comment}</p> : null}
           </Typography>
         </Box>
