@@ -30,24 +30,25 @@ const Hero = ({ title, image, button, textalign, tagline, link }) => {
 
   return (
     <Box className="Hero" sx={{
-      maxWidth: isMobile ? 400 : isMidSize ? 760 : 1200,
+      maxWidth: isMobile ? 400 : isMidSize ? 1200 : 1600,
+      minWidth: isMobile ? 350 : isMidSize ? 760 : 1610,
+      width: '100%',
+      m: isMobile ? '20px 0' : '30px 0',
+      padding: isMobile ? '50px 0' : '100px 0',
       backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.7)), url(${image})`,
       backgroundSize: 'cover',
       backgroundPosition: 'center',
       color: 'background.main',
-      width: '100%',
-      m: isMobile ? '20px 0' : '30px 0',
-      padding: isMobile ? '50px 0' : '100px 0',
     }}>
       {textalign === 'center' ? (
         <>
-          <Typography variant='h1' sx={{ textAlign: textalign, m: 1, fontSize: isMobile ? '30px' : '48px' }}>
+          <Typography variant='h1' sx={{textAlign: textalign, m: 1, fontSize: isMobile ? '30px' : '48px' }}>
             {title}
           </Typography>
           <Typography variant='h3' sx={{textAlign: textalign, m: '10px 0 20px 0', fontSize: isMobile ? '18px' : '28px'}}>
             {tagline}
           </Typography>
-          <StyledButton onClick={() => navigate(link)} sx={{display: 'block', m: 'auto', width: isMobile ? '30%' : '20%' }}>
+          <StyledButton onClick={() => navigate(link)} variant='contained' sx={{display: 'block', m: 'auto', width: isMobile ? '30%' : isMidSize? '20%' : '12%' }}>
             {button}
           </StyledButton>
         </>
