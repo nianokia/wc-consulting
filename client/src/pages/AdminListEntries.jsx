@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
-import Footer from "../components/Footer";
-import Entry from "../components/Entry";
-import { useAuth0 } from "@auth0/auth0-react";
-import { styled } from '@mui/material/styles';
+import React, { useEffect, useState } from 'react';
+import Footer from '../components/Footer';
+import Entry from '../components/Entry';
+import { useAuth0 } from '@auth0/auth0-react';
 import ToggleButton from '@mui/material/ToggleButton';
-import { Button } from "@mui/material";
-import { useMediaQuery } from '@mui/material';
+
+// ------ MUI IMPORTS ------
+import { styled, useMediaQuery, Container, Typography, Button } from '@mui/material';
 
 /* ------ PURPOSE ------
   Displays list of all entries and allows admin to filter results and delete entries 
@@ -55,7 +55,7 @@ const AdminListEntries = () => {
           return response.json();
         })
         .catch((err) => {
-          console.error("Error parsing JSON from tableRoutes response: ", err);
+          console.error('Error parsing JSON from tableRoutes response: ', err);
         })
     )
 
@@ -74,19 +74,19 @@ const AdminListEntries = () => {
     // --- check if entry is a client or professional then fetch the corresponding DELETE request ---
     if (entry.client_entry_id) { 
       const response = await fetch(`${process.env.DOMAIN}/api/client-list/${entry.client_entry_id}`, {
-        method: "DELETE"
+        method: 'DELETE'
       });
 
       if (!response.ok) {
-        console.error("Error", response.statusText)
+        console.error('Error', response.statusText)
       } 
     } else {
       const response = await fetch(`${process.env.DOMAIN}/api/professional-list/${entry.professional_entry_id}`, {
-        method: "DELETE"
+        method: 'DELETE'
       });
 
       if (!response.ok) {
-        console.error("Error", response.statusText)
+        console.error('Error', response.statusText)
       } 
     }
     
@@ -108,7 +108,7 @@ const AdminListEntries = () => {
     setSort(sort === 'newest' ? 'newest' : 'oldest');
     setSortDirection(!sortDirection);
 
-    console.log("Deleted the entry!");
+    console.log('Deleted the entry!');
   };
 
   const handleSort = async () => {
@@ -130,7 +130,7 @@ const AdminListEntries = () => {
       });
     }
     
-    console.log("Sorted Entries: ", sortedEntries);
+    console.log('Sorted Entries: ', sortedEntries);
     setEntries(sortedEntries);
 
     // --- toggle sort to switch back and forth when called ---
@@ -154,22 +154,28 @@ const AdminListEntries = () => {
   };
 
   return (
-    <div className="AdminList">
-      <h1 style={{marginY: '20px'}}>Admin List Entries</h1>
-      <div style={{display: "flex", justifyContent: "space-between", alignItems: 'center'}}>
+    <Container id='AdminListEntries' sx={{
+      maxWidth: isMobile ? 400 : isMidSize ? 1200 : 1400,
+      minWidth: isMobile ? 350 : isMidSize ? 760 : 1400, 
+      width: '100%', 
+    }}>
+      <Typography variant='h1' sx={{ my: '20px', fontSize: isMobile ? '36px' : isMidSize ? '48px' : '64px' }}>
+        Admin List Entries
+      </Typography>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div>
-          <div className="logoutButton" style={{display: "flex", justifyContent: "flex-end"}}>
-            <LogoutButton variant="contained" onClick={handleLogout}>
+          <div id='logoutButton' style={{ display: 'flex', justifyContent: 'flex-end' }}>
+            <LogoutButton variant='contained' onClick={handleLogout}>
               Log Out
             </LogoutButton>
           </div>
         </div>
-        <div style={{display: "flex", gap: '20px', alignItems: 'center'}}>
+        <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
           <h6>Sort by Date:</h6>
           <StyledToggleButton
-            value="check"
+            value='check'
             selected={selected}
-            size="small"
+            size='small'
             onChange={() => setSelected((prevSelected) => !prevSelected)}
             onClick={handleSort}
           >
@@ -178,7 +184,7 @@ const AdminListEntries = () => {
         </div>
       </div>
 
-      <ul style={{ listStyle: "none", paddingLeft: '0' }}>
+      <ul style={{ listStyle: 'none', paddingLeft: '0' }}>
         {/* parameter i = unique index */}
         {entries.map((entry, i) => {
           return (
@@ -189,13 +195,13 @@ const AdminListEntries = () => {
         })}
       </ul>
 
-      <div className="logoutButton" style={{display: "flex", justifyContent: "flex-end"}}>
-        <LogoutButton variant="contained" onClick={handleLogout}>
+      <div className='logoutButton' style={{display: 'flex', justifyContent: 'flex-end'}}>
+        <LogoutButton variant='contained' onClick={handleLogout}>
           Log Out
         </LogoutButton>
       </div>
       <Footer />
-    </div>
+    </Container>
   )
 }
 
