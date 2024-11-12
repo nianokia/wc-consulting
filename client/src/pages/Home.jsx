@@ -63,11 +63,11 @@ const Home = () => {
         borderRadius: '10px',
         backgroundColor: 'primary.main'
       }}>
-        <Typography variant='h4' sx={{ fontSize: isMobile ? '15px' : '28px', mb: 1 }}>
+        <Typography variant='h4' sx={{ fontFamily: 'lora.font', fontSize: isMobile ? '15px' : '28px', mb: 1 }}>
           Your trusted partner in Mental Health:
         </Typography>
-        <Typography variant='h4' sx={{ fontSize: isMobile ? '15px' : '24px', mb: 2 }}>
-          Navigating Life's Challenges Together.
+        <Typography variant='h4' sx={{ fontFamily: 'lora.font', fontSize: isMobile ? '15px' : '24px', mb: 2 }}>
+          Navigating Life's Challenges Together
         </Typography>
         {/* ------ SERVICES BUTTON ------ */}
         <Button onClick={() => navigate('/services')} variant='contained' sx={{
@@ -108,7 +108,7 @@ const Home = () => {
             <Typography variant='h5' sx={{ textAlign: 'start', fontSize: isMobile ? '16px' : isMidSize ? '' : '28px' }}>
               "<em>I always say sometimes therapy can feel worse before it gets better, but there is <strong>always</strong> light at the end of the tunnel.</em>"
             </Typography>
-            <Typography variant='overline' sx={{ fontSize: isMobile ? '12px' : '16px' }}>
+            <Typography variant='overline' sx={{ fontFamily: 'jakarta.font', fontSize: isMobile ? '12px' : '16px' }}>
               <em>- Gregory Wright, LPCS</em>
             </Typography>
           </aside>
@@ -123,11 +123,12 @@ const Home = () => {
                   justifyContent: 'space-between',
                   gap: '20px',
                   width: '90%',
-                  m: '0 auto'
+                  m: '0 auto',
                 }}>
                   <Typography variant='body1' sx={{
                     display: 'block',
                     width: '50%',
+                    fontFamily: 'lexend.font',
                     backgroundColor: 'secondary.light',
                     color: 'secondary.darkest',
                     borderRadius: '8px',
@@ -139,13 +140,14 @@ const Home = () => {
                   <Typography variant='body1' sx={{
                     display: 'block',
                     width: '50%',
+                    fontFamily: 'lexend.font',
                     backgroundColor: 'secondary.light',
                     color: 'secondary.darkest',
                     borderRadius: '8px',
                     p: 1,
                     alignContent: 'center'
                   }}>
-                    If you're seeking therapy or professional services (licensed supervision hours, conference invitations, EAP referrals), you can send me a message and I'll be in touch!
+                    If you're seeking therapy or professional services (licensed supervision hours, conference invitations, EAP referrals), you can fill out the form on the contact page and I'll be in touch.
                   </Typography>
                 </Box>
                 {/* ------ ABOUT BUTTON ------ */}
