@@ -53,11 +53,11 @@ const Services = () => {
             Family Therapy
           </Typography>
           <summary style={{ textAlign: isMobile ? 'justify' : isMidSize ? 'start' : 'justify' }}>
-            <Typography variant='h5' sx={{ fontSize: isMobile ? '14px' : isMidSize ? '20px' : '24px' }}>
+            <Typography variant='h5' sx={{ fontSize: isMobile ? '17px' : isMidSize ? '20px' : '24px' }}>
               Healing together and strengthening bonds one family at a time.
             </Typography>
-            <Typography variant='body2' sx={{ my: 1, fontSize: isMobile ? '11px' : isMidSize ? '15px' : '18px' }}>
-              This type of therapy involves one-on-one sessions with mea therapist to address personal concerns, such as anxiety, depression, stresstrauma, or relationship issues.
+            <Typography variant='body2' sx={{ my: 1, fontSize: isMobile ? '13.5px' : isMidSize ? '15px' : '18px' }}>
+              This type of therapy involves one-on-one sessions with a therapist to address personal concerns, such as anxiety, depression, stress, trauma, or relationship issues.
             </Typography>
           </summary>
         </Box>
@@ -78,11 +78,11 @@ const Services = () => {
             Couples Therapy
           </Typography>
           <summary style={{ textAlign: isMobile ? 'justify' : isMidSize ? 'start' : 'justify' }}>
-            <Typography variant='h5' sx={{ fontSize: isMobile ? '14px' : isMidSize ? '20px' : '24px' }}>
+            <Typography variant='h5' sx={{ fontSize: isMobile ? '17px' : isMidSize ? '20px' : '24px' }}>
               Healthy relationships, Meaningful Connections
             </Typography>
-            <Typography variant='body2'sx={{ my: 1, fontSize: isMobile ? '11px' : isMidSize ? '15px' : '18px' }}>
-              This type of therapy focuses on improving communication, resolving conflicts, and strengthening the bond between you and your partners.
+            <Typography variant='body2'sx={{ my: 1, fontSize: isMobile ? '13.5px' : isMidSize ? '15px' : '18px' }}>
+              This type of therapy focuses on improving communication, resolving conflicts, and strengthening the bond between you and your partner.
             </Typography>
           </summary>
         </Box>
@@ -102,10 +102,10 @@ const Services = () => {
             Individuals Therapy
           </Typography>
           <summary style={{ textAlign: isMobile ? 'justify' : isMidSize ? 'start' : 'justify' }}>
-            <Typography variant='h5' sx={{ fontSize: isMobile ? '14px' : isMidSize ? '20px' : '24px' }}>
+            <Typography variant='h5' sx={{ fontSize: isMobile ? '17px' : isMidSize ? '20px' : '24px' }}>
               Finding your path, Focusing on Individual Growth
             </Typography>
-            <Typography variant='body2'sx={{ my: 1, fontSize: isMobile ? '11px' : isMidSize ? '15px' : '18px' }}>
+            <Typography variant='body2'sx={{ my: 1, fontSize: isMobile ? '13.5px' : isMidSize ? '15px' : '18px' }}>
               This type of therapy focuses on helping families understand and address their dynamics, improve communication, and resolve conflicts that may be affecting individual and family well-being.
             </Typography>            
           </summary>
@@ -116,7 +116,7 @@ const Services = () => {
       </Box>
       {/* ------ QUESTION BLOCK ------ */}
       <Box sx={{ display: 'flex', alignItems: 'start', gap: '20px', justifyContent: 'end', mt: 3, mr: isMobile ? 3 : 5 }}>
-        <Typography variant='h5' sx={{
+        <Typography variant='h6' sx={{
           backgroundColor: 'rgba(0,0,0,0.075)',
           width: isMobile ? '25%' : '15%',
           p: '8px 10px',
