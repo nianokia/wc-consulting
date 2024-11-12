@@ -1,71 +1,155 @@
-import React from "react";
-import Header from "../components/Header";
-import Hero from "../components/Hero";
-import Footer from "../components/Footer";
-import { useNavigate } from "react-router-dom";
+import React from 'react';
+import Header from '../components/Header';
+import Hero from '../components/Hero';
+import Footer from '../components/Footer';
+import { useNavigate } from 'react-router-dom';
 
-// PURPOSE - Communicates details regarding rates, insurance, payment methods, and the cancellation policy
+// ------ MUI IMPORTS ------
+import { styled, useMediaQuery, Container, Box, Typography, Button } from '@mui/material';
+
+// --- custom MUI components ---
+const StyledButton = styled(Button)(({ theme }) => ({
+  color: theme.palette.accent.darker,
+  backgroundColor: theme.palette.accent.light,
+  border: '1px dotted theme.palette.tertiary.darkest',
+  '&:hover': {
+    backgroundColor: theme.palette.accent.main,
+    color: theme.palette.tertiary.darkest
+  },
+  borderRadius: 8
+}))
+
+/* ------ PURPOSE ------
+  Communicates details regarding rates, insurance, payment methods, and the cancellation policy
+*/
 
 const RatesInsurance = () => {
   const navigate = useNavigate();
+
+  // --- MUI responsive breakpoints ---
+  const isMobile = useMediaQuery('(max-width: 450px)');
+  const isMidSize = useMediaQuery('(max-width: 760px)');
+
   return (
-    <>
+    <Container id='RatesInsurance' sx={{
+      maxWidth: isMobile ? 400 : isMidSize ? 1200 : 1600,
+      minWidth: isMobile ? 350 : isMidSize ? 760 : 1660, 
+      width: '100%',
+    }}>
       <Header />
-      {/* HERO comp */}
-      <Hero title="Rates & Insurance" image="../walkbridge.png" />
 
-      <div>
-        <section className="rate-sections" style={{display: "flex", gap: "75px", alignItems: "center"}}>
-          <h3 style={{backgroundColor: "rgba(0,0,0,0.1)", padding: "10px", width: "175px", textAlign: "center"}}>Rates</h3>
-          <summary style={{width: "475px"}}>
-            Diam hac nostra curae curae proin montes; sem netus integer. Parturient senectus duis fusce integer ex luctus. Enim iaculis duis rutrum rhoncus pharetra elementum elementum mollis. Efficitur vulputate iaculis hac senectus bibendum platea. Magnis odio volutpat felis porttitor vel egestas finibus nam lectus.
-          </summary>
-        </section>
-        <hr />
-        
-        <section className="rate-sections" style={{display: "flex", gap: "75px", alignItems: "center"}}>
-          <h3 style={{backgroundColor: "rgba(0,0,0,0.1)", padding: "10px", width: "175px", textAlign: "center"}}>Insurance</h3>
-          <summary style={{width: "475px"}}>
-            Velit elit sed cursus nam a urna eu phasellus. Fringilla facilisis posuere sem cursus habitant lorem. Vehicula praesent nam mauris primis mollis aptent senectus pretium.
-          </summary>
-        </section>
-        <hr />
-        
-        <section className="rate-sections" style={{display: "flex", gap: "75px", alignItems: "center"}}>
-          <h3 style={{backgroundColor: "rgba(0,0,0,0.1)", padding: "10px", width: "175px", textAlign: "center"}}>Payment</h3>
-          <summary style={{width: "475px"}}>
-            Duis non suscipit aenean habitasse hac commodo platea primis. Non senectus laoreet dapibus per hendrerit diam. Id interdum montes et non curabitur adipiscing tincidunt, imperdiet nam. Quis platea suspendisse nunc vestibulum ante in facilisi natoque.
-          </summary>
-        </section>
-        <hr />
+      <Hero title='Rates & Insurance' image='../walkbridge.png' />
 
-        <section className="rate-sections" style={{display: "flex", gap: "75px", alignItems: "center"}}>
-          <h3 style={{backgroundColor: "rgba(0,0,0,0.1)", padding: "10px", width: "175px", textAlign: "center"}}>Cancellation Policy</h3>
-          <summary style={{width: "475px"}}>
-            Arcu nec elementum venenatis porta dis sociosqu suspendisse habitasse. Ligula tellus augue condimentum ornare hac; curae integer.Aliquet cras eget dignissim rutrum odio praesent accumsan. Sagittis mattis tempor felis himenaeos vivamus.
+      <Box id='ratesInsuranceContent'>
+        {/* ------ RATES SECTION ------ */}
+        <Box className='rate-sections' sx={{display: 'flex', gap: isMobile ? '25px' : '75px', alignItems: 'center'}}>
+          <Typography variant='h3' sx={{
+            backgroundColor: 'rgba(0,0,0,0.1)',
+            p: '10px',
+            mb: 1,
+            width: isMobile ? '100px' : '175px',
+            textAlign: 'center', 
+            fontSize: isMobile ? '18px' : '24px'
+          }}>
+            Rates
+          </Typography>
+          <summary style={{ width: isMobile ? '220px' : isMidSize ? '475px' : '80%' }}>
+            <Typography variant='body1' sx={{ fontSize: isMobile ? '14px' : '18px' }}>
+              <strong>$100 / 55 minute session</strong>
+            </Typography>
           </summary>
-        </section>
+        </Box>
         <hr />
-        
-      <section style={{display: "flex", alignItems: "end", gap: "20px", justifyContent: "end"}}>
-        <h5 style={{backgroundColor: "rgba(0,0,0,0.1)", width: "15%", textAlign: "center", padding: "8px 10px"}}>
-          Questions?
-        </h5>
-        <div style={{display: "flex", flexDirection: "column", gap: "10px"}}>
-          <button onClick={() => navigate('/faqs')}>
-            FAQs
-          </button>
-          <button onClick={() => navigate('/contact')}>
-            Contact
-          </button>
-        </div>
-      </section>
+        {/* ------ INSURANCE SECTION ------ */}
+        <Box className='rate-sections' sx={{display: 'flex', gap: isMobile ? '25px' : '75px', alignItems: 'center'}}>
+          <Typography variant='h3' sx={{
+            backgroundColor: 'rgba(0,0,0,0.1)',
+            p: '10px',
+            my: 1,
+            width: isMobile ? '100px' : '175px',
+            textAlign: 'center', 
+            fontSize: isMobile ? '18px' : '24px'
+          }}>
+            Insurance
+          </Typography>
+          <summary style={{ width: isMobile ? '220px' : isMidSize ? '475px' : '80%' }}>
+            <Typography variant='body1' sx={{ fontSize: isMobile ? '14px' : '18px' }}>
+              <strong>Accepted Insurances:</strong> Blue Cross Blue Shield (BCBS), Aetna
+            </Typography>
+          </summary>
+        </Box>
+        <hr />
+        {/* ------ PAYMENT SECTION ------ */}
+        <Box className='rate-sections' sx={{display: 'flex', gap: isMobile ? '25px' : '75px', alignItems: 'center'}}>
+          <Typography variant='h3' sx={{
+            backgroundColor: 'rgba(0,0,0,0.1)',
+            p: '10px',
+            my: 1,
+            width: isMobile ? '100px' : '175px',
+            textAlign: 'center', 
+            fontSize: isMobile ? '18px' : '24px'
+          }}>
+            Payment
+          </Typography>
+          <summary style={{ width: isMobile ? '220px' : isMidSize ? '475px' : '80%' }}>
+            <Typography variant='body1' sx={{ mb: 1.5, fontSize: isMobile ? '14px' : '18px' }}>
+              If you're with an EAP through CompPsych, you will have an alloted amount of free sessions(<em>typically 6</em>).
+            </Typography>
+            <Typography variant='body1' sx={{ fontSize: isMobile ? '14px' : '18px' }}>
+              After that if you want to continue session you will pay the going rate of $100/ session. With insurance this typically ranges from a copay of $20 - $35.
+            </Typography>
+          </summary>
+        </Box>
+        <hr />
+        {/* ------ CANCELLATION SECTION ------ */}
+        <Box className='rate-sections' sx={{ display: 'flex', gap: isMobile ? '25px' : '75px', alignItems: 'center' }}>
+          <Typography variant='h3' sx={{
+            backgroundColor: 'rgba(0,0,0,0.1)',
+            p: '10px',
+            my: 1,
+            width: isMobile ? '100px' : '175px',
+            textAlign: 'center', 
+            fontSize: isMobile ? '18px' : '24px'
+          }}>
+            Cancellation Policy
+          </Typography>
+          <summary style={{ width: isMobile ? '220px' : isMidSize ? '475px' : '80%' }}>
+            <Typography variant='body1' sx={{ mb: 1.5, fontSize: isMobile ? '14px' : '18px' }}>
+              Must cancel <strong>24 hours</strong> in advance to not lose the session.
+            </Typography>
+            <Typography variant='body1' sx={{ fontSize: isMobile ? '14px' : '18px' }}>
+              If you're with an EAP through CompPsych, you lose the free session.
+            </Typography>            
+          </summary>
+        </Box>
+        <hr />
+        {/* ------ QUESTION BLOCK ------ */}
+        <Box sx={{ display: 'flex', alignItems: 'start', gap: '20px', justifyContent: 'end', mt: 5 }}>
+          <Typography variant='h5' sx={{
+            backgroundColor: 'rgba(0,0,0,0.075)',
+            width: isMobile ? '25%' : '15%',
+            p: '8px 10px',
+            borderRadius: '5px',
+            textAlign: 'center',
+            fontSize: isMobile ? '15px' : '20px'
+          }} >
+            Questions?
+          </Typography>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+            <StyledButton onClick={() => navigate('/faqs')}>
+              FAQs
+            </StyledButton>
+            <StyledButton onClick={() => navigate('/contact')}>
+              Contact
+            </StyledButton>
+          </Box>
+        </Box>
 
-      </div>
+      </Box>
       <br />
 
       <Footer />
-    </>
+    </Container>
   )
 }
 
