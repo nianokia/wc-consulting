@@ -41,7 +41,7 @@ const FirstSession = () => {
       <Header />
       <Hero title="First Session" image='../walkbridge.png' />
 
-      <Box id="first-session-details" sx={{ mb: 1 }}>
+      <Box id="first-session-details" sx={{ mb: 1, mx: isMobile ? 0 : 2 }}>
 
         {/* ------ EXPLANATION SECTION ------ */}
         <Typography variant='body1' sx={{ my: 2.5, fontSize: isMobile ? '15px' : '17px' }}>
