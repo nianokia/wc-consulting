@@ -46,7 +46,7 @@ const Header = () => {
       m: '0 auto'
     }}>
       <Box onClick={() => navigate('/')} sx={{display: 'flex', alignItems: 'center' }}>
-        <img src='../logo-transparent.png' alt='Wright Choice Consulting logo' style={{width: '50px'}} />
+        <img src='../logo-transparent.png' alt='Wright Choice Consulting logo' style={{ width: isMobile ? '50px' : isMidSize ? '63px' : '75px' }} />
         <Box sx={{
           display: isMobile ? 'block' : 'flex',
           flexDirection: 'column'
@@ -54,16 +54,16 @@ const Header = () => {
           <Typography variant='h4' sx={{
             display: 'block',
             mt: 0.5, ml: 1, mb: 0,
-            fontSize: isMobile ? '16px' : '18px',
+            fontSize: isMobile ? '16px' : isMidSize ? '18px' : '20px',
             color: 'secondary.darker'
           }}
           >
-            Wright Choice Consulting
+            <strong>Wright Choice Consulting</strong>
           </Typography>
           <Typography variant='h6' sx={{
             display: isMobile ? 'none' : 'block',
             ml: 1,
-            fontSize: '16px',
+            fontSize: isMidSize ? '16px' : '18px',
             color: 'secondary.darker'
           }}>
             Psychotherapy
@@ -116,7 +116,7 @@ const Header = () => {
         ) : (
           <ButtonGroup variant='text' aria-label='text button group' sx={{ color: 'secondary.main' }}>
             {pages.map((page) => (
-              <Button onClick={() => navigate(page.link)} sx={{ color: 'secondary.main' }}>
+              <Button onClick={() => navigate(page.link)} sx={{ color: 'secondary.main', fontSize: isMidSize ? '14px' : '16px' }}>
                 {page.title}
               </Button>
             ))}
