@@ -26,12 +26,12 @@ const Hero = ({ title, image, button, textalign, tagline, link }) => {
 
   // --- MUI responsive breakpoints ---
   const isMobile = useMediaQuery('(max-width: 450px)');
-  const isMidSize = useMediaQuery('(max-width: 760px)');
+  const isMidSize = useMediaQuery('(max-width: 1024px)');
 
   return (
     <Box className="Hero" sx={{
-      maxWidth: isMobile ? 400 : isMidSize ? 1200 : 1600,
-      minWidth: isMobile ? 350 : isMidSize ? 760 : 1610,
+      maxWidth: isMobile ? 400 : isMidSize ? 1024 : 1600,
+      minWidth: isMobile ? 350 : isMidSize ? 500 : 1610,
       width: '100%',
       m: isMobile ? '20px 0' : '30px 0',
       padding: isMobile ? '50px 0' : '100px 0',

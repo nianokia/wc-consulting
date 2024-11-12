@@ -15,7 +15,7 @@ const Header = () => {
 
   // --- MUI responsive breakpoints ---
   const isMobile = useMediaQuery('(max-width: 450px)');
-  const isMidSize = useMediaQuery('(max-width: 760px)');
+  const isMidSize = useMediaQuery('(max-width: 1024px)');
 
   // --- MUI navBar collapse ---
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -37,8 +37,8 @@ const Header = () => {
 
   return (
     <Box id='Header' sx={{
-      maxWidth: isMobile ? 400 : isMidSize ? 1200 : 1600,
-      minWidth: isMobile ? 350 : isMidSize ? 760 : 1600,
+      maxWidth: isMobile ? 400 : isMidSize ? 1024 : 1600,
+      minWidth: isMobile ? 350 : isMidSize ? 500 : 1600,
       width: '97%',
       display: 'flex',
       alignItems: 'center',
@@ -101,7 +101,7 @@ const Header = () => {
               }}
               open={Boolean(anchorElNav)}
               onClose={handleCloseNavMenu}
-              sx={{ display: isMobile ? 'block' : 'none' }}
+              sx={{ display: isMobile ? 'block' : isMidSize ? 'block' : 'none' }}
             >
               {pages.map((page) => (
                 <MenuItem key={page.title} onClick={() => {

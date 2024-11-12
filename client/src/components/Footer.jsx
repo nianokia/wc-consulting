@@ -12,15 +12,15 @@ import { Copyright } from "@mui/icons-material";
 const Footer = () => {
   // --- MUI responsive breakpoints ---
   const isMobile = useMediaQuery('(max-width: 450px)');
-  const isMidSize = useMediaQuery('(max-width: 760px)');
+  const isMidSize = useMediaQuery('(max-width: 1024px)');
 
   return (
     <Box sx={{
-      maxWidth: isMobile ? 400 : isMidSize ? 1200 : 1600,
-      minWidth: isMobile ? 350 : isMidSize ? 760 : 1550,
+      maxWidth: isMobile ? 400 : isMidSize ? 1024 : 1600,
+      minWidth: isMobile ? 350 : isMidSize ? 500 : 1550,
       m: '0 auto',
       mt: '25px',
-      p: isMobile ? '5px 10px' : '5px 25px',
+      p: isMobile ? '5px 10px' : isMidSize ? '5px 10px' : '5px 25px',
       backgroundColor: '#bbc7ce'
     }}>
       <footer style={{ display: 'flex', alignItems: 'center', justifyContent: 'end' }}>

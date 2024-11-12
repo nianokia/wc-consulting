@@ -43,7 +43,7 @@ const StyledChip = styled(Chip)(({ theme }) => ({
 const Entry = ({ entry, handleDelete }) => {
   // --- MUI responsive breakpoints ---
   const isMobile = useMediaQuery('(max-width: 450px)');
-  const isMidSize = useMediaQuery('(max-width: 760px)');
+  const isMidSize = useMediaQuery('(max-width: 1024px)');
 
   // --- send selected entry to parent's handleDelete function ---
   const onDelete = (selectedEntry) => {
@@ -60,8 +60,8 @@ const Entry = ({ entry, handleDelete }) => {
   
   return (
     <Container sx={{
-      maxWidth: isMobile ? 400 : isMidSize ? 1200 : 1665,
-      minWidth: isMobile ? 350 : isMidSize ? 700 : 1200,
+      maxWidth: isMobile ? 400 : isMidSize ? 1024 : 1665,
+      minWidth: isMobile ? 350 : isMidSize ? 500 : 1200,
     }}>
     {entry.client_entry_id ? (
       //  ------ CLIENT ENTRY ------
