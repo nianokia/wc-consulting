@@ -30,7 +30,7 @@ const LogoutButton = styled(Button)(({ theme }) => ({
 
 const AdminListEntries = () => {
   const isMobile = useMediaQuery('(max-width: 450px)');
-  const isMidSize = useMediaQuery('(max-width: 760px)');
+  const isMidSize = useMediaQuery('(max-width: 1024px)');
   const [entries, setEntries] = useState([]);
   // --- monitors whether handleDelete was called and returns true or false ---
   const [isDeletingEntry, setIsDeletingEntry] = useState(false);
@@ -155,8 +155,8 @@ const AdminListEntries = () => {
 
   return (
     <Container id='AdminListEntries' sx={{
-      maxWidth: isMobile ? 400 : isMidSize ? 1200 : 1400,
-      minWidth: isMobile ? 350 : isMidSize ? 760 : 1400, 
+      maxWidth: isMobile ? 400 : isMidSize ? 1024 : 1400,
+      minWidth: isMobile ? 350 : isMidSize ? 500 : 1400, 
       width: '100%', 
     }}>
       <Typography variant='h1' sx={{ my: '20px', fontSize: isMobile ? '36px' : isMidSize ? '48px' : '64px' }}>

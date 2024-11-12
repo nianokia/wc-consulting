@@ -27,12 +27,12 @@ const Services = () => {
 
   // --- MUI responsive breakpoints ---
   const isMobile = useMediaQuery('(max-width: 450px)');
-  const isMidSize = useMediaQuery('(max-width: 760px)');
+  const isMidSize = useMediaQuery('(max-width: 1024px)');
 
   return (
     <Container sx={{
-      maxWidth: isMobile ? 400 : isMidSize ? 1200 : 1600,
-      minWidth: isMobile ? 350 : isMidSize ? 760 : 1660, 
+      maxWidth: isMobile ? 400 : isMidSize ? 1024 : 1600,
+      minWidth: isMobile ? 350 : isMidSize ? 500 : 1660, 
       width: '100%',
       m: '10px auto',
     }} >
@@ -48,12 +48,17 @@ const Services = () => {
         gap: '20px',
         p: '25px',
       }}>
-        <Box sx={{ m: '0 auto' }}>
+        <Box sx={{ m: '0 auto', width: isMobile ? 'auto' : isMidSize ? 'auto' : '60%' }}>
           <Typography variant='h2' sx={{ fontSize: isMobile ? '24px' : '30px', mb: 3 }}>
             Family Therapy
           </Typography>
-          <summary style={{ textAlign: 'justify', fontSize: isMobile ? '14px' : '20px' }}>
-            Healing together and strengthening bonds one family at a time.
+          <summary style={{ textAlign: isMobile ? 'justify' : isMidSize ? 'start' : 'justify' }}>
+            <Typography variant='h5' sx={{ fontSize: isMobile ? '14px' : isMidSize ? '20px' : '24px' }}>
+              Healing together and strengthening bonds one family at a time.
+            </Typography>
+            <Typography variant='body2' sx={{ my: 1, fontSize: isMobile ? '11px' : isMidSize ? '15px' : '18px' }}>
+              This type of therapy involves one-on-one sessions with mea therapist to address personal concerns, such as anxiety, depression, stresstrauma, or relationship issues.
+            </Typography>
           </summary>
         </Box>
         <Box sx={{ m: '0 auto', width: isMobile ? '300px' : '350px' }}>
@@ -68,12 +73,17 @@ const Services = () => {
         p: '25px',
         backgroundColor: 'primary.main'
       }}>
-        <Box sx={{ m: '0 auto' }}>
+        <Box sx={{ m: '0 auto', width: isMobile ? 'auto' : isMidSize ? 'auto' : '60%' }}>
           <Typography variant='h2' sx={{ fontSize: isMobile ? '24px' : '30px', mb: 3 }}>
             Couples Therapy
           </Typography>
-          <summary style={{ textAlign: 'justify', fontSize: isMobile ? '14px' : '20px' }}>
-            Healthy relationships, Meaningful Connections
+          <summary style={{ textAlign: isMobile ? 'justify' : isMidSize ? 'start' : 'justify' }}>
+            <Typography variant='h5' sx={{ fontSize: isMobile ? '14px' : isMidSize ? '20px' : '24px' }}>
+              Healthy relationships, Meaningful Connections
+            </Typography>
+            <Typography variant='body2'sx={{ my: 1, fontSize: isMobile ? '11px' : isMidSize ? '15px' : '18px' }}>
+              This type of therapy focuses on improving communication, resolving conflicts, and strengthening the bond between you and your partners.
+            </Typography>
           </summary>
         </Box>
         <Box sx={{ m: '0 auto', width: isMobile ? '300px' : '350px' }}>
@@ -87,12 +97,17 @@ const Services = () => {
         gap: '20px',
         p: '25px'
       }}>
-        <Box sx={{ m: '0 auto' }}>
+        <Box sx={{ m: '0 auto', width: isMobile ? 'auto' : isMidSize ? 'auto' : '60%' }}>
           <Typography variant='h2' sx={{ fontSize: isMobile ? '24px' : '30px', mb: 3 }}>
             Individuals Therapy
           </Typography>
-          <summary style={{ textAlign: 'justify', fontSize: isMobile ? '14px' : '20px' }}>
-            Finding your path, Focusing on Individual Growth
+          <summary style={{ textAlign: isMobile ? 'justify' : isMidSize ? 'start' : 'justify' }}>
+            <Typography variant='h5' sx={{ fontSize: isMobile ? '14px' : isMidSize ? '20px' : '24px' }}>
+              Finding your path, Focusing on Individual Growth
+            </Typography>
+            <Typography variant='body2'sx={{ my: 1, fontSize: isMobile ? '11px' : isMidSize ? '15px' : '18px' }}>
+              This type of therapy focuses on helping families understand and address their dynamics, improve communication, and resolve conflicts that may be affecting individual and family well-being.
+            </Typography>            
           </summary>
         </Box>
         <Box sx={{ m: '0 auto', width: isMobile ? '300px' : '350px' }}>
