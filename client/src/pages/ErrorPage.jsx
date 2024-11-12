@@ -13,12 +13,14 @@ import { useMediaQuery, Container, Box, Typography } from '@mui/material';
 const ErrorPage = () => {
   // --- MUI responsive breakpoints ---
   const isMobile = useMediaQuery('(max-width: 450px)');
-  const isMidSize = useMediaQuery('(max-width: 760px)');
+  const isMidSize = useMediaQuery('(max-width: 1024px)');
 
   return (
-    <Container sx={{ maxWidth: isMobile ? 400 : isMidSize ? 1200 : 1600,
-      minWidth: isMobile ? 350 : isMidSize ? 760 : 1660, 
-      width: '100%',  }} >
+    <Container sx={{ 
+      maxWidth: isMobile ? 400 : isMidSize ? 1024 : 1600,
+      minWidth: isMobile ? 350 : isMidSize ? '70vh' : 1660, 
+      width: '100%',
+    }} >
       <Header />
       <Hero title='404 Not Found' image='../walkbridge.png' />
 

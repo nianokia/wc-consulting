@@ -14,13 +14,13 @@ import { useMediaQuery, Container, Box, Typography } from '@mui/material';
 const ContactHome = () => {
   // --- MUI responsive breakpoints ---
   const isMobile = useMediaQuery('(max-width: 450px)');
-  const isMidSize = useMediaQuery('(max-width: 760px)');
+  const isMidSize = useMediaQuery('(max-width: 1024px)');
 
   return (
     <Container id="Contact" sx={{
-      maxWidth: isMobile ? 400 : isMidSize ? 1200 : 1600,
-      minWidth: isMobile ? 350 : isMidSize ? 760 : 1660, 
-      width: '100%', 
+      maxWidth: isMobile ? 400 : isMidSize ? 1024 : 1600,
+      minWidth: isMobile ? 350 : isMidSize ? '70vh' : 1660, 
+      width: '100%',
       m: '10px auto',
     }}>
       <Header />
@@ -41,9 +41,9 @@ const ContactHome = () => {
           flexDirection: isMobile ? 'column' : 'row',
           width: isMobile ? '100%' : '70%',
           alignItems: 'start',
-          gap: '20px'
+          gap: isMidSize ? '60px' : '20px'
         }}>
-          <Typography variant='h4' sx={{ m:'0', width: '18%' }}>
+          <Typography variant='h4' sx={{ m:'0', width: '18%', fontSize: isMidSize ? '28px' : '32px' }}>
             Hours: 
           </Typography>
           <Box>
@@ -61,9 +61,9 @@ const ContactHome = () => {
           flexDirection: isMobile ? 'column' : 'row',
           width: isMobile ? '100%' : '70%',
           alignItems: 'start',
-          gap: '20px'
+          gap: isMidSize ? '60px' : '20px'
         }}>
-          <Typography variant='h4' sx={{margin: "0", width: "18%"}}>
+          <Typography variant='h4' sx={{ m: "0", width: "18%", fontSize: isMidSize ? '28px' : '32px' }}>
             Email:
           </Typography>
           <Typography variant='body1' sx={{ fontSize: isMobile ? '16px' : '18px', alignSelf: isMobile ? 'start' : 'center' }}>
@@ -76,9 +76,9 @@ const ContactHome = () => {
           flexDirection: isMobile ? 'column' : 'row',
           width: isMobile ? '100%' : '70%',
           alignItems: 'start',
-          gap: '20px'
+          gap: isMidSize ? '60px' : '20px'
         }}>
-          <Typography variant='h4' sx={{margin: "0", width: "18%"}}>
+          <Typography variant='h4' sx={{ m: "0", width: "18%", fontSize: isMidSize ? '28px' : '32px' }}>
             Phone:
           </Typography>
           <Typography variant='body1' sx={{ fontSize: isMobile ? '16px' : '18px', alignSelf: isMobile ? 'start' : 'center' }}>
@@ -91,9 +91,9 @@ const ContactHome = () => {
           flexDirection: isMobile ? 'column' : 'row',
           width: isMobile ? '100%' : '70%',
           alignItems: 'start',
-          gap: '20px'
+          gap: isMidSize ? '60px' : '20px'
         }}>
-          <Typography variant='h4' sx={{ margin: "0", width: "18%" }}>
+          <Typography variant='h4' sx={{ m: "0", width: "18%", fontSize: isMidSize ? '28px' : '32px' }}>
             Location:
           </Typography>
           <Typography variant='body1' sx={{ fontSize: isMobile ? '16px' : '18px', alignSelf: 'center' }}>
