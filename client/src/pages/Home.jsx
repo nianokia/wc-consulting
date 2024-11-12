@@ -94,7 +94,7 @@ const Home = () => {
           p: isMobile ? '56px 60px' : '10px',
           color: 'background.darkest'
         }}>
-          <img src="../headshot4crop.png" alt="Picture of Gregory Wright with transparent background"  width='320px' />
+          <img src="../headshot2.png" alt="Picture of Gregory Wright with transparent background"  width='320px' />
         </Box>
         <Box sx={{ 
           display: 'flex',
