@@ -78,7 +78,59 @@ let theme = createTheme({
       darkest: '#000609',
     },
     tonalOffset: 0.5,
-  }
+  },
+  typography: {
+    h1 : {
+      fontFamily: '"Lora", serif'
+    },
+    h2 : {
+      fontFamily: '"Lora", serif'
+    },
+    h3 : {
+      fontFamily: '"Merriweather", serif'
+    },
+    h4 : {
+      fontFamily: '"Poppins", sans-serif'
+    },
+    h5 : {
+      fontFamily: '"Plus Jakarta Sans", sans-serif'
+    },
+    h6 : {
+      fontFamily: '"Lexend", sans-serif'
+    },
+    body1 : {
+      fontFamily: '"Karla", sans-serif'
+    },
+    body2 : {
+      fontFamily: '"Karla", sans-serif'
+    },
+    button : {
+      fontFamily: '"Lexend", sans-serif'
+    },
+    lexend: {
+      font: '"Lexend", sans-serif',
+    },
+    merriweather: {
+      font: '"Merriweather", serif',
+    },
+    poppins: {
+      font: '"Poppins", sans-serif',
+    },
+    jakarta: {
+      font: '"Plus Jakarta Sans", sans-serif',
+    },
+    nunito: {
+      font: 'Nunito", sans-serif',
+    },
+    karla: {
+      font: '"Karla", sans-serif',
+    },
+    lora: {
+      font: '"Lora", serif',
+    },
+
+  },
+  
 })
 
 theme = createTheme(theme, {
