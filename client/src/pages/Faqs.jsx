@@ -28,12 +28,12 @@ const Faqs = () => {
 
   // --- MUI responsive breakpoints ---
   const isMobile = useMediaQuery('(max-width: 450px)');
-  const isMidSize = useMediaQuery('(max-width: 760px)');
+  const isMidSize = useMediaQuery('(max-width: 1024px)');
 
   return (
     <Container sx={{ 
-      maxWidth: isMobile ? 400 : isMidSize ? 1200 : 1600,
-      minWidth: isMobile ? 350 : isMidSize ? 760 : 1660, 
+      maxWidth: isMobile ? 400 : isMidSize ? 1024 : 1600,
+      minWidth: isMobile ? 350 : isMidSize ? 500 : 1660, 
       width: '100%', 
       m: '10px auto',
     }} >
