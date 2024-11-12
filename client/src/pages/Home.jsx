@@ -82,8 +82,8 @@ const Home = () => {
       {/* ------ ABOUT SECTION ------- */}
       <Box id='aboutBlock' sx={{
         display: 'flex',
+        flexWrap: isMobile ? 'wrap' : 'nowrap',
         justifyContent: 'space-around',
-        m: 0,
         mb: '34px',
         textAlign: 'center',
         p: isMobile ? '20px 5px' : '20px',
@@ -91,70 +91,129 @@ const Home = () => {
         color: 'secondary.lightest'
       }}>
         <Box id='headshot2' sx={{ 
-          p: isMobile ? '56px 60px' : '10px',
-          color: 'background.darkest'
+          p: isMobile ? '5px' : '10px',
+          color: 'background.darkest',
+          width: isMobile ? '25%' : 'none'
         }}>
-          <img src="../headshot2.png" alt="Picture of Gregory Wright with transparent background"  width='320px' />
+          <img src="../headshot2.png" alt="Picture of Gregory Wright with transparent background"  width={isMobile ? '120px' : isMidSize ? '' : '320px'} />
         </Box>
         <Box sx={{ 
           display: 'flex',
           flexDirection: 'column',
           gap: "20px",
-          justifyContent: 'center'
+          justifyContent: 'center',
+          width: isMobile ? '58%' : 'none'
         }}>
           <aside style={{ padding: '0 10px', width: '90%', alignSelf: 'center' }}>
-            <Typography variant='h5' sx={{ textAlign: 'start', fontSize: '28px' }}>
+            <Typography variant='h5' sx={{ textAlign: 'start', fontSize: isMobile ? '16px' : isMidSize ? '' : '28px' }}>
               "<em>I always say sometimes therapy can feel worse before it gets better, but there is <strong>always</strong> light at the end of the tunnel.</em>"
             </Typography>
-            <Typography variant='overline' sx={{ fontSize: '16px' }}>
+            <Typography variant='overline' sx={{ fontSize: isMobile ? '12px' : '16px' }}>
               <em>- Gregory Wright, LPCS</em>
             </Typography>
           </aside>
-          <Box sx={{
-            display: 'flex',
-            flexDirection: isMobile ? 'column' : 'row',
-            justifyContent: 'space-between',
-            gap: '20px',
-            width: '90%',
-            m: '0 auto'
-          }}>
-            <Typography variant='body1' sx={{
-              display: 'block',
-              width: '50%',
-              backgroundColor: 'secondary.light',
-              color: 'secondary.darkest',
-              borderRadius: '8px',
-              p: 1,
-              alignContent: 'center'
-            }}>
-              We offer services for families, couples and individuals looking for a hand in navigating life's challenges.
-            </Typography>
-            <Typography variant='body1' sx={{
-              display: 'block',
-              width: '50%',
-              backgroundColor: 'secondary.light',
-              color: 'secondary.darkest',
-              borderRadius: '8px',
-              p: 1,
-              alignContent: 'center'
-            }}>
-              If you're seeking therapy or professional services (licensed supervision hours, conference invitations, EAP referrals), you can send me a message and I'll be in touch!
-            </Typography>
-          </Box>
-          {/* ------ ABOUT BUTTON ------ */}
-          <Button onClick={() => navigate('/about')} variant='contained' sx={{ 
-            display: 'block',
-            width: '15%',
-            m: '10px auto',
-            backgroundColor: 'accent.main',
-            color: 'accent.darkest',
-            '&:hover': { backgroundColor: 'accent.light', color: 'accent.darkest' }
-          }}>
-            About
-          </Button>
+          {
+            isMobile ? (
+              null
+            ) : (
+              <>
+                <Box sx={{
+                  display: 'flex',
+                  flexDirection: isMobile ? 'column' : 'row',
+                  justifyContent: 'space-between',
+                  gap: '20px',
+                  width: '90%',
+                  m: '0 auto'
+                }}>
+                  <Typography variant='body1' sx={{
+                    display: 'block',
+                    width: '50%',
+                    backgroundColor: 'secondary.light',
+                    color: 'secondary.darkest',
+                    borderRadius: '8px',
+                    p: 1,
+                    alignContent: 'center'
+                  }}>
+                    We offer services for families, couples and individuals looking for a hand in navigating life's challenges.
+                  </Typography>
+                  <Typography variant='body1' sx={{
+                    display: 'block',
+                    width: '50%',
+                    backgroundColor: 'secondary.light',
+                    color: 'secondary.darkest',
+                    borderRadius: '8px',
+                    p: 1,
+                    alignContent: 'center'
+                  }}>
+                    If you're seeking therapy or professional services (licensed supervision hours, conference invitations, EAP referrals), you can send me a message and I'll be in touch!
+                  </Typography>
+                </Box>
+                {/* ------ ABOUT BUTTON ------ */}
+                <Button onClick={() => navigate('/about')} variant='contained' sx={{ 
+                  display: 'block',
+                  width: '15%',
+                  m: '10px auto',
+                  backgroundColor: 'accent.main',
+                  color: 'accent.darkest',
+                  '&:hover': { backgroundColor: 'accent.light', color: 'accent.darkest' }
+                }}>
+                  About
+                </Button>
+              </>
+            )
+          }
         </Box>
+        {
+          isMobile ? (
+            <>
+              <Box sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '20px',
+                width: '95%',
+                m: '0 auto'
+              }}>
+                <Typography variant='body1' sx={{
+                  width: '95%',
+                  mt: 1,
+                  backgroundColor: 'secondary.light',
+                  color: 'secondary.darkest',
+                  borderRadius: '8px',
+                  p: 1,
+                  fontSize: '15px',
+                }}>
+                  We offer services for families, couples and individuals looking for a hand in navigating life's challenges.
+                </Typography>
+                <Typography variant='body1' sx={{
+                  width: '95%',
+                  mb: 1,
+                  backgroundColor: 'secondary.light',
+                  color: 'secondary.darkest',
+                  borderRadius: '8px',
+                  p: 1,
+
+                }}>
+                  If you're seeking therapy or professional services (licensed supervision hours, conference invitations, EAP referrals), you can send me a message and I'll be in touch!
+                </Typography>
+              </Box>
+              {/* ------ ABOUT BUTTON ------ */}
+              <Button onClick={() => navigate('/about')} variant='contained' sx={{ 
+                display: 'block',
+                width: '30%',
+                m: '10px auto',
+                backgroundColor: 'accent.main',
+                color: 'accent.darkest',
+                '&:hover': { backgroundColor: 'accent.light', color: 'accent.darkest' }
+              }}>
+                About
+              </Button>
+            </>
+          ) : (
+            null
+          )
+        }
+        
       </Box>
-      
 
       {/* ------ add Login Button with Auth0 ------ */}
       <Box className='loginButton' sx={{
