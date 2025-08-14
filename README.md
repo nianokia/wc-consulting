@@ -73,20 +73,10 @@ This redesigned website will provide a clear and user-friendly experience for po
 
 3. Create a .env file in the server folder.
 
-4. There are two ways to restore the DB dump file the project already contains:
-    * A- If you have postgres set up postgres with an User: 
-
-        * Run the command ```psql -U <user> wcc -f db.sql```
-        * Make sure that you have your Postgres password on hand. The psql console will ask for your password.
-
-    * B- If your initial configuration of postgres doesn't require a User:
-
-        * Run the command ```psql wcc -f db.sql```
-        * Inside your server folder, open the file .env.example and copy the correct option for your configuration found there to your new .env file.
-            * Your .env might look like:
-                ```bash
-                DATABASE_URI="postgresql://localhost/wcc"
-                ```
+4. Ensure `postgres` is installed and connect to PostgreSQL server (use the `psql` command)
+    ```bash
+    psql postgres
+    ```
 
 5. For this template, the name of your db should be wcc.
 
@@ -96,7 +86,25 @@ This redesigned website will provide a clear and user-friendly experience for po
         CREATE DATABASE wcc;
         ``` 
 
-6. Run the App in Browser
+6. Restore the DB dump file (`/db/db.sql`) from the server directory.
+
+    * (a) If you have postgres set up postgres with an User: 
+
+        1. Navigate to server directory ```cd server```
+        2. Run the command ```psql -U <user> wcc -f db/db.sql```
+        3. Make sure that you have your Postgres password on hand. The psql console will ask for your password.
+
+    * (b) If your initial configuration of postgres doesn't require a User:
+
+        1. Navigate to server directory ```cd server```
+        2. Run the command ```psql wcc -f db/db.sql```
+        3. Open the `server/.envexample` file and copy the correct option for your configuration to your newly created `.env` file.
+            * Your .env might look like:
+                ```bash
+                DATABASE_URI="postgresql://localhost/wcc"
+                ```
+
+7. Run the App in Browser
 
     * **Concurrently start Frontend & Backend:**
         * Navigate to the `server` directory:
