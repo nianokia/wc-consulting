@@ -39,7 +39,9 @@ This redesigned website will provide a clear and user-friendly experience for po
     * Twilio/Sendgrid
 
 ## Demo
-![demo](https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExMHc1azhzcnZtZmtsejk4b2IweTE0YnJ2c2hwczl0ajJ5b2pyN2dxZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/xL5IJHbqqPoWezNTLN/giphy.gif)
+![demo](https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExb3E0bmp1MzdpcDRzNXB5aGdzaGt0Y3h2djA3OTg4cDFqZWM0OHN0bCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/t8uHAJJHdBoWzlHFyK/giphy.gif)
+
+_Full [Demo](https://youtu.be/r6pMRtlzhRs?si=QcRLot1tZsvPrO5M) on YouTube_
 
 ## Setup Instructions
 
